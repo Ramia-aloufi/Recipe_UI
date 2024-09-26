@@ -6,3 +6,4 @@ export const selectRecipes = (state: AppState) => state.recipes
 
 export const selectAllRecipes = createSelector(selectRecipes,(state: RecipeState) => state.recipes)
 export const selectSingleRecipes = createSelector(selectRecipes,(state: RecipeState) => state.singleRecipe)
+export const searchRecipes = createSelector(selectRecipes,(state: RecipeState) => state.filteredRecipes)

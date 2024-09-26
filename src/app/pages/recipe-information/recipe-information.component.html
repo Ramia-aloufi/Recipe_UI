@@ -13,17 +13,15 @@
       <h1>{{ recipe.title }}</h1>
       <div class="list">
         <span
-          >Serving: {{ recipe.servings }}
+          ><strong>Serving:</strong>  {{ recipe.servings }}
           <i class="fa-solid fa-users-rectangle"></i>
         </span>
         <span
-          >CookingTime: {{ recipe.cookingTime }}/m
-          <i class="fa-solid fa-clock"></i
-        ></span>
+          ><strong>CookingTime:</strong> {{ recipe.cookingTime }}/m
+          <i class="fa-regular fa-clock"></i></span>
         <span
-          >PreparationTime: {{ recipe.preparationTime }}
-          <i class="fa-solid fa-clock"></i
-        ></span>
+          ><strong>PreparationTime:</strong>  {{ recipe.preparationTime }}
+          <i class="fa-regular fa-clock"></i></span>
       </div>
     </div>
     @if (recipe.chef) {
@@ -32,10 +30,10 @@
       <img src="{{ recipe.chef.profileImage }}" alt="" />
       <div class="card-content-chef-info">
         <span>{{ recipe.chef.username }}</span>
-        <span>112k followers</span>
+        <small>112k followers</small>
       </div>
     </div>
-      <button class="btn">follow</button>
+      <button class="btn-secondary">follow</button>
     </div>
     }
 

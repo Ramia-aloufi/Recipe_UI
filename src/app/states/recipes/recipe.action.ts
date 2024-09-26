@@ -22,23 +22,27 @@ export const loadSingleRecipeFailure = createAction(
   'load single recipe failure',
   props<{ error: string }>()
 );
+export const searchRecipe = createAction(
+  'search  recipe ',
+  props<{ searchKey: string }>()
+);
 
 
 
-export const RecipeActions = createActionGroup({
-  source: 'Recipe',
-  events: {
-    'Add Recipe': props<{ product: Recipe }>(),
-    'Remove Recipe': props<{ productId: Recipe }>(),
-    'Get Recipe': props<{ productId: string }>(),
-    'Load Recipe': emptyProps,
-  },
-});
+// export const RecipeActions = createActionGroup({
+//   source: 'Recipe',
+//   events: {
+//     'Add Recipe': props<{ product: Recipe }>(),
+//     'Remove Recipe': props<{ productId: Recipe }>(),
+//     'Get Recipe': props<{ productId: string }>(),
+//     'Load Recipe': emptyProps,
+//   },
+// });
 
-export const RecipeApiActions = createActionGroup({
-  source: 'Recipe API',
-  events: {
-    'Load Products Success': props<{ products: Recipe[] }>(),
-    'Load Products Failure': props<{ error: string }>(),
-  },
-});
+// export const RecipeApiActions = createActionGroup({
+//   source: 'Recipe API',
+//   events: {
+//     'Load Products Success': props<{ products: Recipe[] }>(),
+//     'Load Products Failure': props<{ error: string }>(),
+//   },
+// });

@@ -13,6 +13,7 @@
   background-color: #fff;
 }
 input[type="search"] {
+  padding-left: 1rem;
   width: 100%;
   border: none;
   height: 40px;
@@ -24,3 +25,8 @@ input[type="search"] {
   font-size: x-large;
   font-weight: 800;
 }
+input::placeholder{
+  padding-left: 1rem;
+  opacity: .4;
+}
+

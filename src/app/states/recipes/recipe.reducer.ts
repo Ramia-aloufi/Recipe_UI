@@ -8,10 +8,12 @@ import {
   loadSingleRecipe,
   loadSingleRecipeFailure,
   loadSingleRecipeSuccess,
+  searchRecipe,
 } from './recipe.action';
 
 export interface RecipeState {
   recipes: Recipe[];
+  filteredRecipes:Recipe[]
   error: string | null;
   loading: boolean;
   singleRecipe: Recipe ;
@@ -19,6 +21,7 @@ export interface RecipeState {
 
 export const initialState: RecipeState = {
   recipes: [],
+  filteredRecipes:[],
   error: null,
   loading: false,
   singleRecipe: {} as Recipe,
@@ -31,6 +34,7 @@ export const recipeReducer = createReducer(
     ...state,
     loading: false,
     recipes: recipes,
+    filteredRecipes: recipes,
     error: null,
   })),
   on(loadRecipeFailure, (state, { error }) => ({
@@ -49,5 +53,13 @@ export const recipeReducer = createReducer(
     loading: false,
     singleRecipe: recipe,
     error: null
+  })),
+  on(searchRecipe, (state, { searchKey }) => ({
+    ...state,
+    filteredRecipes: state.recipes.filter(recipe =>
+      recipe.title.toLowerCase().includes(searchKey.toLowerCase())
+    ),
+    loading: false
   }))
-);
+)
+  

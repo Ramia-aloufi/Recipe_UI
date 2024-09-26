@@ -2,7 +2,7 @@
     <a class="logo" [routerLink]="['/']">Top Chefs</a>
     <div class="">
         <form action="" method="post">
-            <input type="search" name="" id="">
+            <input type="search" (input)="onSearch($event)" placeholder="Search for a recipe">
         </form>
     </div>
     <button class="btn">Login/Signup</button>
