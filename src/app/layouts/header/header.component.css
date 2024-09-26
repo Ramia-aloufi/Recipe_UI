@@ -1,0 +1,26 @@
+.header {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 150px 1fr 150px;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-inline: 2rem;
+  padding-top: .5rem;
+  z-index: 10;
+  background-color: #fff;
+}
+input[type="search"] {
+  width: 100%;
+  border: none;
+  height: 40px;
+  border-radius: 1.5rem;
+  background-color: #f4f4f4;
+}
+.logo {
+  color: #c05164;
+  font-size: x-large;
+  font-weight: 800;
+}

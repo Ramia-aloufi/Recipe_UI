@@ -1,0 +1,11 @@
+.categories{
+    overflow-x: hidden;
+    /* background-color: cornflowerblue; */
+    /* height: 50px;
+    display: flex;
+    gap: 12px; */
+}
+.category-item{
+font-weight: 500;
+padding: 1rem ;
+}

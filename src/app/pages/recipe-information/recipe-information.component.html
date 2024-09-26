@@ -1,0 +1,94 @@
+@if (singleRecipe$ | async ;as recipe) {
+<div class="card">
+  <div class="card-img">
+    <img src="{{ recipe.media[0].mediaUrl }}" alt="" />
+  </div>
+  <div class="card-content">
+    <div class="card-content-action">
+        <i class="fa-regular fa-heart"></i>
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+    </div>
+    <div class="card-content-header">
+      <span>{{ recipe.category.name }}</span>
+      <h1>{{ recipe.title }}</h1>
+      <div class="list">
+        <span
+          >Serving: {{ recipe.servings }}
+          <i class="fa-solid fa-users-rectangle"></i>
+        </span>
+        <span
+          >CookingTime: {{ recipe.cookingTime }}/m
+          <i class="fa-solid fa-clock"></i
+        ></span>
+        <span
+          >PreparationTime: {{ recipe.preparationTime }}
+          <i class="fa-solid fa-clock"></i
+        ></span>
+      </div>
+    </div>
+    @if (recipe.chef) {
+    <div class="card-content-chef">
+        <div class="card-content-chef">
+      <img src="{{ recipe.chef.profileImage }}" alt="" />
+      <div class="card-content-chef-info">
+        <span>{{ recipe.chef.username }}</span>
+        <span>112k followers</span>
+      </div>
+    </div>
+      <button class="btn">follow</button>
+    </div>
+    }
+
+    <div class="card-content-details">
+      <hr />
+      <div class="details-title">
+        <span
+          (click)="showSection('ingredients')"
+          [class.active]="selectedSection === 'ingredients'"
+          >Ingredients</span
+        >
+        <span
+          (click)="showSection('steps')"
+          [class.active]="selectedSection === 'steps'"
+          >Steps</span
+        >
+        <span
+          (click)="showSection('comments')"
+          [class.active]="selectedSection === 'comments'"
+          >Comments</span
+        >
+      </div>
+      <hr />
+      <div class="details-section">
+        @if(selectedSection === 'ingredients'){
+        <ul>
+          @for (ingredient of recipe.ingredients;; track $index){
+          <li>
+            {{ ingredient.quantity }} {{ ingredient.unit }}
+            {{ ingredient.name }}
+          </li>
+          }
+        </ul>
+        } @if(selectedSection === 'steps'){
+        <ul>
+          @for (step of recipe.steps;; track $index){
+          <li>{{ step.instruction }}</li>
+          }
+        </ul>
+        } @if(selectedSection === 'steps'){ @if(recipe.comments){
+        <ul>
+          @for (comment of recipe.comments; track $index){
+          <li>{{ comment.commentText }}</li>
+          }
+        </ul>
+        }@else {
+        <span>no comment yet</span>
+        } }
+      </div>
+    </div>
+  </div>
+</div>
+
+}@else {
+<h1>loading</h1>
+}

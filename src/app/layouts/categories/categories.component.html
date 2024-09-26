@@ -1,0 +1,7 @@
+<div class="categories">
+    @for (category of categories$ | async; track category.name) {
+        <span class="category-item">{{category.name}}</span>
+    }@empty {
+        <span>category</span>
+    }
+</div>

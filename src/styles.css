@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --black: #000000;
+    --teal: #86FDF1;
+    --light-blue: #C9D6EA;
+    --violet: #52489C;
+    --yellow: #FFD449;
+    --white: #F7F3F3;
+    --title-font: vollkorn, serif;
+    --primary-font: system-ui, sans-serif;
+    --secondary-font: Georgia, serif;
+    --lg-font: 2.5rem;
+    --md-font: 1rem;
+    --sm-font: .5rem;
+  }
+
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+*::after,*::before{
+    box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body{
+    padding: 0 2rem;
+}
+.btn {
+  background-color: #af4c5c;
+  border: none; 
+  color: white; 
+  padding: 12px 24px; 
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block; 
+  font-size: 16px; 
+  margin: 10px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+.btn:hover {
+  background-color: #c05164; 
+}
+
+.btn:active {
+  background-color: #9e4352; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transform: translateY(2px); 
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none; 
+}
+body {
+  font-family: Arial, sans-serif; 
+  line-height: 1.6;   
+  margin-top: 5rem;
+}
