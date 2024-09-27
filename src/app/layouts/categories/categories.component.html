@@ -1,6 +1,8 @@
 <div class="categories">
+    <span (click)="onReset()" class="category-item">All</span>
+
     @for (category of categories$ | async; track category.name) {
-        <span class="category-item">{{category.name}}</span>
+        <span (click)="onClick(category.name)" class="category-item">{{category.name}}</span>
     }@empty {
         <span>category</span>
     }

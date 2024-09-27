@@ -2,6 +2,7 @@ import { createReducer, on, props } from '@ngrx/store';
 
 import { Recipe } from '../../models/recipe.model';
 import {
+  filterRecipeByCategory,
   loadRecipe,
   loadRecipeFailure,
   loadRecipeSuccess,
@@ -60,6 +61,13 @@ export const recipeReducer = createReducer(
       recipe.title.toLowerCase().includes(searchKey.toLowerCase())
     ),
     loading: false
-  }))
+  })),
+  on(filterRecipeByCategory, (state, { category }) => ({
+    ...state,
+    filteredRecipes: state.recipes.filter(recipe =>
+      recipe.category?.name?.toLowerCase() == category?.toLowerCase()
+    )
+    
+    }))
 )
   

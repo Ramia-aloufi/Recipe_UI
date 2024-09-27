@@ -26,7 +26,10 @@ export const searchRecipe = createAction(
   'search  recipe ',
   props<{ searchKey: string }>()
 );
-
+export const filterRecipeByCategory = createAction(
+  'filter  recipe ',
+  props<{ category: string }>()
+);
 
 
 // export const RecipeActions = createActionGroup({
