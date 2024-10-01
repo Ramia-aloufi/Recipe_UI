@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiResponse } from '../models/api.model';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
 
   private apiUrl = environment.apiUrl
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private cookieService: CookieService) {}
 
   // Add New User
   register(user:User): Observable<ApiResponse<User>> {
@@ -21,6 +22,9 @@ export class AuthService {
 //login User
   login(data:{email: string,password:string}): Observable<ApiResponse<string>> {
     return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data,{ withCredentials: true });
+  }
+  getToken() {
+    return this.cookieService.get('authToken');
   }
 
 }
