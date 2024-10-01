@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../states/app.state';
 import { searchRecipes, selectAllRecipes } from '../../states/recipes/recipe.selectors';
 import { Router } from '@angular/router';
 import { CategoriesComponent } from '../../layouts/categories/categories.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,13 @@ import { CategoriesComponent } from '../../layouts/categories/categories.compone
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   public recipes$ = this.store.select(searchRecipes)
 
   constructor(private store:Store<AppState>,private router: Router){
 
+  }
+  ngOnInit(): void {
   }
 
   onClick(id:string){

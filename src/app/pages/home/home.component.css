@@ -1,10 +1,11 @@
 .grid {
-    columns: 4 ;
+    columns: auto  auto;
+
 }
 
 .recipe-img {
-    width: 100%;
-    height:auto;
+    width: inherit;
+    height:inherit;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
     border-radius: inherit;
@@ -22,7 +23,7 @@
 
 .recipe-info{
 position: absolute;
-bottom: 4px;
+bottom:6px;
 left: 0;
 padding: .5rem;
 width: 100%;
@@ -52,25 +53,28 @@ border-radius: 1rem;
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .grid {
-        columns: 1;
+        columns: 1 auto;
     }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
     .grid {
-        columns: 2;
+        columns: 2 auto;
     }
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .grid {
-        columns: 3;
+        columns: 3 auto;
     }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .grid {
-        columns: 4;
+        columns: auto  auto;
+        -webkit-columns: 4 auto;
+        
+
     }
 }
   

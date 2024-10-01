@@ -1,0 +1,49 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <div class="form-group">
+      <small>{{ getErrorMessage("username") }}</small>
+
+      <input
+        type="text"
+        placeholder="Username"
+        formControlName="username"
+        name="username"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <small>{{ getErrorMessage("email") }}</small>
+
+      <input
+        type="email"
+        placeholder="email"
+        formControlName="email"
+        name="email"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <small>{{  getErrorMessage("password") }}</small>
+
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        name="password"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <small>{{ getErrorMessage("confirmPassword") }}</small>
+
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        formControlName="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+    </div>
+  </div>
+  <button type="submit" class="btn">signup</button>
+</form>

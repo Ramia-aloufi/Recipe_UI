@@ -2,7 +2,7 @@
 
 <div class="grid">
   @for (recipe of recipes$ | async; track recipe.title) {
-  <div class="grid-item" (click)="onClick(recipe._id)">
+  <div class="grid-item"  (click)="onClick(recipe._id)">
     <img class="recipe-img" src="{{ recipe.media[0].mediaUrl }}" alt="" />
     <div class="recipe-info">
       <div class="flex">

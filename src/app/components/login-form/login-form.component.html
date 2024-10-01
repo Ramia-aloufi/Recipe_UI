@@ -1,0 +1,27 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <div class="form-group">
+        <small>{{  getErrorMessage("email") }}</small>
+      <input
+        type="email"
+        placeholder="email"
+        formControlName="email"
+        name="email"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+        <small>{{  getErrorMessage("password") }}</small>
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        name="password"
+        required
+      />
+    </div>
+
+  </div>
+  <button type="submit" class="btn">login</button>
+</form>

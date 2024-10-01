@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { searchRecipe } from '../../states/recipes/recipe.action';
+import { AppState } from '../../states/app.state';
+import { selectUserData } from '../../states/user/user.selectors';
+
 
 @Component({
   selector: 'app-header',
@@ -11,7 +14,15 @@ import { searchRecipe } from '../../states/recipes/recipe.action';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  constructor(private store: Store) {}
+  isLoggedIn = false
+
+  constructor( private store:Store<AppState>) {
+    this.store.select(selectUserData).subscribe(user => {
+    }); 
+   }
+
+
+
   onSearch(searchKey: Event) {
     const target = searchKey.target as HTMLInputElement
     if (target) {
@@ -19,4 +30,12 @@ export class HeaderComponent {
       this.store.dispatch(searchRecipe({ searchKey: target.value }));
     }
   }
+
+
+  
+
+  
+  
+
+
 }

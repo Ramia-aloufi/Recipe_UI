@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="col-1">
+    <div class="">
+      @if (isLoginMode) {
+        <div class=""></div>
+      <h1>Login</h1>
+      <app-login-form></app-login-form>
+
+
+      }@else {
+      <h1>Signup</h1>
+      <app-signup-form></app-signup-form>
+
+      }
+
+      <p (click)="toggleMode()" class="toggle-link">
+        {{
+          isLoginMode
+            ? "Don't have an account? Signup"
+            : "Already have an account? Login"
+        }}
+      </p>
+    </div>
+  </div>
+
+  <div class="col-2">
+    <img src="{{ randomImage }}" alt="" />
+    <h1 class="text">Cook<br>Share<br>Enjoy<br>Unique recipes!</h1>
+  </div>
+</div>

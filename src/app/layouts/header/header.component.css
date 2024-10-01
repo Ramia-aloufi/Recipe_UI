@@ -16,8 +16,9 @@ input[type="search"] {
   padding-left: 1rem;
   width: 100%;
   border: none;
-  height: 40px;
+  height: 45px;
   border-radius: 1.5rem;
+  margin-top: 1rem;
   background-color: #f4f4f4;
 }
 .logo {
@@ -29,4 +30,7 @@ input::placeholder{
   padding-left: 1rem;
   opacity: .4;
 }
+
+
+
 

@@ -28,5 +28,6 @@ export class AppComponent implements OnInit {
     this.store.dispatch(loadRecipe())
     this.store.dispatch(loadCategory())
 
+    
   }
 }

@@ -5,6 +5,11 @@
             <input type="search" (input)="onSearch($event)" placeholder="Search for a recipe">
         </form>
     </div>
-    <button class="btn">Login/Signup</button>
+    @if (isLoggedIn) {
+        <span>isLoggedIn</span>
+    }@else{
+        <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
+    }
 
 </div>
+

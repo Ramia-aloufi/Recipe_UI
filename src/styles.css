@@ -52,9 +52,7 @@ body{
   padding: 12px 24px; 
   text-align: center; 
   text-decoration: none; 
-  display: inline-block; 
   font-size: 16px; 
-  margin: 10px; 
   border-radius: 8px; 
   cursor: pointer; 
   transition: background-color 0.3s, box-shadow 0.3s; 
@@ -78,7 +76,6 @@ body{
   text-decoration: none; 
   display: inline-block; 
   font-size: 16px; 
-  margin: 10px; 
   border-radius: 8px; 
   cursor: pointer; 
   border: 1px solid #717171;
@@ -107,5 +104,32 @@ body {
   font-family: Arial, sans-serif; 
   line-height: 1.6;   
   margin-top: 5rem;
+}
+input:focus{
+  outline: none;
+  border:1px solid #c05164;
+
+}
+input{
+  width: 100%;
+  padding: .7rem;
+  display: block;
+  border-radius: 11px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+input::placeholder{
+  color: rgba(0, 0, 0, 0.2);
+}
+
+form small{
+  position: absolute;
+  top: -15px;
+  left: 0;
+  font-size: 11px;
+  color: rgb(236, 159, 172);
+}
+ .form-group{
+  position: relative;
 }
 
