@@ -23,6 +23,8 @@ this.token$.subscribe(token=>{
   this.headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
   });
+  console.log("token" + token);
+  
 })  }
 
   // Add New User
