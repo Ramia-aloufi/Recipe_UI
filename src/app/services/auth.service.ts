@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/api.model';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { AppState } from '../states/app.state';
+import { Store } from '@ngrx/store';
+import { token } from '../states/user/user.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,16 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
 
   private apiUrl = environment.apiUrl
-
-  constructor(private http: HttpClient,private cookieService: CookieService) {}
+  token$ = this.store.select(token)
+   headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.token$}`
+  });
+  constructor(private http: HttpClient,private store:Store<AppState>) {
+this.token$.subscribe(token=>{
+  this.headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+})  }
 
   // Add New User
   register(user:User): Observable<ApiResponse<User>> {
@@ -21,10 +31,11 @@ export class AuthService {
   }
 //login User
   login(data:{email: string,password:string}): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data,{ withCredentials: true });
+    return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data);
   }
-  getToken() {
-    return this.cookieService.get('authToken');
+
+  profile(): Observable<ApiResponse<User>> {
+    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
   }
 
 }

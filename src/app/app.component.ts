@@ -9,6 +9,7 @@ import { CategoriesComponent } from './layouts/categories/categories.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { loadCategory } from './states/categories/category.action';
 import { HomeComponent } from './pages/home/home.component';
+import { userProfile } from './states/user/user.action';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(loadRecipe())
     this.store.dispatch(loadCategory())
-
-    
+    if(localStorage.getItem('token')){
+    this.store.dispatch(userProfile())
+    }
   }
 }

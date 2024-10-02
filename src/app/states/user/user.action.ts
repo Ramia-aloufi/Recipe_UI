@@ -16,9 +16,19 @@ export const signupFailure = createAction(
 export const login = createAction('login', props<{ user: {email:string,password:string} }>());
 export const loginSuccess = createAction(
   'login success',
-  props<{ user: string | null }>()
+  props<{ token: string | null }>()
 );
 export const loginFailure = createAction(
   'login failure',
+  props<{ error: string }>()
+);
+
+export const userProfile = createAction('userProfile');
+export const userProfileSuccess = createAction(
+  'userProfile success',
+  props<{ user: User | null }>()
+);
+export const userProfileFailure = createAction(
+  'userProfile failure',
   props<{ error: string }>()
 );

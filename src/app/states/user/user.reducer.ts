@@ -45,10 +45,10 @@ export const userReducer = createReducer(
     loading: false,
     error: error,
   })),
-  on(loginSuccess, (state, { user }) => ({
+  on(loginSuccess, (state, { token }) => ({
     ...state,
     loading: false,
-    token: user,
+    token: token,
     error: null
   })),
 

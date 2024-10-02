@@ -21,11 +21,7 @@ export class HomeComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    const token = this.authService.getToken();
-    if (token) {
-      // Optionally set token in a state management tool like NgRx
-      console.log('Token from cookie:', token);
-    }
+
   }
 
   onClick(id:string){
