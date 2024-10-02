@@ -14,18 +14,15 @@ import { token } from '../states/user/user.selectors';
 export class AuthService {
 
   private apiUrl = environment.apiUrl
-  token$ = this.store.select(token)
+  token = localStorage.getItem('token')
    headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.token$}`
+    'Authorization': `Bearer ${this.token}`
   });
   constructor(private http: HttpClient,private store:Store<AppState>) {
-this.token$.subscribe(token=>{
-  this.headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
+
   console.log("token" + token);
   
-})  }
+ }
 
   // Add New User
   register(user:User): Observable<ApiResponse<User>> {
