@@ -16,7 +16,7 @@ export class AuthService {
   private apiUrl = environment.apiUrl
   token = localStorage.getItem('token')
    headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.token}`
+    'Authorization': `Bearer ${this.token}`,
   });
   constructor(private http: HttpClient,private store:Store<AppState>) {
 
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   profile(): Observable<ApiResponse<User>> {
-    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
+    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers,withCredentials: true });
   }
 
 }
