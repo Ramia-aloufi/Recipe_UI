@@ -62,7 +62,7 @@ export class SignupFormComponent {
     if (this.registerForm.invalid) {
       return;
     }
-    var user:User = {
+    var user = {
       username:username,
       password:password,
       email:email
