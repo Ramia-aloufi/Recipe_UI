@@ -1,21 +1,17 @@
 <div class="header">
     <a class="logo" [routerLink]="['/']">Top Chefs</a>
     <div class="">
-        @if(userData$ | async ; as data){
-            <div class="">
-                <span>{{data.username}}</span>
-                <button><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
-            </div>
 
-    }@else {
         <form action="" method="post">
             <input type="search" (input)="onSearch($event)" placeholder="Search for a recipe">
         </form>
-    }
+    
     </div>
-    @if (isLoggedIn) {
-        <span>isLoggedIn</span>
-    }@else{
+    @if (userData$ | async ; as data) {
+        <div class="">
+            <span>{{data.username}}</span>
+            <button><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>    }@else{
         <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
     }
 
