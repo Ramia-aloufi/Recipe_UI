@@ -32,3 +32,5 @@ export const userProfileFailure = createAction(
   'userProfile failure',
   props<{ error: string }>()
 );
+export const logout = createAction('logout');
+

@@ -51,6 +51,14 @@ export class UserEffects {
       )
     )
   );
+  logout$ = createEffect(() =>
+    this.actions.pipe(
+      ofType(UserActions.logout), 
+      tap(() => {
+        localStorage.removeItem('token');
+      })    )
+  );
+
 
   constructor(
     private actions: Actions,

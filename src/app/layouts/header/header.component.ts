@@ -5,6 +5,7 @@ import { searchRecipe } from '../../states/recipes/recipe.action';
 import { AppState } from '../../states/app.state';
 import { selectUserData } from '../../states/user/user.selectors';
 import { CommonModule } from '@angular/common';
+import { logout } from '../../states/user/user.action';
 
 
 @Component({
@@ -29,6 +30,9 @@ export class HeaderComponent {
       console.log(target.value);
       this.store.dispatch(searchRecipe({ searchKey: target.value }));
     }
+  }
+  onLogout(){
+    this.store.dispatch(logout())
   }
 
 
