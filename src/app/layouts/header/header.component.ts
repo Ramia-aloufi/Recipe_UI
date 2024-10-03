@@ -4,21 +4,21 @@ import { Store } from '@ngrx/store';
 import { searchRecipe } from '../../states/recipes/recipe.action';
 import { AppState } from '../../states/app.state';
 import { selectUserData } from '../../states/user/user.selectors';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
   isLoggedIn = false
+  userData$ = this.store.select(selectUserData) 
 
   constructor( private store:Store<AppState>) {
-    this.store.select(selectUserData).subscribe(user => {
-    }); 
    }
 
 
