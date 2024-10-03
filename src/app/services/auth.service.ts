@@ -31,11 +31,11 @@ export class AuthService {
   }
 //login User
   login(data:{email: string,password:string}): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data,{withCredentials:true});
+    return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data);
   }
 
   profile(): Observable<ApiResponse<User>> {
-    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers,withCredentials: true });
+    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
   }
 
 }
