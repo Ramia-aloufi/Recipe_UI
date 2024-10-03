@@ -17,6 +17,7 @@ export class AuthService {
   token = localStorage.getItem('token')
    headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`,
+    'Content-Type': 'application/json'
   });
   constructor(private http: HttpClient,private store:Store<AppState>) {
 
