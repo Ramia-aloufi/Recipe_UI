@@ -20,6 +20,10 @@ export class HeaderComponent {
   userData$ = this.store.select(selectUserData) 
 
   constructor( private store:Store<AppState>) {
+    this.userData$.subscribe(data =>{
+      console.log(data);
+      
+    })
    }
 
 
