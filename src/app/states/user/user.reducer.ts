@@ -4,6 +4,7 @@ import {
   login,
   loginFailure,
   loginSuccess,
+  logout,
   signup,
   signupFailure,
   signupSuccess,
@@ -50,6 +51,11 @@ export const userReducer = createReducer(
     loading: false,
     token: token,
     error: null
+  })),
+  on(logout, (state) => ({
+    ...state,
+    user: {} as User,
+    token: null
   })),
 
 )
