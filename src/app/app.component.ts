@@ -10,6 +10,7 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { loadCategory } from './states/categories/category.action';
 import { HomeComponent } from './pages/home/home.component';
 import { userProfile } from './states/user/user.action';
+import { UserManager } from './states/user/user.state';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ import { userProfile } from './states/user/user.action';
 export class AppComponent implements OnInit {
   title = 'recipe_UI';
 
-  constructor(private store:Store<AppState>){
+  constructor(private store:Store<AppState>, private um:UserManager){
 
   }
 
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(loadRecipe())
     this.store.dispatch(loadCategory())
     if(sessionStorage.getItem('token')){
-    this.store.dispatch(userProfile())
+    this.um.getProfile()
     }
   }
 }
