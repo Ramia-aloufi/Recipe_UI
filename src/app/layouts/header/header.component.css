@@ -40,6 +40,10 @@ input::placeholder{
   border-radius: 50%;
   border: 1px solid gray;
 }
+.user-data button{
+  border: none;
+  background: transparent;
+}
 
 
 
