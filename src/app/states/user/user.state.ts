@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { User } from "../../models/user.model";
+import { User, UserData } from "../../models/user.model";
 import { AuthService } from "../../services/auth.service";
 import {BehaviorSubject,Observable} from 'rxjs'
 
 export interface IUser {
-    user$: Observable<User | null>;
+    user$: Observable<UserData | null>;
     loading$: Observable<boolean>;
     error$: Observable<string | null>;
     getProfile():void;
@@ -16,7 +16,7 @@ export interface IUser {
   })
   
   export class UserManager implements IUser {
-    private userSubject = new BehaviorSubject<User | null>(null);
+    private userSubject = new BehaviorSubject<UserData | null>(null);
     private loadingSubject = new BehaviorSubject<boolean>(false);
     private errorSubject = new BehaviorSubject<string | null>(null);
 

@@ -6,4 +6,10 @@ export interface User {
     profileImage?: string;
   }
 
+  export interface UserData {
+    userName: string;
+    email: string;
+    img: string;
+  }
+
 
