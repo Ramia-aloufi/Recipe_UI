@@ -6,6 +6,7 @@ import { selectUser } from '../../states/user/user.selectors';
 import { AppState } from '../../states/app.state';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { UserManager } from '../../states/user/user.state';
 
 @Component({
   selector: 'app-login-form',
@@ -18,7 +19,7 @@ export class LoginFormComponent {
   loginForm: FormGroup;
   isSubmitted = false;
 
-  constructor(private fb: FormBuilder,private store:Store<AppState>,private router: Router) {
+  constructor(private fb: FormBuilder,private userManager:UserManager,private router: Router) {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -53,10 +54,7 @@ export class LoginFormComponent {
       password:password,
       email:email
     }
-    this.store.dispatch(login({user}))
+    this.userManager.login(user)
     this.router.navigate(['/'])
-    
-
-    console.log('Form Submitted', this.store.select(selectUser));
-  }
+      }
 }

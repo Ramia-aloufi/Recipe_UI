@@ -69,6 +69,5 @@ export class SignupFormComponent {
     }
     this.store.dispatch(signup({user}))
 
-    console.log('Form Submitted', this.store.select(selectUser));
   }
 }

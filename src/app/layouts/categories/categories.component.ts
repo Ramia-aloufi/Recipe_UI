@@ -22,10 +22,8 @@ export class CategoriesComponent   {
 
 
   onClick(category:string){
-    console.log(category)
     this.store.dispatch(filterRecipeByCategory({category:category}))
     this.recipes$.subscribe(aa=>{
-      console.log(aa);
       
     })
     

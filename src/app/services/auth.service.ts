@@ -20,8 +20,6 @@ export class AuthService {
     'Content-Type': 'application/json'
   });
   constructor(private http: HttpClient,private store:Store<AppState>) {
-
-  console.log("token" + token);
   
  }
 
