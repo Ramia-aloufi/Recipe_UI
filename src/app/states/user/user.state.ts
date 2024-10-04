@@ -1,6 +1,7 @@
+import { Injectable } from "@angular/core";
 import { User } from "../../models/user.model";
 import { AuthService } from "../../services/auth.service";
-import {BehaviorSubject, catchError, finalize, Observable, of, tap} from 'rxjs'
+import {BehaviorSubject,Observable} from 'rxjs'
 
 export interface IUser {
     user$: Observable<User | null>;
@@ -10,6 +11,9 @@ export interface IUser {
     login(credentials: { email: string; password: string }): void;
     logout(): void;
   }
+  @Injectable({
+    providedIn: 'root' // Automatically provided at the root level
+  })
   
   export class UserManager implements IUser {
     private userSubject = new BehaviorSubject<User | null>(null);
