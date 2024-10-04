@@ -2,7 +2,7 @@ import {
   createAction,
   props,
 } from '@ngrx/store';
-import { User } from '../../models/user.model';
+import { User, UserData } from '../../models/user.model';
 
 export const signup = createAction('signup', props<{ user: User }>());
 export const signupSuccess = createAction(
@@ -26,7 +26,7 @@ export const loginFailure = createAction(
 export const userProfile = createAction('userProfile');
 export const userProfileSuccess = createAction(
   'userProfile success',
-  props<{ user: User | null }>()
+  props<{ user: UserData | null }>()
 );
 export const userProfileFailure = createAction(
   'userProfile failure',

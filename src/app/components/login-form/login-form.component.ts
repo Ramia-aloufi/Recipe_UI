@@ -56,5 +56,7 @@ export class LoginFormComponent {
     }
     this.userManager.login(user)
     this.router.navigate(['/'])
+    this.userManager.getProfile()
+
       }
 }

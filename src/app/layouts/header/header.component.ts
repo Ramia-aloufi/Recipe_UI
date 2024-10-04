@@ -6,41 +6,29 @@ import { UserManager } from '../../states/user/user.state';
 import { AppState } from '../../states/app.state';
 import { Store } from '@ngrx/store';
 
-
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule,CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  isLoggedIn = false
-  userData$ = this.userManager.user$
+  userData$ = this.userManager.user$;
 
-  constructor(private userManager:UserManager ,private store:Store<AppState>) {
-this.userData$.subscribe(data=>{
-  console.log(data);
-})
-   }
-
-
+  constructor(
+    private userManager: UserManager,
+    private store: Store<AppState>
+  ) {}
 
   onSearch(searchKey: Event) {
-    const target = searchKey.target as HTMLInputElement
+    const target = searchKey.target as HTMLInputElement;
     if (target) {
       this.store.dispatch(searchRecipe({ searchKey: target.value }));
     }
   }
-  onLogout(){
-    this.userManager.logout()
+  onLogout() {
+    this.userManager.logout();
+    this.userManager.getProfile()
   }
-
-
-  
-
-  
-  
-
-
 }
