@@ -19,7 +19,9 @@ export class HeaderComponent {
   userData$ = this.userManager.user$
 
   constructor(private userManager:UserManager ,private store:Store<AppState>) {
-
+this.userData$.subscribe(data=>{
+  console.log(data);
+})
    }
 
 

@@ -30,6 +30,14 @@ input::placeholder{
   padding-left: 1rem;
   opacity: .4;
 }
+.user-data{
+  display: flex;
+  justify-content: space-between;
+}
+.user-data img{
+  width: 40px;
+  height: 40px;
+}
 
 
 

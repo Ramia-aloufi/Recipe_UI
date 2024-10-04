@@ -8,11 +8,9 @@
     
     </div>
     @if (userData$ | async ; as data) {
-        <div class="">
-            <div class="">
+        <div class="user-data">
                 <span>{{data.username}}</span>
-                <img src={{data.profileImage}} style="width: 50px;height: 50px;">
-            </div>
+                <img src={{data.profileImage}} >
             <button (click)="onLogout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
         </div>  
       }@else{
