@@ -8,16 +8,17 @@
     
     </div>
     @if (userData$ | async ; as data) {
+        @if(data.username != null){
         <div class="">
             <div class="">
                 <span>{{data.username}}</span>
                 <img src={{data.profileImage}} style="width: 50px;height: 50px;">
             </div>
-            <button onclick="onLogout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            <button (click)="onLogout()"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
         </div>  
       }@else{
         <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
-    }
+    }}
 
 </div>
 
