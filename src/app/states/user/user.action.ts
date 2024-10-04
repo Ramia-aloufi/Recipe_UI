@@ -26,7 +26,7 @@ export const loginFailure = createAction(
 export const userProfile = createAction('userProfile');
 export const userProfileSuccess = createAction(
   'userProfile success',
-  props<{ user: UserData | null }>()
+  props<{ user: User | null }>()
 );
 export const userProfileFailure = createAction(
   'userProfile failure',

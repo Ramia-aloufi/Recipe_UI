@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { signup } from '../../states/user/user.action';
 import { User } from '../../models/user.model';
 import { selectUser } from '../../states/user/user.selectors';
+import { UserManager } from '../../states/user/user.state';
 
 @Component({
   selector: 'app-signup-form',
@@ -22,7 +23,7 @@ export class SignupFormComponent {
   registerForm: FormGroup;
   isSubmitted = false;
 
-  constructor(private fb: FormBuilder,private store:Store<AppState>) {
+  constructor(private fb: FormBuilder,private um:UserManager) {
     this.registerForm = this.fb.group(
       {
         username: ['', [Validators.required, Validators.minLength(4)]],
@@ -67,7 +68,7 @@ export class SignupFormComponent {
       password:password,
       email:email
     }
-    this.store.dispatch(signup({user}))
+    this.um.signup(user)
 
   }
 }

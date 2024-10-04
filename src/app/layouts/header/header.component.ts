@@ -29,6 +29,5 @@ export class HeaderComponent {
   }
   onLogout() {
     this.userManager.logout();
-    this.userManager.getProfile()
   }
 }

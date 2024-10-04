@@ -32,8 +32,8 @@ export class AuthService {
     return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data);
   }
 
-  profile(): Observable<ApiResponse<UserData>> {
-    return this.http.get<ApiResponse<UserData>>(this.apiUrl+"/users/profile",{ headers: this.headers });
+  profile(): Observable<ApiResponse<User>> {
+    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
   }
 
 }
