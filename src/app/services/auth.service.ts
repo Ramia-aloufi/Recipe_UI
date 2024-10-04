@@ -14,7 +14,7 @@ import { token } from '../states/user/user.selectors';
 export class AuthService {
 
   private apiUrl = environment.apiUrl
-  token = localStorage.getItem('token')
+  token = sessionStorage.getItem('token')
    headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`,
     'Content-Type': 'application/json'

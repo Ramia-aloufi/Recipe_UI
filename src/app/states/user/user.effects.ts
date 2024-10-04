@@ -35,7 +35,7 @@ export class UserEffects {
       ofType(UserActions.loginSuccess), 
       tap(({ token }) => {
         if(token)
-        localStorage.setItem('token', token);
+          sessionStorage.setItem('token', token);
       })
     ),
     { dispatch: false } 
@@ -55,7 +55,7 @@ export class UserEffects {
     this.actions.pipe(
       ofType(UserActions.logout), 
       tap(() => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
       })    )
   );
 
