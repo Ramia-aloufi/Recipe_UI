@@ -8,7 +8,6 @@
     
     </div>
     @if (userData$ | async ; as data) {
-        @if(data.username != null){
         <div class="">
             <div class="">
                 <span>{{data.username}}</span>
@@ -18,7 +17,7 @@
         </div>  
       }@else{
         <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
-    }}
+    }
 
 </div>
 
