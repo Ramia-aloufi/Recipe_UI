@@ -11,6 +11,7 @@ export interface IUser {
     login(credentials: { email: string; password: string }): void;
     logout(): void;
     signup(user:User):void
+    checkLoginStatus():void
   }
   @Injectable({
     providedIn: 'root' // Automatically provided at the root level
@@ -61,6 +62,8 @@ export interface IUser {
             next: res => {
             if(res.data)
             sessionStorage.setItem("token",res.data)
+            this.loadingSubject.next(false); 
+            this.getProfile()
           },
           error: err => {
             this.errorSubject.next(err.message); 
