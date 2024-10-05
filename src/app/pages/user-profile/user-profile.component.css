@@ -1,0 +1,13 @@
+.profile{
+    width: 80%;
+}
+
+.profileCard,.cardheader,.carddata{
+    display: flex;
+    gap: 18;
+}
+
+.cardheader img{
+    width: 100px;
+    height: 100px;
+}

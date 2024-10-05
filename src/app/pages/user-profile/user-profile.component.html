@@ -1,1 +1,18 @@
-<p>user-profile works!</p>
+@if (userData$ | async ; as data) {
+
+<div class="profile">
+    <div class="profileCard">
+        <div class="cardheader">
+            <img src={{data.profileImage}} alt="">
+            <button class="btn">logout</button>
+        </div>
+        <div class="carddata">
+            <h3>{{data.username}}</h3>
+            <p>{{data.bio}}</p>
+        </div>
+    </div>
+    <div class="profileRecipe">
+
+    </div>
+</div>
+}

@@ -6,6 +6,4 @@ export interface AppState {
     recipes: RecipeState,
     categories: CategoryState
     user: UserState
-
-
 }
