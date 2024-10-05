@@ -29,8 +29,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(loadRecipe())
     this.store.dispatch(loadCategory())
-    if(sessionStorage.getItem('token')){
-    this.um.getProfile()
-    }
+    this.um.checkLoginStatus()
+    
   }
 }

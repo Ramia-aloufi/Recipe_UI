@@ -39,8 +39,6 @@ export interface IUser {
             }
         })
       }
-
-
       getProfile(): void {
         this.loadingSubject.next(true);
         this.errorSubject.next(null);
@@ -74,5 +72,13 @@ export interface IUser {
         sessionStorage.removeItem("token")
         this.userSubject.next(null)
 
+      }
+      checkLoginStatus() {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          this.getProfile() 
+        } else {
+          this.userSubject.next(null) 
+        }
       }
   }
