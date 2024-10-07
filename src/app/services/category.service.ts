@@ -1,44 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../models/category.model';
 import { ApiResponse } from '../models/api.model';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-
+import {IState} from '../states/app.state'
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrl = environment.apiUrl
+  private apiUrl = environment.apiUrl +"/categories/"
+  token = sessionStorage.getItem('token')
+   headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.token}`,
+    'Content-Type': 'application/json'
+  });
 
   constructor(private http: HttpClient) {}
 
-  // Get all recipes
-  getCategories(): Observable<ApiResponse<Category[]>> {
-    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<ApiResponse<Category[]>>(this.apiUrl+"/categories");
+  // Get all category
+  getCategories(): Observable<ApiResponse<Category[] | null>> {
+    return this.http.get<ApiResponse<Category[] | null>>(this.apiUrl);
   }
 
-  // Get a single recipe by ID
-  getCategoryById(id: string): Observable<Category> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Category>(url);
+  // Get a single category by ID
+  getCategoryById(id: string): Observable<ApiResponse<Category>> {
+    return this.http.get<ApiResponse<Category>>(`${this.apiUrl}/${id}`);
   }
 
-  // Add a new recipe
-  addCategory(recipe: Category): Observable<Category> {
-    return this.http.post<Category>(this.apiUrl, recipe);
+  // Add a new category
+  addCategory(category: string): Observable<ApiResponse<Category>> {
+    return this.http.post<ApiResponse<Category>>(this.apiUrl, category);
   }
 
-  // Update an existing recipe
-  updateCategory(id: number, recipe: Category): Observable<Category> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Category>(url, recipe);
+  // Update an existing category
+  updateCategory(category: Category): Observable<ApiResponse<Category>> {
+    return this.http.put<ApiResponse<Category>>(this.apiUrl, category,{headers:this.headers});
   }
 
-  // Delete a recipe
-  deleteCategory(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+  // Delete a category
+  deleteCategory(id: string): Observable<ApiResponse<Category>> {
+    return this.http.delete<ApiResponse<Category>>(this.apiUrl+{id},{headers:this.headers});
   }
 }

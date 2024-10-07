@@ -1,9 +1,14 @@
 <div class="categories">
-    <span (click)="onReset()" class="category-item">All</span>
-
-    @for (category of categories$ | async; track category.name) {
-        <span (click)="onClick(category.name)" class="category-item">{{category.name}}</span>
-    }@empty {
-        <span>category</span>
-    }
+  <span (click)="onFilter(null)" class="category-item">All</span>
+  @if(categoryState$ | async ;as state){ @if(state.loading){
+  <span>loading...</span>
+  }@else if (state.error) {
+  <span>{{ state.error }}</span>
+  }@else if (state.data) { @for (category of state.data ; track category.name) {
+  <span (click)="onFilter(category)" class="category-item">{{
+    category.name
+  }}</span>
+  }@empty {
+  <span>category</span>
+  } } }
 </div>

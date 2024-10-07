@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AppState } from '../../states/app.state';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectAllCategories } from '../../states/categories/category.selectors';
-import { loadCategory } from '../../states/categories/category.action';
 import { CommonModule } from '@angular/common';
-import { filterRecipeByCategory, loadRecipe } from '../../states/recipes/recipe.action';
-import { searchRecipes } from '../../states/recipes/recipe.selectors';
+import { CategoryManager } from '../../states/category.state';
+import { RecipeManager } from '../../states/recipe.state';
+import { Category } from '../../models/category.model';
 
 @Component({
   selector: 'app-categories',
@@ -15,21 +13,13 @@ import { searchRecipes } from '../../states/recipes/recipe.selectors';
   styleUrl: './categories.component.css'
 })
 export class CategoriesComponent   {
-  public categories$ = this.store.select(selectAllCategories)
-  public recipes$ = this.store.select(searchRecipes)
+  public categoryState$ = this.categoryState.getState()
 
-  constructor(private store:Store<AppState>){}
+  constructor( private categoryState:CategoryManager, private recipeState:RecipeManager){}
 
 
-  onClick(category:string){
-    this.store.dispatch(filterRecipeByCategory({category:category}))
-    this.recipes$.subscribe(aa=>{
-      
-    })
-    
-  }
-  onReset(){
-    this.store.dispatch(loadRecipe())
+  onFilter(category:Category | null){    
+    this.recipeState.filterRecipeBy(category)    
   }
 
 

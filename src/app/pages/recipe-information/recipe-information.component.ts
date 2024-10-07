@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '../../states/app.state';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { loadSingleRecipe } from '../../states/recipes/recipe.action';
-import { selectRecipes, selectSingleRecipes } from '../../states/recipes/recipe.selectors';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Recipe } from '../../models/recipe.model';
+import { RecipeManager } from '../../states/recipe.state';
 
 @Component({
   selector: 'app-recipe-information',
@@ -15,14 +11,14 @@ import { Recipe } from '../../models/recipe.model';
   styleUrl: './recipe-information.component.css',
 })
 export class RecipeInformationComponent implements OnInit {
-  singleRecipe$ = this.store.select(selectSingleRecipes)
+  singleRecipe$ = this.recipeState.recipe$
   selectedSection: string = 'ingredients';
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
+  constructor( private route: ActivatedRoute , private recipeState:RecipeManager) {}
 
   ngOnInit() {
     this.route.params.subscribe((param) => {
-      this.store.dispatch(loadSingleRecipe({id: param['id']} ));
+      this.recipeState.getRecipe(param['id'])
     })
     
 

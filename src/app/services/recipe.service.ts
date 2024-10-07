@@ -25,18 +25,16 @@ export class RecipeService {
   }
 
   // Add a new recipe
-  addRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(this.apiUrl, recipe);
+  addRecipe(recipe: Recipe): Observable<ApiResponse<Recipe>> {
+    return this.http.post<ApiResponse<Recipe>>(this.apiUrl, recipe);
   }
 
   // Update an existing recipe
-  updateRecipe(id: number, recipe: Recipe): Observable<Recipe> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.put<Recipe>(url, recipe);
+  updateRecipe(recipe: Recipe): Observable<ApiResponse<Recipe>> {
+    return this.http.put<ApiResponse<Recipe>>(this.apiUrl + recipe._id, recipe);
   }
   // Delete a recipe
-  deleteRecipe(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
+  deleteRecipe(id: string): Observable<ApiResponse<Recipe>> {
+    return this.http.delete<ApiResponse<Recipe>>(this.apiUrl + id);
   }
 }

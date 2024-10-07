@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../../models/user.model';
-import { login } from '../../states/user/user.action';
-import { selectUser } from '../../states/user/user.selectors';
-import { AppState } from '../../states/app.state';
-import { Store } from '@ngrx/store';
+import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserManager } from '../../states/user/user.state';
+import { UserManager } from '../../states/user.state';
 
 @Component({
   selector: 'app-login-form',

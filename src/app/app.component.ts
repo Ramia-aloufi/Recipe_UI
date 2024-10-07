@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { loadRecipe } from './states/recipes/recipe.action';
-import { AppState } from './states/app.state';
-import { selectAllRecipes } from './states/recipes/recipe.selectors';
 import { CommonModule } from '@angular/common';
 import { CategoriesComponent } from './layouts/categories/categories.component';
 import { HeaderComponent } from './layouts/header/header.component';
-import { loadCategory } from './states/categories/category.action';
 import { HomeComponent } from './pages/home/home.component';
-import { userProfile } from './states/user/user.action';
-import { UserManager } from './states/user/user.state';
+import { UserManager } from './states/user.state';
+import { CategoryManager } from './states/category.state';
+import { RecipeManager } from './states/recipe.state';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +19,13 @@ import { UserManager } from './states/user/user.state';
 export class AppComponent implements OnInit {
   title = 'recipe_UI';
 
-  constructor(private store:Store<AppState>, private um:UserManager){
+  constructor( private um:UserManager ,private categoryState:CategoryManager,private recipeManager:RecipeManager ){
 
   }
 
   ngOnInit() {
-    this.store.dispatch(loadRecipe())
-    this.store.dispatch(loadCategory())
+    this.recipeManager.loadRecipes()
+    this.categoryState.loadCategory()
     this.um.checkLoginStatus()
     
   }

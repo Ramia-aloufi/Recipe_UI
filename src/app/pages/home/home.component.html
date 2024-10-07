@@ -1,27 +1,35 @@
 <app-categories></app-categories>
 
 <div class="grid">
-  @for (recipe of recipes$ | async; track recipe.title) {
-  <div class="grid-item"  (click)="onClick(recipe._id)">
-    <img class="recipe-img" src="{{ recipe.media[0].mediaUrl }}" alt="" />
-    <div class="recipe-info">
-      <div class="flex">
-        <h2>{{ recipe.title }}</h2>
-        <i class="fa-regular fa-bookmark"></i>
+  @if(state$ | async ; as state){
+    @if(state.loading){
+
+    }@else if (state.error) {
+
+    }@else {
+      @for (recipe of state.data; track recipe.title) {
+        <div class="grid-item"  (click)="onClick(recipe._id)">
+          <img class="recipe-img" src="{{ recipe.media[0].mediaUrl }}" alt="" />
+          <div class="recipe-info">
+            <div class="flex">
+              <h2>{{ recipe.title }}</h2>
+              <i class="fa-regular fa-bookmark"></i>
+                  </div>
+      
+            <div class="recipe-chef">
+              @if (recipe.chef) {
+              <span>{{ recipe.chef.username }}</span>
+      
+              }@else {
+              <span>empty</span>
+              }
             </div>
-
-      <div class="recipe-chef">
-        @if (recipe.chef) {
-        <span>{{ recipe.chef.username }}</span>
-
-        }@else {
-        <span>empty</span>
+          </div>
+        </div>
+      
         }
-      </div>
-    </div>
-  </div>
+    }
 
-  }@empty {
-  <li>There are no items.</li>
   }
+
 </div>

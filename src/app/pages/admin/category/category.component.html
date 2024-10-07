@@ -1,0 +1,42 @@
+<div class="dashboard">
+  <app-aside></app-aside>
+  <div class="card">
+    @if(categoryState$ | async ;as postService){ @if(postService.loading){
+    <span>loading..</span>
+    } @else if(postService.error){
+    <span>{{ postService.error }}</span>
+    } @else if(postService.data){
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(category of postService.data ; track $index){
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          @if(editing && rowNum == $index +1 ){
+          <td>
+            <input type="text" value="{{category.name}}" [(ngModel)]="updatedCategory.name " (blur)="saveCell()"
+              (keydown.enter)="saveCell()" />
+          </td>
+          }@else {
+            <td (dblclick)="isEditing($index + 1,category)">{{ category.name }}</td>
+            }
+            <td class="actions">
+              <button class="delete"><i class="fa-solid fa-trash"></i></button>
+              <button (click)="isEditing($index + 1,category)" class="update"><i class="fa-regular fa-pen-to-square"></i></button>
+            </td>
+          </tr>
+
+        }
+      </tbody>
+    </table>
+
+
+    } }
+  </div>
+</div>

@@ -133,3 +133,79 @@ form small{
   position: relative;
 }
 
+
+.delete{
+  background-color: transparent;
+  color: gray;
+  padding: .5rem;
+  font-size: small;
+  border-radius: 50%;
+  border: none;
+}
+.update{
+  background-color:transparent;
+  color: gray;
+  padding: .5rem;
+  border-radius: 50%;
+  font-size: small;
+  border: none;
+}
+
+/* thead{
+  background-color: #666362;
+  padding: 1rem;
+  color: #fff;
+} */
+
+
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  height:70vh;
+  overflow: hidden;
+}
+th {
+  background-color: #444;
+  color: #fff;
+  padding: 1rem;
+  text-transform: capitalize;
+  border: 1px solid #666362;
+}
+tbody{
+  overflow-y: auto;
+  margin-top: 8rem;
+}
+
+
+tr {
+  padding: .5rem;
+  text-align: left;
+  border-top: 1px solid #f2f2f2
+}
+
+td{
+  color: rgba(0, 0, 0,0.4);
+  padding: 0.5rem 0;
+  padding-left: 1rem;
+  text-align: left;
+
+
+}
+
+
+
+/* Hover effect */
+tr:hover {
+  background-color: rgba(192, 81, 100,0.1);
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 600px) {
+  table {
+    width: 100%;
+    font-size: 16px;
+  }
+
+}

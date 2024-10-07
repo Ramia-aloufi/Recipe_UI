@@ -1,0 +1,28 @@
+.dashboard{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.cards{
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 25%;
+    gap: 1rem;
+}
+
+.item{
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+
+}
+.item:hover{
+    box-shadow: 0px 1px 5px rgba(192, 81, 100, 0.5);
+    color: rgb(192, 81, 100);
+    transition: all .3s ease-in-out;
+}

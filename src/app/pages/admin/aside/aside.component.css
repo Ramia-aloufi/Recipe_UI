@@ -1,0 +1,28 @@
+.aside{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+.items{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 1rem;
+    color: #777;
+    
+}
+
+.items:hover{
+background-color: #c05164;
+color: white;
+transition: all .3s ease-in-out;
+
+}
+
+.items .active{
+    background-color: #c05164;
+    color: white;
+    }

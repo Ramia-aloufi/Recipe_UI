@@ -5,12 +5,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AppState } from '../../states/app.state';
-import { Store } from '@ngrx/store';
-import { signup } from '../../states/user/user.action';
-import { User } from '../../models/user.model';
-import { selectUser } from '../../states/user/user.selectors';
-import { UserManager } from '../../states/user/user.state';
+
+import { UserManager } from '../../states/user.state';
 
 @Component({
   selector: 'app-signup-form',

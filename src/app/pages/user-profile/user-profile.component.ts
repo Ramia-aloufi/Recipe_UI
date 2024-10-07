@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserManager } from '../../states/user/user.state';
+import { UserManager } from '../../states/user.state';
 import { CommonModule } from '@angular/common';
 
 @Component({

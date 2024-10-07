@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { User } from "../../models/user.model";
-import { AuthService } from "../../services/auth.service";
+import { User } from "../models/user.model";
+import { AuthService } from "../services/auth.service";
 import {BehaviorSubject,Observable} from 'rxjs'
 
 export interface IUser {
@@ -27,6 +27,7 @@ export interface IUser {
       error$= this.errorSubject.asObservable()
 
       constructor(private store:AuthService){}
+      
       signup(user:User): void {
         this.loadingSubject.next(true);
         this.errorSubject.next(null);
@@ -85,3 +86,4 @@ export interface IUser {
         }
       }
   }
+  

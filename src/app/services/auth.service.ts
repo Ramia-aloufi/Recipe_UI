@@ -4,9 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/api.model';
 import { User, UserData } from '../models/user.model';
 import { Observable } from 'rxjs';
-import { AppState } from '../states/app.state';
 import { Store } from '@ngrx/store';
-import { token } from '../states/user/user.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +17,7 @@ export class AuthService {
     'Authorization': `Bearer ${this.token}`,
     'Content-Type': 'application/json'
   });
-  constructor(private http: HttpClient,private store:Store<AppState>) {
+  constructor(private http: HttpClient) {
   
  }
 

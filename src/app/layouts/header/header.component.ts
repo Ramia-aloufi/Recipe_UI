@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { searchRecipe } from '../../states/recipes/recipe.action';
 import { CommonModule } from '@angular/common';
-import { UserManager } from '../../states/user/user.state';
-import { AppState } from '../../states/app.state';
+import { UserManager } from '../../states/user.state';
 import { Store } from '@ngrx/store';
+import { RecipeManager } from '../../states/recipe.state';
 
 @Component({
   selector: 'app-header',
@@ -18,13 +17,13 @@ export class HeaderComponent {
 
   constructor(
     private userManager: UserManager,
-    private store: Store<AppState>
+    private recipeState: RecipeManager
   ) {}
 
   onSearch(searchKey: Event) {
     const target = searchKey.target as HTMLInputElement;
     if (target) {
-      this.store.dispatch(searchRecipe({ searchKey: target.value }));
+      this.recipeState.search(target.value);
     }
   }
   onLogout() {
