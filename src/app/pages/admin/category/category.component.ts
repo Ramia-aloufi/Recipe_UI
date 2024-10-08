@@ -19,6 +19,8 @@ export class CategoryComponent {
   editingCol: number | null = null;
   editing = false
   rowNum = 0
+  newCategory=""
+  isAddNewCategory = false
   constructor(private state:CategoryManager){
     this.state.loadCategory()
   }
@@ -29,11 +31,23 @@ export class CategoryComponent {
 
     return this.editing = !this.editing
   }
-
-
   saveCell() {
     this.editing = !this.editing
     this.state.updateCategory(this.updatedCategory)
+
+  }
+  onDelete(category:Category){
+    this.state.deleteCategory(category)
+  }
+  onSave(){
+    console.log(this.newCategory);
+  }
+  showInput(){
+    if(this.isAddNewCategory){
+      console.log(this.newCategory);
+      this.state.addCategory(this.newCategory)
+    }
+    this.isAddNewCategory = !this.isAddNewCategory
 
   }
 
