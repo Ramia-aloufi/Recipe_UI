@@ -193,6 +193,29 @@ td{
 
 }
 
+.flex{
+display: flex;
+gap: 1rem;
+justify-content: space-between;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Vertical spacing between form items */
+}
+
+.form-group {
+  margin-bottom: 1rem; /* Optional: additional margin for form groups */
+}
+.btn-def{
+  background-color: transparent;
+  border: none;
+  color: #444;
+}
+.btn-def:hover{
+  color: #c05164;
+}
 
 
 /* Hover effect */

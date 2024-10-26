@@ -28,7 +28,6 @@ export class CategoryComponent {
   isEditing(row:number,category:Category) {
     this.rowNum = row
     this.updatedCategory = category
-
     return this.editing = !this.editing
   }
   saveCell() {
@@ -43,11 +42,12 @@ export class CategoryComponent {
     console.log(this.newCategory);
   }
   showInput(){
-    if(this.isAddNewCategory){
+    if(this.isAddNewCategory && this.newCategory.length > 3){
       console.log(this.newCategory);
       this.state.addCategory(this.newCategory)
     }
     this.isAddNewCategory = !this.isAddNewCategory
+    this.newCategory = ""
 
   }
 

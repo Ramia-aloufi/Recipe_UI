@@ -9,7 +9,8 @@
     }@else {
       @for (recipe of state.data; track recipe.title) {
         <div class="grid-item"  (click)="onClick(recipe._id)">
-          <img class="recipe-img" src="{{ recipe.media[0].mediaUrl }}" alt="" />
+          <img class="recipe-img" [src]="recipe.media[0]" />
+          
           <div class="recipe-info">
             <div class="flex">
               <h2>{{ recipe.title }}</h2>

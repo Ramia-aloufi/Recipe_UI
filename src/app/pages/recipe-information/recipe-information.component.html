@@ -1,7 +1,7 @@
 @if (singleRecipe$ | async ;as recipe) {
 <div class="card">
   <div class="card-img">
-    <img src="{{ recipe.media[0].mediaUrl }}" alt="" />
+    <img src="{{ recipe.media[0] }}" alt="" />
   </div>
   <div class="card-content">
     <div class="card-content-action">
@@ -62,15 +62,14 @@
         <ul>
           @for (ingredient of recipe.ingredients;; track $index){
           <li>
-            {{ ingredient.quantity }} {{ ingredient.unit }}
-            {{ ingredient.name }}
+            {{ ingredient }}
           </li>
           }
         </ul>
         } @if(selectedSection === 'steps'){
         <ul>
           @for (step of recipe.steps;; track $index){
-          <li>{{ step.instruction }}</li>
+          <li>{{ step }}</li>
           }
         </ul>
         } @if(selectedSection === 'steps'){ @if(recipe.comments){

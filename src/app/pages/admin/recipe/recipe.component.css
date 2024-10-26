@@ -1,0 +1,46 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    overflow: hidden;
+    height: 90vh;
+  }
+  .card {
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 20px 0;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 1px rgba(68, 68, 68, 0.3);
+  
+  }
+  
+  .actions {
+    display: flex;
+    gap: 1rem;
+  }
+  .add {
+  display:flex ;
+  justify-content: flex-end;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: center;
+  }
+  .addInput{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 1rem;
+  }
+  .new{
+      width: 12rem;
+  }
+  .close{
+     border: 1px solid #000;
+     width: 2rem;
+     height: 2rem;
+     border-radius: 50%;
+     background-color: transparent;
+  }
+  
+  
+  
+  

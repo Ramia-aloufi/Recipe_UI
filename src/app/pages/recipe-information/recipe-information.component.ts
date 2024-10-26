@@ -20,7 +20,6 @@ export class RecipeInformationComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.recipeState.getRecipe(param['id'])
     })
-    
 
   }
   showSection(section: string) {

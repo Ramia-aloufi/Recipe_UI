@@ -5,36 +5,6 @@ import { User } from "./user.model";
 
 
 
-export interface Media {
-    mediaType: MediaType;
-    mediaUrl: string;
-    order: number;
-}
-export enum MediaType {
-    IMAGE = 'IMAGE',
-    VIDEO = 'VIDEO',
-}
-export enum Unit {
-    G = 'G',
-    KG = 'KG',
-    ML = 'ML',
-    L = 'L',
-    CUP = 'CUP',
-    TBSP = 'TBSP',
-    TSP = 'TSP'
-}
-
-export interface Ingredient {
-    name: string;
-    quantity: number;
-    unit: Unit;
-}
-export interface Step  {
-    stepNumber: number;
-    instruction: string;
-}
-
-
 
 export interface Recipe {
         _id:string
@@ -44,8 +14,8 @@ export interface Recipe {
         servings: number;
         chef: User
         category: Category
-        media: Media[];
-        ingredients: Ingredient[];
-        steps: Step[];
+        media: string[];
+        ingredients: string[];
+        steps: string[];
         comments: Comment[];
     }

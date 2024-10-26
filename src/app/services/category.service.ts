@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../models/category.model';
 import { ApiResponse } from '../models/api.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import {IState} from '../states/app.state'
 @Injectable({
   providedIn: 'root'
 })
@@ -30,7 +29,7 @@ export class CategoryService {
 
   // Add a new category
   addCategory(category: string): Observable<ApiResponse<Category>> {
-    return this.http.post<ApiResponse<Category>>(this.apiUrl, category,{headers:this.headers});
+    return this.http.post<ApiResponse<Category>>(this.apiUrl, {name:category},{headers:this.headers});
   }
 
   // Update an existing category

@@ -1,1 +1,76 @@
-<p>recipe works!</p>
+<div class="dashboard">
+    <app-aside></app-aside>
+    <div class="card">
+      <div class="add">
+        <div class="addInput">
+        @if(isAddNewCategory){
+        <input type="text" placeholder="new category ..." [(ngModel)]="newCategory" (blur)="onSave()"
+          (keydown.enter)="onSave()" />
+        <button (click)="showInput()" class="close"><i class="fa-solid fa-xmark"></i></button>
+        }
+      </div>
+        <button (click)="showInput()" class="new btn">
+          <i class="fa-solid fa-plus"></i>   {{ !isAddNewCategory ? 'New' : 'Add' }}
+  
+        </button>
+      </div>
+      @if(state$ | async ;as state){ @if(state.loading){
+      <span>loading..</span>
+      } @else if(state.error){
+      <span>{{ state.error }}</span>
+      } @else if(state.data){
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(recipe of state.data ; track $index){
+          <tr>
+            <td>{{ $index + 1 }}</td>
+
+            <td (dblclick)="isEditing($index + 1,recipe )">
+                <i (click)="showDetails($index + 1,recipe )" class="fa-solid" [ngClass]="isShowDetails && rowNum== $index + 1? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+                {{ recipe.title }}
+            </td>
+            <td class="actions">
+              <button (click)="onDelete(recipe)" class="delete">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+              <button (click)="isEditing($index + 1, recipe)" class="update">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
+            </td>
+          </tr>
+          <tr colspan="3">
+            <td colspan="3">
+            @if (isShowDetails && rowNum== $index + 1) {
+                <h3>Category</h3>
+                <span>{{recipe.category.name}}</span><br>
+                <img style="width: 50px; height: 50px;" src={{recipe.media[0]}} alt=""><br>
+                <span><strong>cookingTime</strong> {{recipe.cookingTime}} - <strong>preparationTime</strong>{{recipe.preparationTime}} </span>
+                <h3>Ingredients</h3>
+                @for(ingredient of recipe.ingredients ; track $index){
+                    <span>{{ingredient}}</span><br>
+
+                }
+                <h3>Steps</h3>
+                @for(step of recipe.steps ; track $index){
+                    <span> {{step}}</span><br>
+                }
+
+
+            }
+        </td>
+          </tr>
+  
+          }
+        </tbody>
+      </table>
+  
+      } }
+    </div>
+  </div>
