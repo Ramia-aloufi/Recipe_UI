@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { CategoryManager } from '../../states/category.state';
 import { CommonModule } from '@angular/common';
+import { RecipeManager } from '../../states/recipe.state';
 
 @Component({
   selector: 'app-recipe-form',
@@ -22,7 +23,7 @@ export class RecipeFormComponent implements OnInit {
   isSubmitted = false
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder ,private state :CategoryManager) {
+  constructor(private fb: FormBuilder ,private state :CategoryManager,private recipe:RecipeManager) {
     this.recipeForm = this.fb.group({
       title: ['', Validators.required],
       preparationTime: [0, [Validators.required, Validators.min(1)]],
@@ -31,6 +32,8 @@ export class RecipeFormComponent implements OnInit {
       category: ['', Validators.required],
       ingredients: this.fb.array([this.fb.control('')]),
       steps: this.fb.array([this.fb.control('')]),
+      media: this.fb.array([this.fb.control('')]),
+
     });
   }
   get media(): FormArray {
@@ -55,8 +58,8 @@ export class RecipeFormComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true
-
     if ( this.isSubmitted && this.recipeForm.valid) {
+      this.recipe.addRecipe(this.recipeForm.value)
       console.log(this.recipeForm.value);
     }
     console.log("notValid\n" +this.recipeForm.errors);

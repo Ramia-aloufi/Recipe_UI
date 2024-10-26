@@ -11,6 +11,11 @@ import { ApiResponse } from '../models/api.model';
 export class RecipeService {
 
   private apiUrl = environment.apiUrl + "/recipes/"
+  token = sessionStorage.getItem('token')
+   headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.token}`,
+    'Content-Type': 'application/json'
+  });
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +31,7 @@ export class RecipeService {
 
   // Add a new recipe
   addRecipe(recipe: Recipe): Observable<ApiResponse<Recipe>> {
-    return this.http.post<ApiResponse<Recipe>>(this.apiUrl, recipe);
+    return this.http.post<ApiResponse<Recipe>>(this.apiUrl, recipe,{headers:this.headers});
   }
 
   // Update an existing recipe
