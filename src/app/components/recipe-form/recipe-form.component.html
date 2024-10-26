@@ -45,7 +45,7 @@
       @for( mediaGroup of media.controls;track $index ){
         <small>{{  getErrorMessage("media") }}</small>
         <div class="flex form-group"  >
-        <input type="file" [formControlName]="$index" (change)="onFileSelected($event, $index)" placeholder="Enter media URL" />
+        <input type="file"  [formControlName]="$index" (change)="onFileSelected($event, $index)" placeholder="Enter media URL" />
         <button type="button" class="btn-def" (click)="remove(media,$index)"><i class="fa-regular fa-circle-xmark"></i></button>
       </div>
     }

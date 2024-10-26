@@ -30,7 +30,7 @@ export class RecipeService {
   }
 
   // Add a new recipe
-  addRecipe(recipe: Recipe): Observable<ApiResponse<Recipe>> {
+  addRecipe(recipe: FormData): Observable<ApiResponse<Recipe>> {
     return this.http.post<ApiResponse<Recipe>>(this.apiUrl, recipe,{headers:this.headers});
   }
 

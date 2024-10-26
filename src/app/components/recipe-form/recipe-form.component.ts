@@ -22,6 +22,7 @@ export class RecipeFormComponent implements OnInit {
   categoryState$ = this.state.getState()
   isSubmitted = false
   selectedFile: File | null = null;
+   formData = new FormData();
 
   constructor(private fb: FormBuilder ,private state :CategoryManager,private recipe:RecipeManager) {
     this.recipeForm = this.fb.group({
@@ -32,7 +33,7 @@ export class RecipeFormComponent implements OnInit {
       category: ['', Validators.required],
       ingredients: this.fb.array([this.fb.control('')]),
       steps: this.fb.array([this.fb.control('')]),
-      media: this.fb.array([this.fb.control('')]),
+      media: this.fb.array([this.fb.control(File)]),
 
     });
   }
@@ -59,19 +60,42 @@ export class RecipeFormComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true
     if ( this.isSubmitted && this.recipeForm.valid) {
-      this.recipe.addRecipe(this.recipeForm.value)
-      console.log(this.recipeForm.value);
-    }
-    console.log("notValid\n" +this.recipeForm.errors);
 
-  }
-  onFileSelected(event: any, index: number): void {
-    const file = event.target.files[0];
-    console.log(file);
-    
-    if (file) {
-      this.media.at(index).setValue(file); 
+      var formData = new FormData();
+
+      // Append form fields
+      formData.append('title', this.recipeForm.get('title')?.value);
+      formData.append('preparationTime', this.recipeForm.get('preparationTime')?.value);
+      formData.append('cookingTime', this.recipeForm.get('cookingTime')?.value);
+      formData.append('servings', this.recipeForm.get('servings')?.value);
+      formData.append('category', this.recipeForm.get('category')?.value);
+
+      // Append ingredients and steps arrays
+      this.ingredients.controls.forEach((control, index) => {
+        formData.append(`ingredients[${index}]`, control.value);
+      });
+
+      this.steps.controls.forEach((control, index) => {
+        formData.append(`steps[${index}]`, control.value);
+      });
+
+      // Append each file in the media array
+      this.media.controls.forEach((control, index) => {
+        formData.append(`media[${index}]`, control.value);
+      });
+
+      this.recipe.addRecipe(this.formData)
+      console.log(this.formData);
     }
+  }
+
+  onFileSelected(event: Event, index: number): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+    const file = input.files[0];
+    console.log(file);
+          this.media.at(index).setValue(file); 
+  }
   }
   
   getErrorMessage(field: string): string {

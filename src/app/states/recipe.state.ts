@@ -70,7 +70,7 @@ export class RecipeManager extends StateService<Recipe[]> {
     });
     this.setLoading(false);
   }
-  addRecipe(recipe: Recipe) {
+  addRecipe(recipe: FormData) {
     this.setLoading(true);
     this.service.addRecipe(recipe).subscribe({
       next: (_) => {
