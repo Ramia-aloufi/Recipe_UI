@@ -50,9 +50,10 @@
               </button>
             </td>
           </tr>
-          <tr colspan="3">
-            <td colspan="3">
+
             @if (isShowDetails && rowNum== $index + 1) {
+              <tr colspan="3">
+                <td colspan="3">
                 <h3>Category</h3>
                 <span>{{recipe.category.name}}</span><br>
                 <img style="width: 50px; height: 50px;" src={{recipe.media[0]}} alt=""><br>
@@ -67,10 +68,10 @@
                     <span> {{step}}</span><br>
                 }
 
-
+              </td>
+            </tr>
             }
-        </td>
-          </tr>
+
   
           }
         </tbody>

@@ -7,8 +7,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding-inline: 2rem;
-  padding-top: .5rem;
+  padding: 1rem 2rem;
   z-index: 10;
   background-color: #fff;
 }
@@ -18,7 +17,6 @@ input[type="search"] {
   border: none;
   height: 45px;
   border-radius: 1.5rem;
-  margin-top: 1rem;
   background-color: #f4f4f4;
 }
 .logo {
@@ -32,7 +30,7 @@ input::placeholder{
 }
 .user-data{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .user-data img{
   width: 40px;

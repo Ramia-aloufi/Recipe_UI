@@ -1,5 +1,6 @@
 .categories{
     overflow-x: hidden;
+    padding:  .5rem 0;
     /* background-color: cornflowerblue; */
     /* height: 50px;
     display: flex;
@@ -9,4 +10,8 @@
 font-weight: 500;
 padding: 1rem ;
 cursor: pointer;
+color: gray;
+}
+.selected{
+color: black;
 }

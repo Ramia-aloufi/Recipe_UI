@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { CategoriesComponent } from '../../layouts/categories/categories.component';
 import { AuthService } from '../../services/auth.service';
 import { RecipeManager } from '../../states/recipe.state';
+import { Recipe } from '../../models/recipe.model';
+import { FavoriteManager } from '../../states/favorite.state';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ export class HomeComponent implements OnInit {
   state$ = this.recipeManager.getState()
   category$ = this.recipeManager.category$
 
-  constructor(private router: Router,private authService: AuthService, private recipeManager:RecipeManager){
+  constructor(private router: Router,private authService: AuthService, private recipeManager:RecipeManager,private favoriteManager:FavoriteManager){
 
   }
   ngOnInit(): void {
@@ -26,6 +28,9 @@ export class HomeComponent implements OnInit {
 
   onClick(id:string){
     this.router.navigate(['/recipe/' + id]);
+  }
+  addToFavorite(recipe:Recipe){
+    this.favoriteManager.addFavorite(recipe._id)
   }
 
 }

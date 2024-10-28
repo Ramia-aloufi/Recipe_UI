@@ -14,11 +14,12 @@ import { Category } from '../../models/category.model';
 })
 export class CategoriesComponent   {
   public categoryState$ = this.categoryState.getState()
-
+  selectedCategory:String|undefined = undefined
   constructor( private categoryState:CategoryManager, private recipeState:RecipeManager){}
 
 
-  onFilter(category:Category | null){    
+  onFilter(category:Category | null){ 
+    this.selectedCategory = category?._id   
     this.recipeState.filterRecipeBy(category)    
   }
 

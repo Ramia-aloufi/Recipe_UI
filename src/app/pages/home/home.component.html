@@ -12,10 +12,10 @@
           <img class="recipe-img" [src]="recipe.media[0]" />
           
           <div class="recipe-info">
-            <div class="flex">
+            <div class="flex " (click)="$event.stopPropagation()">
               <h2>{{ recipe.title }}</h2>
-              <i class="fa-regular fa-bookmark"></i>
-                  </div>
+              <i (click)="addToFavorite(recipe)" class="fa-regular fa-bookmark"></i>
+              </div>
       
             <div class="recipe-chef">
               @if (recipe.chef) {
