@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Category } from '../../../models/category.model';
-import { CategoryManager } from '../../../states/category.state';
 import { AsideComponent } from '../aside/aside.component';
 import { RecipeManager } from '../../../states/recipe.state';
 import { Recipe } from '../../../models/recipe.model';
+import { RecipeFormComponent } from '../../../components/recipe-form/recipe-form.component';
 
 @Component({
   selector: 'app-recipe',
   standalone: true,
-  imports: [AsideComponent,CommonModule,FormsModule],
+  imports: [AsideComponent,CommonModule,FormsModule ,RecipeFormComponent],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css'
 })
@@ -21,8 +20,7 @@ export class RecipeComponent {
   editingCol: number | null = null;
   editing = false
   rowNum = 0
-  newCategory=""
-  isAddNewCategory = false
+  isShowForm = false
 
   isShowDetails = false
   constructor(private state:RecipeManager){
@@ -30,11 +28,10 @@ export class RecipeComponent {
 
   }
 
-  isEditing(row:number,category:Recipe) {
-    this.rowNum = row
-    this.recipeDetails = category
-
-    return this.editing = !this.editing
+  isEditing(recipe:Recipe) {
+    this.recipeDetails = recipe
+    this.isShowForm = true
+    this.state.setRecipe(recipe)
   }
   saveCell() {
     this.editing = !this.editing
@@ -44,20 +41,13 @@ export class RecipeComponent {
   onDelete(recipe:Recipe){
     // this.state.deleteRecipe(category)
   }
-  onSave(){
-    console.log(this.newCategory);
+  showForm(){
+    this.state.clearRecipe()
+    this.isShowForm = !this.isShowForm
   }
-  showInput(){
-    if(this.isAddNewCategory && this.newCategory.length > 3){
-      // this.state.addCategory(this.newCategory)
-    }
-    this.isAddNewCategory = !this.isAddNewCategory
-    this.newCategory = ""
-
-  }
-  showDetails(row:number,category:Recipe){    
+  showDetails(row:number,recipe:Recipe){    
     this.rowNum = row
-    this.recipeDetails = category
+    this.recipeDetails = recipe
     this.isShowDetails = !this.isShowDetails
   }
 

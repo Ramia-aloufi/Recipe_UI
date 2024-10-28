@@ -1,0 +1,23 @@
+.upload{
+    position: relative;
+}
+
+.uploadImg{
+    width: 100%;
+    height: 200px;
+    background-color: #ddd;
+    border-radius: .5rem;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.upload .uploadText{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    transform: translate(-50%,-50%);
+    place-items: center;
+    cursor: pointer;
+
+}

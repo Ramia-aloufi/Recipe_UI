@@ -40,6 +40,39 @@
      border-radius: 50%;
      background-color: transparent;
   }
+  .recipe_form{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 3rem;
+    width: 80vw;
+    height: 100vh;
+justify-content: center;
+align-items: center;
+display: flex;
+    /* transform: translate(50%,-50%); */
+    background-color: #00000050;
+  }
+  .form_card{
+    background-color: #fff;
+    width: 50vw;
+    height: 80vh;
+    padding: 2rem;
+    border-radius: 2rem;
+  }
+
+  .form_card_top button{
+    background-color: transparent;
+    border: 1px solid #00000050;
+    border-radius: 50%;
+    padding: .25rem;
+  }
+  .form{
+    overflow-y: scroll;
+    height: 70vh;
+
+  }
+
   
   
   

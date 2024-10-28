@@ -15,6 +15,9 @@ export class RecipeManager extends StateService<Recipe[]> {
     new BehaviorSubject<Category | null>(null);
     all$: BehaviorSubject<Recipe[] | null> =
     new BehaviorSubject<Recipe[] | null>(null);
+    private recipeToUpdate$: BehaviorSubject<Recipe | null> =
+    new BehaviorSubject<Recipe | null>(null);
+    recipeData = this.recipeToUpdate$.asObservable()
 
     private filteredRecipe:Recipe[] | null = null
   constructor(private service: RecipeService) {
@@ -34,9 +37,9 @@ export class RecipeManager extends StateService<Recipe[]> {
     });
     this.setLoading(false);
   }
-  updateRecipe(recipe: Recipe) {
+  updateRecipe(recipe: FormData,id:string) {
     this.setLoading(true);
-    this.service.updateRecipe(recipe).subscribe({
+    this.service.updateRecipe(recipe,id).subscribe({
       next: (_) => {
         this.loadRecipes;
       },
@@ -81,6 +84,12 @@ export class RecipeManager extends StateService<Recipe[]> {
       },
     });
     this.setLoading(false);
+  }
+  setRecipe(recipe:Recipe){
+    this.recipeToUpdate$.next(recipe)
+  }
+  clearRecipe() {
+    this.recipeToUpdate$.next(null);
   }
 
   filterRecipeBy(category: Category | null) {

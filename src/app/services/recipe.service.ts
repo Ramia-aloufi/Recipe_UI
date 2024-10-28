@@ -13,8 +13,7 @@ export class RecipeService {
   private apiUrl = environment.apiUrl + "/recipes/"
   token = sessionStorage.getItem('token')
    headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.token}`,
-    'Content-Type': 'application/json'
+    'Authorization': `Bearer ${this.token}`
   });
 
   constructor(private http: HttpClient) {}
@@ -31,15 +30,15 @@ export class RecipeService {
 
   // Add a new recipe
   addRecipe(recipe: FormData): Observable<ApiResponse<Recipe>> {
-    return this.http.post<ApiResponse<Recipe>>(this.apiUrl, recipe,{headers:this.headers});
+    return this.http.post<ApiResponse<Recipe>>(this.apiUrl, recipe,{headers:this.headers,withCredentials:true});
   }
 
   // Update an existing recipe
-  updateRecipe(recipe: Recipe): Observable<ApiResponse<Recipe>> {
-    return this.http.put<ApiResponse<Recipe>>(this.apiUrl + recipe._id, recipe);
+  updateRecipe(recipe: FormData,id:string): Observable<ApiResponse<Recipe>> {
+    return this.http.put<ApiResponse<Recipe>>(this.apiUrl + id, recipe,{headers:this.headers,withCredentials:true});
   }
   // Delete a recipe
   deleteRecipe(id: string): Observable<ApiResponse<Recipe>> {
-    return this.http.delete<ApiResponse<Recipe>>(this.apiUrl + id);
+    return this.http.delete<ApiResponse<Recipe>>(this.apiUrl + id,{headers:this.headers,withCredentials:true});
   }
 }

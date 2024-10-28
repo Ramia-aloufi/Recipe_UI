@@ -2,18 +2,23 @@
     <app-aside></app-aside>
     <div class="card">
       <div class="add">
-        <div class="addInput">
-        @if(isAddNewCategory){
-        <input type="text" placeholder="new category ..." [(ngModel)]="newCategory" (blur)="onSave()"
-          (keydown.enter)="onSave()" />
-        <button (click)="showInput()" class="close"><i class="fa-solid fa-xmark"></i></button>
-        }
-      </div>
-        <button (click)="showInput()" class="new btn">
-          <i class="fa-solid fa-plus"></i>   {{ !isAddNewCategory ? 'New' : 'Add' }}
-  
+        <button (click)="showForm()" class="new btn">
+          <i class="fa-solid fa-plus"></i>New
         </button>
       </div>
+      @if(isShowForm){
+      <div class="recipe_form" (click)="showForm()">
+        <div class="form_card" (click)="$event.stopPropagation()">
+          <div class="flex">
+            <h3>Add New Recipe</h3>
+            <button (click)="showForm()"><i class="fa-solid fa-multiply"></i></button>
+          </div>
+          <div class="form">
+        <app-recipe-form></app-recipe-form>
+      </div>
+      </div>
+      </div>
+    }
       @if(state$ | async ;as state){ @if(state.loading){
       <span>loading..</span>
       } @else if(state.error){
@@ -32,7 +37,7 @@
           <tr>
             <td>{{ $index + 1 }}</td>
 
-            <td (dblclick)="isEditing($index + 1,recipe )">
+            <td (dblclick)="isEditing(recipe )">
                 <i (click)="showDetails($index + 1,recipe )" class="fa-solid" [ngClass]="isShowDetails && rowNum== $index + 1? 'fa-chevron-up' : 'fa-chevron-down'"></i>
                 {{ recipe.title }}
             </td>
@@ -40,7 +45,7 @@
               <button (click)="onDelete(recipe)" class="delete">
                 <i class="fa-solid fa-trash"></i>
               </button>
-              <button (click)="isEditing($index + 1, recipe)" class="update">
+              <button (click)="isEditing( recipe)" class="update">
                 <i class="fa-regular fa-pen-to-square"></i>
               </button>
             </td>

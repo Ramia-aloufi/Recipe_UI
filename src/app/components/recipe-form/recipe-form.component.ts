@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,6 +9,7 @@ import {
 import { CategoryManager } from '../../states/category.state';
 import { CommonModule } from '@angular/common';
 import { RecipeManager } from '../../states/recipe.state';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-form',
@@ -19,12 +20,20 @@ import { RecipeManager } from '../../states/recipe.state';
 })
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;
-  categoryState$ = this.state.getState()
-  isSubmitted = false
+  categoryState$ = this.state.getState();
+  isSubmitted = false;
   selectedFile: File | null = null;
-   formData = new FormData();
+  formData = new FormData();
+  recipeData: Recipe | null = null
+  imagePreview: string = '';
 
-  constructor(private fb: FormBuilder ,private state :CategoryManager,private recipe:RecipeManager) {
+
+  constructor(
+    private fb: FormBuilder,
+    private state: CategoryManager,
+    private recipe: RecipeManager,
+    private cdRef: ChangeDetectorRef
+  ) {
     this.recipeForm = this.fb.group({
       title: ['', Validators.required],
       preparationTime: [0, [Validators.required, Validators.min(1)]],
@@ -34,7 +43,6 @@ export class RecipeFormComponent implements OnInit {
       ingredients: this.fb.array([this.fb.control('')]),
       steps: this.fb.array([this.fb.control('')]),
       media: this.fb.array([this.fb.control(File)]),
-
     });
   }
   get media(): FormArray {
@@ -47,57 +55,75 @@ export class RecipeFormComponent implements OnInit {
     return this.recipeForm.get('steps') as FormArray;
   }
 
-
   add(array: FormArray) {
     array.push(this.fb.control(''));
   }
   remove(array: FormArray, index: number) {
     array.removeAt(index);
   }
-
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.recipe.recipeData.subscribe((data) => {
+      if (data) {
+        this.recipeData = data
+        this.recipeForm.patchValue({...data , category:data.category._id});
+        this.setFormArrayValues(this.ingredients, data.ingredients);
+        this.setFormArrayValues(this.steps, data.steps);
+        this.imagePreview = data.media[0]
+        this.cdRef.detectChanges();
+      }
+    });
+  }
+  setFormArrayValues(formArray: FormArray, values: String[]) {
+    formArray.clear();
+    values.forEach((value) => {
+      formArray.push(this.fb.control(value));
+    });
+  }
   onSubmit() {
-    this.isSubmitted = true
-    if ( this.isSubmitted && this.recipeForm.valid) {
-
-      var formData = new FormData();
-
-      // Append form fields
-      formData.append('title', this.recipeForm.get('title')?.value);
-      formData.append('preparationTime', this.recipeForm.get('preparationTime')?.value);
-      formData.append('cookingTime', this.recipeForm.get('cookingTime')?.value);
-      formData.append('servings', this.recipeForm.get('servings')?.value);
-      formData.append('category', this.recipeForm.get('category')?.value);
-
-      // Append ingredients and steps arrays
-      this.ingredients.controls.forEach((control, index) => {
-        formData.append(`ingredients[${index}]`, control.value);
+    this.isSubmitted = true;
+    if (this.isSubmitted && this.recipeForm.valid) {
+      this.formData.append('title', this.recipeForm.get('title')?.value);
+      this.formData.append('description', 'description');
+      this.formData.append('preparationTime',this.recipeForm.get('preparationTime')?.value);
+      this.formData.append('cookingTime',this.recipeForm.get('cookingTime')?.value);
+      this.formData.append('servings', this.recipeForm.get('servings')?.value);
+      this.formData.append('category', this.recipeForm.get('category')?.value);
+      this.ingredients.controls.forEach((control) => {
+        this.formData.append(`ingredients`, control.value);
       });
-
       this.steps.controls.forEach((control, index) => {
-        formData.append(`steps[${index}]`, control.value);
+        this.formData.append(`steps`, control.value);
       });
+      if (this.selectedFile) {
+        console.log(this.selectedFile);
+        console.log("lllll");
+        this.media.controls.forEach((control, index) => {
+          this.formData.append(`media`, control.value);
+        });
+      }
+      if (!this.recipeData) {
+        this.recipe.addRecipe(this.formData);
+        this.recipeForm.reset()
+      } else {
+        this.formData.forEach(aa => console.log(aa))
+        this.recipe.updateRecipe(this.formData, this.recipeData._id);
+        this.recipeForm.reset()
 
-      // Append each file in the media array
-      this.media.controls.forEach((control, index) => {
-        formData.append(`media[${index}]`, control.value);
-      });
-
-      this.recipe.addRecipe(this.formData)
-      console.log(this.formData);
+      }
     }
   }
-
   onFileSelected(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-    const file = input.files[0];
-    console.log(file);
-          this.media.at(index).setValue(file); 
+      const file = input.files[0];
+      this.selectedFile = file;
+
+      this.media.at(index).setValue(file);
+      const reader = new FileReader();
+      reader.onload = () => (this.imagePreview = reader.result as string);
+      reader.readAsDataURL(file);
+    }
   }
-  }
-  
   getErrorMessage(field: string): string {
     const control = this.recipeForm.get(field);
     if (this.isSubmitted) {
