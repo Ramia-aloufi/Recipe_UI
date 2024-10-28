@@ -15,6 +15,7 @@ export class FavoriteService {
     'Authorization': `Bearer ${this.token}`,
     'Content-Type': 'application/json'
   });
+  
 
   constructor(private http: HttpClient) {}
 
