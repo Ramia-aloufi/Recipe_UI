@@ -29,9 +29,9 @@ import { StateService } from "../services/state.service";
       this.setLoading(false);
     }
 
-    addFavorite(recipeId: string) {
+    addFavorite(recipe: string) {
       this.setLoading(true);
-      this.service.addFavorite(recipeId).subscribe({
+      this.service.addFavorite(recipe).subscribe({
         next: (_) => {
         //   this.loadCategory();
         },

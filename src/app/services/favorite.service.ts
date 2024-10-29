@@ -13,16 +13,16 @@ export class FavoriteService {
   token = sessionStorage.getItem('token')
    headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`,
-    'Content-Type': 'application/json'
-  });
+
+});
   
 
   constructor(private http: HttpClient) {}
 
 
 
-  addFavorite(recipeId: string): Observable<ApiResponse<Favorite>> {
-    return this.http.post<ApiResponse<Favorite>>(this.apiUrl, recipeId,{headers:this.headers,withCredentials:true});
+  addFavorite(recipe: string): Observable<ApiResponse<Favorite>> {    
+    return this.http.post<ApiResponse<Favorite>>(this.apiUrl, {recipe},{headers:this.headers,withCredentials:true});
   }
 
   removeFavorite(id:string): Observable<ApiResponse<Favorite>> {

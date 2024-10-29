@@ -14,7 +14,11 @@
           <div class="recipe-info">
             <div class="flex " (click)="$event.stopPropagation()">
               <h2>{{ recipe.title }}</h2>
+              @if(isItemSaved$(recipe._id)){
               <i (click)="addToFavorite(recipe)" class="fa-regular fa-bookmark"></i>
+              }@else {
+                <i   class="fa-solid fa-bookmark"></i>
+              }
               </div>
       
             <div class="recipe-chef">

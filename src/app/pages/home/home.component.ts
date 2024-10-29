@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { RecipeManager } from '../../states/recipe.state';
 import { Recipe } from '../../models/recipe.model';
 import { FavoriteManager } from '../../states/favorite.state';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,13 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/recipe/' + id]);
   }
   addToFavorite(recipe:Recipe){
+
     this.favoriteManager.addFavorite(recipe._id)
+  }
+  isItemSaved$(itemId: string): Observable<boolean> {
+    return this.state$.pipe(
+      map(data => data.data?.some(item => item._id === itemId) ?? false)
+    );
   }
 
 }
