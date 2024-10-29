@@ -202,12 +202,11 @@ justify-content: space-between;
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Vertical spacing between form items */
+  gap: 20px; 
 }
 
 .form-group {
-  margin-bottom: 1rem; /* Optional: additional margin for form groups */
-}
+  margin-bottom: 1rem; }
 .btn-def{
   background-color: transparent;
   border: none;
@@ -216,11 +215,36 @@ justify-content: space-between;
 .btn-def:hover{
   color: #c05164;
 }
-
-
-/* Hover effect */
 tr:hover {
   background-color: rgba(192, 81, 100,0.1);
+}
+.grid {
+  columns: auto  auto;
+
+}
+
+@media only screen and (max-width: 600px) {
+  .grid {
+      columns: 1 auto;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .grid {
+      columns: 2 auto;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .grid {
+      columns: 3 auto;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .grid {
+      columns: auto  auto;
+      -webkit-columns: 4 auto;
+      
+
+  }
 }
 
 /* Responsive design for smaller screens */

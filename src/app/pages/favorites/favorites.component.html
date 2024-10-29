@@ -1,0 +1,9 @@
+<h3>Saved Recipes</h3>
+<div class="grid">
+    @if (userData$ | async; as data) {
+        @for (item of data.favorite; track $index) {
+            <app-recipe-card [recipe] = "item.recipe"></app-recipe-card>
+        }
+    }
+    <div class=""></div>
+</div>

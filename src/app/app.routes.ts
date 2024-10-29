@@ -8,6 +8,7 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { CategoryComponent } from './pages/admin/category/category.component';
 import { RecipeComponent } from './pages/admin/recipe/recipe.component';
 import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 export const routes: Routes = [
     {path:"recipe/:id",component:RecipeInformationComponent},
@@ -17,7 +18,7 @@ export const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent },
     {path: 'dashboard/category', component: CategoryComponent },
     {path: 'dashboard/recipe', component: RecipeComponent },
-    {path: 'form', component: RecipeFormComponent },
+    {path: 'favorite', component: FavoritesComponent },
 
 
 

@@ -65,6 +65,7 @@ export interface IUser {
             sessionStorage.setItem("token",res.data)
             this.loadingSubject.next(false); 
             this.checkLoginStatus()
+            this.getProfile()
           },
           error: err => {
             this.errorSubject.next(err.message); 

@@ -1,0 +1,21 @@
+<div class="grid-item"  (click)="onClick(recipe._id)">
+    <img class="recipe-img" [src]="recipe.media[0]" />
+    <div class="recipe-info">
+      <div class="flex " (click)="$event.stopPropagation()">
+        <h2>{{ recipe.title }}</h2>
+        @if(isFavorite(recipe._id)){
+            <i (click)="removeFavorite(recipe)" class="fa-solid fa-bookmark"></i>
+        }@else {
+          <i (click)="addToFavorite(recipe)" class="fa-regular fa-bookmark"></i>
+        }
+        </div>
+      <div class="recipe-chef">
+        @if (recipe.chef) {
+        <span>{{ recipe.chef.username }}</span>
+
+        }@else {
+        <span>empty</span>
+        }
+      </div>
+    </div>
+  </div>

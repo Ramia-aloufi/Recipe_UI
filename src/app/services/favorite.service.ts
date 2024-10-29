@@ -25,7 +25,7 @@ export class FavoriteService {
     return this.http.post<ApiResponse<Favorite>>(this.apiUrl, {recipe},{headers:this.headers,withCredentials:true});
   }
 
-  removeFavorite(id:string): Observable<ApiResponse<Favorite>> {
+  removeFavorite(id:string|undefined): Observable<ApiResponse<Favorite>> {
     return this.http.delete<ApiResponse<Favorite>>(this.apiUrl+id,{headers:this.headers,withCredentials:true});
   }
 }

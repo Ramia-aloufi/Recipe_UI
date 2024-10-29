@@ -8,36 +8,25 @@ import { RecipeManager } from '../../states/recipe.state';
 import { Recipe } from '../../models/recipe.model';
 import { FavoriteManager } from '../../states/favorite.state';
 import { map, Observable } from 'rxjs';
+import { UserManager } from '../../states/user.state';
+import { User } from '../../models/user.model';
+import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,CategoriesComponent],
+  imports: [CommonModule,CategoriesComponent, RecipeCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent  {
   state$ = this.recipeManager.getState()
-  category$ = this.recipeManager.category$
 
-  constructor(private router: Router,private authService: AuthService, private recipeManager:RecipeManager,private favoriteManager:FavoriteManager){
-
-  }
-  ngOnInit(): void {
+  constructor(private recipeManager:RecipeManager){
 
   }
 
-  onClick(id:string){
-    this.router.navigate(['/recipe/' + id]);
-  }
-  addToFavorite(recipe:Recipe){
 
-    this.favoriteManager.addFavorite(recipe._id)
-  }
-  isItemSaved$(itemId: string): Observable<boolean> {
-    return this.state$.pipe(
-      map(data => data.data?.some(item => item._id === itemId) ?? false)
-    );
   }
 
-}
+
