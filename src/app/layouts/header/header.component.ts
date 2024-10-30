@@ -26,7 +26,5 @@ export class HeaderComponent {
       this.recipeState.search(target.value);
     }
   }
-  onLogout() {
-    this.userManager.logout();
-  }
+
 }

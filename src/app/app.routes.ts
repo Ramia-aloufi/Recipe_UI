@@ -10,6 +10,7 @@ import { RecipeComponent } from './pages/admin/recipe/recipe.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { authGuard } from './auth.guard';
 import { adminGuard } from './admin.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
 
@@ -17,7 +18,7 @@ export const routes: Routes = [
     {path:"",component:HomeComponent},
     {path:"auth",component:AuthComponent},
     //LoginUser
-    {path:"profile",component:UserProfileComponent,canActivate: [authGuard] },
+    {path:"profile",component:ProfileComponent,canActivate: [authGuard] },
     {path: 'favorite', component: FavoritesComponent ,canActivate: [authGuard]},
      //ADMIN
     {path: 'dashboard', component: DashboardComponent,canActivate: [adminGuard] },

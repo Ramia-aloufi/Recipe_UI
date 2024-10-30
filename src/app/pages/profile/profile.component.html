@@ -1,0 +1,22 @@
+<div class="">
+@if(userData$ | async ; as user){
+    <div class="user-data">
+
+        <img src="{{user.profileImage}}" alt="">
+        <h2>{{user.username}}</h2>
+        <span>{{user.bio}}</span>
+        <div class="actions">
+            <button class="btn-secondary">edit Profile</button>
+            <button class="btn" (click)="onLogout()">log out <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+
+</div>
+<div class="grid">
+    @for(recipe of user.recipes ;track recipe._id){
+        <app-recipe-card [recipe] = "recipe"></app-recipe-card>
+    }
+</div>
+}
+
+
+</div>

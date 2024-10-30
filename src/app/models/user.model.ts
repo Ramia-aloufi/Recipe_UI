@@ -1,4 +1,5 @@
 import { Favorite } from "./favorite.model";
+import { Recipe } from "./recipe.model";
 
 export interface User {
     username: string;
@@ -7,6 +8,7 @@ export interface User {
     password?: string;
     profileImage?: string;
     favorite?:Favorite[]
+    recipes?:Recipe[]
   }
 
   export interface UserData {

@@ -8,7 +8,7 @@
     @if (userData$ | async ; as data) {
     <div class="user-data">
         <button [routerLink]="['/favorite']"><i class="fa-regular fa-bookmark"></i></button>
-        <img (click)="onLogout()" src="{{ data.profileImage }}" />
+        <img [routerLink]="['/profile']" src="{{ data.profileImage }}" />
     </div>
     }@else{
     <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
