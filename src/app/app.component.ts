@@ -25,8 +25,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.recipeManager.loadRecipes()
-    this.categoryState.loadCategory()
-    this.um.checkLoginStatus()
-    
+    this.categoryState.loadCategory()   
+    if(this.um.isUser()){
+      this.um.getProfile()
+    } 
   }
 }

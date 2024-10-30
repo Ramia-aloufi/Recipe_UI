@@ -11,7 +11,6 @@ export interface IUser {
     login(credentials: { email: string; password: string }): void;
     logout(): void;
     signup(user:User):void
-    checkLoginStatus():void
   }
   @Injectable({
     providedIn: 'root' // Automatically provided at the root level
@@ -21,7 +20,7 @@ export interface IUser {
     private userSubject = new BehaviorSubject<User | null>(null);
     private loadingSubject = new BehaviorSubject<boolean>(false);
     private errorSubject = new BehaviorSubject<string | null>(null);
-    private isLoggedIn = new BehaviorSubject<boolean>(false);
+    private admin = new BehaviorSubject<boolean>(false);
 
       user$ = this.userSubject.asObservable()
       loading$ = this.loadingSubject.asObservable()
@@ -45,12 +44,10 @@ export interface IUser {
       getProfile(): void {
         this.loadingSubject.next(true);
         this.errorSubject.next(null);
-        
         this.store.profile().subscribe({
             next: res => {
               this.userSubject.next(res.data); 
               this.loadingSubject.next(false); 
-              this.isLoggedIn.next(true);
             },
             error: err => {
               this.errorSubject.next(err.message); 
@@ -66,7 +63,6 @@ export interface IUser {
             if(res.data)
             sessionStorage.setItem("token",res.data)
             this.loadingSubject.next(false); 
-            this.checkLoginStatus()
             this.getProfile()
           },
           error: err => {
@@ -78,35 +74,27 @@ export interface IUser {
       logout(): void {
         sessionStorage.removeItem("token")
         this.userSubject.next(null)
-        this.isLoggedIn.next(false);
-
-
       }
-      checkLoginStatus() {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-          this.getProfile() 
-        } else {
-          this.userSubject.next(null) 
-        }
-      }
+
       isUser():boolean{
-        return this.isLoggedIn.getValue()
+        return sessionStorage.getItem('token') ? true : false
       }
-      isAdmin():boolean{
-        var isAdmin = false
-        if(this.isLoggedIn){
+      setAdmin(){
           this.store.admin().subscribe({
             next: res => {
             if(res.data)
-              isAdmin = res.data
+              this.admin.next(true);  
+            console.log("true1");
+                      
           },
           error: err => {
-            isAdmin = false
+            this.admin.next(false);
           }
         })
-        }
-        return isAdmin
+                       
+      }
+      isAdmin():Observable<boolean>{        
+        return this.admin.asObservable()
       }
   }
   
