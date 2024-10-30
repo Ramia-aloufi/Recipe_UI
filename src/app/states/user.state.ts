@@ -21,6 +21,7 @@ export interface IUser {
     private userSubject = new BehaviorSubject<User | null>(null);
     private loadingSubject = new BehaviorSubject<boolean>(false);
     private errorSubject = new BehaviorSubject<string | null>(null);
+    private isLoggedIn = new BehaviorSubject<boolean>(false);
 
       user$ = this.userSubject.asObservable()
       loading$ = this.loadingSubject.asObservable()
@@ -49,6 +50,7 @@ export interface IUser {
             next: res => {
               this.userSubject.next(res.data); 
               this.loadingSubject.next(false); 
+              this.isLoggedIn.next(true);
             },
             error: err => {
               this.errorSubject.next(err.message); 
@@ -76,6 +78,8 @@ export interface IUser {
       logout(): void {
         sessionStorage.removeItem("token")
         this.userSubject.next(null)
+        this.isLoggedIn.next(false);
+
 
       }
       checkLoginStatus() {
@@ -85,6 +89,24 @@ export interface IUser {
         } else {
           this.userSubject.next(null) 
         }
+      }
+      isUser():boolean{
+        return this.isLoggedIn.getValue()
+      }
+      isAdmin():boolean{
+        var isAdmin = false
+        if(this.isLoggedIn){
+          this.store.admin().subscribe({
+            next: res => {
+            if(res.data)
+              isAdmin = res.data
+          },
+          error: err => {
+            isAdmin = false
+          }
+        })
+        }
+        return isAdmin
       }
   }
   

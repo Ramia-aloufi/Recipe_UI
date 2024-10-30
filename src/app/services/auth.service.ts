@@ -12,8 +12,8 @@ import { Store } from '@ngrx/store';
 export class AuthService {
 
   private apiUrl = environment.apiUrl
-  token = sessionStorage.getItem('token')
-   headers = new HttpHeaders({
+  private token = sessionStorage.getItem('token')
+  private headers = new HttpHeaders({
     'Authorization': `Bearer ${this.token}`,
     'Content-Type': 'application/json'
   });
@@ -32,6 +32,9 @@ export class AuthService {
 
   profile(): Observable<ApiResponse<User>> {
     return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
+  }
+  admin(): Observable<ApiResponse<boolean>> {
+    return this.http.get<ApiResponse<boolean>>(this.apiUrl+"/users/admin-only",{ headers: this.headers });
   }
 
 }
