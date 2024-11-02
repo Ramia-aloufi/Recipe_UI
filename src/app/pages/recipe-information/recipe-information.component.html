@@ -15,7 +15,7 @@
     </div>
     @if (recipe.chef) {
     <div class="card-content-chef">
-      <div class="card-content-chef">
+      <div [routerLink]="['/profile',recipe.chef.username]" class="card-content-chef">
         <img src="{{ recipe.chef.profileImage }}" alt="" />
         <div class="card-content-chef-info">
           <span>{{ recipe.chef.username }}</span>

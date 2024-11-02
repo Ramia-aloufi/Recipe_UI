@@ -1,25 +1,27 @@
-@if (userData$ | async ; as data) {
-    @if(data.loading){
-        <span>loading</span>
-    }@else if (data.error) {
-        <span>data.error</span>
-    }@else if (data.data) {
-        <div class="profile">
-            <div class="profileCard">
-                <div class="cardheader">
-                    <img src={{data.data.profileImage}} alt="">
-                    <button class="btn">logout</button>
-                </div>
-                <div class="carddata">
-                    <h3>{{data.data.username}}</h3>
-                    <p>{{data.data.bio}}</p>
-                </div>
-            </div>
-            <div class="profileRecipe">
-        
-            </div>
+
+@if(userData$ | async ; as user){
+    <span class="small"><span [routerLink]="['/']" >Home</span> > {{user.username}}</span>
+
+    <div class="user-data">
+        <img src="{{user.profileImage}}" alt="">
+        <h2>{{user.username}}</h2>
+        <span>{{user.bio}}</span>
+        <div class="actions">
+            <button class="btn-secondary">follow</button>
         </div>
+
+</div>
+    
+<div class="grid">
+    @if(user.recipes && user.recipes.length > 0){
+    @for(recipe of user.recipes ;track recipe._id){
+        <app-recipe-card [recipe] = "recipe"></app-recipe-card>
     }
+}@else {
+    <span>No recipes at the moment. Stay tuned for delicious additions!</span>
+}
+
+</div>
 
 
 }

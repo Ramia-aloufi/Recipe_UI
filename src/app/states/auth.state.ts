@@ -30,7 +30,6 @@ import { HttpErrorResponse } from "@angular/common/http";
         })
       }
       getProfile(): void {
-        this.setLoading(true)   
         var token = sessionStorage.getItem('token')     
         this.store.profile(token).subscribe({
             next: res => {              

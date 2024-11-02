@@ -17,9 +17,15 @@
 </div>
     }
 <div class="grid">
+    @if(user.data?.recipes){
     @for(recipe of user.data?.recipes ;track recipe._id){
         <app-recipe-card [recipe] = "recipe"></app-recipe-card>
     }
+}@else {
+    <span>No recipes found. Start adding some delicious recipes!</span>
+
+}
+
 </div>
 }
 

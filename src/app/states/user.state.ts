@@ -9,15 +9,8 @@ import { HttpErrorResponse } from "@angular/common/http";
     providedIn: 'root',
   })
   export class UserManager extends StateService<UserAdmin[]> {
-    private allSubject = new BehaviorSubject<User[] | null>(null);
     private userSubject = new BehaviorSubject<User | null>(null);
-    private loadingSubject = new BehaviorSubject<boolean>(false);
-    private errorSubject = new BehaviorSubject<string | null>(null);
-
-    all$ = this.allSubject.asObservable()
     user$ = this.userSubject.asObservable()
-    loading$ = this.loadingSubject.asObservable()
-    error$= this.errorSubject.asObservable()
 
     constructor(private service: UserService) {
         super();
@@ -35,6 +28,19 @@ import { HttpErrorResponse } from "@angular/common/http";
                 this.setLoading(false)
               }
         })
+    }
+    getOne(name:string){
+      this.setLoading(true)
+      this.service.getOne(name).subscribe({
+        next:res=>{   
+
+            this.userSubject.next(res.data)
+            this.setLoading(false)
+          },error: (err:HttpErrorResponse) => {
+            this.setError(err.error.message) 
+            this.setLoading(false)
+          }
+    })
     }
 
   }

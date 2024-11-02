@@ -22,7 +22,8 @@ export class UserService {
         return this.http.get<ApiResponse<UserAdmin[] | null>>(this.apiUrl+"all",{headers:this.headers});
     }
         // Get one user
-    getOne(id:string): Observable<ApiResponse<UserAdmin | null>> {
-        return this.http.get<ApiResponse<UserAdmin | null>>(this.apiUrl,{headers:this.headers});
+    getOne(name:string): Observable<ApiResponse<UserAdmin | null>> {
+        return this.http.get<ApiResponse<UserAdmin | null>>(this.apiUrl + 'view/' + name,{headers:this.headers});
     }
+
 }
