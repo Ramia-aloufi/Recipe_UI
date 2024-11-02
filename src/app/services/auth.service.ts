@@ -30,7 +30,8 @@ export class AuthService {
     return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data);
   }
 
-  profile(): Observable<ApiResponse<User>> {
+  profile(tok:string|null): Observable<ApiResponse<User>> {
+    this.token = tok
     return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
   }
   admin(): Observable<ApiResponse<boolean>> {

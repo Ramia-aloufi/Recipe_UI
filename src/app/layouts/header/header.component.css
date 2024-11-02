@@ -1,7 +1,7 @@
 .header {
-  display: grid;
+  display: flex;
   gap: 1rem;
-  grid-template-columns: 150px 1fr 150px;
+  justify-content: space-between;
   align-items: center;
   position: fixed;
   top: 0;
@@ -11,7 +11,7 @@
   z-index: 10;
   background-color: #fff;
 }
-input[type="search"] {
+.header input[type="search"] {
   padding-left: 1rem;
   width: 100%;
   border: none;
@@ -19,7 +19,11 @@ input[type="search"] {
   border-radius: 1.5rem;
   background-color: #f4f4f4;
 }
+.header .search{
+  flex: 5;
+}
 .logo {
+  flex: 1;
   color: #c05164;
   font-size: x-large;
   font-weight: 800;
@@ -29,18 +33,63 @@ input::placeholder{
   opacity: .4;
 }
 .user-data{
+  flex: 1;
   display: flex;
-  justify-content: space-evenly;
+  gap: 2rem;
+  justify-content: flex-end;
 }
 .user-data img{
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: 1px solid gray;
+  cursor: pointer;
+
 }
-.user-data button{
+ .user-data button{
   border: none;
   background: transparent;
+  cursor: pointer;
+
+}
+.bars{
+  display: none;
+  cursor: pointer;
+
+}
+.sidebar {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  width: 50vw;
+  height: 100vh;
+  display: none; 
+  background-color: #fff;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 20px;
+  z-index: 111;
+}
+.account{
+  display: none;
+}
+
+@media (max-width:600px) {
+
+  .header .search, .header  .btn{
+    display: none;
+  }
+  .bars{
+    display: block;
+  }
+  .active {
+    display: flex;
+  }
+  .account{
+    display: block;
+  }
+
+ 
 }
 
 

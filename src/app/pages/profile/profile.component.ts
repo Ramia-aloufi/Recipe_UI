@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserManager } from '../../states/user.state';
+import { AuthManager } from '../../states/auth.state';
 import { CommonModule } from '@angular/common';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
 
@@ -11,9 +11,9 @@ import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.co
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
-  userData$ = this.state.user$
+  userData$ = this.state.getState()
 
-  constructor(private state:UserManager) {
+  constructor(private state:AuthManager) {
     
   }
   onLogout() {

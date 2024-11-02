@@ -11,6 +11,7 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { authGuard } from './auth.guard';
 import { adminGuard } from './admin.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { UserComponent } from './pages/admin/user/user.component';
 
 export const routes: Routes = [
 
@@ -24,6 +25,7 @@ export const routes: Routes = [
     {path: 'dashboard', component: DashboardComponent,canActivate: [adminGuard] },
     {path: 'dashboard/category', component: CategoryComponent,canActivate: [adminGuard] },
     {path: 'dashboard/recipe', component: RecipeComponent,canActivate: [adminGuard] },
+    {path: 'dashboard/user', component: UserComponent,canActivate: [adminGuard] },
 
 
     {path: '**', component: NotFoundComponent },

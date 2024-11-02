@@ -17,4 +17,15 @@ export interface User {
     img: string;
   }
 
+  export interface UserAdmin {
+    username: string;
+    email: string;
+    bio?: string;
+    password?: string;
+    profileImage?: string;
+    favorite?:Favorite[]
+    recipes?:Recipe[]
+    role:string
+  }
+
 

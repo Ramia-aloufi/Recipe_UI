@@ -1,22 +1,22 @@
 <div class="aside">
 
-    <div [routerLink]="['/dashboard']" class="items">
+    <div [ngClass]="{'selected': selected === 'Dashboard'}" (click)="isSelected('Dashboard')"  [routerLink]="['/dashboard']" class="items">
         <i class="fa-solid fa-table-columns"></i>
         <span>Dashboard</span>
     </div>
 
-    <div [routerLink]="['/dashboard/recipe']"  class="items">
+    <div [ngClass]="{'selected': selected === 'Recipe'}" (click)="isSelected('Recipe')"  [routerLink]="['/dashboard/recipe']"  class="items">
         <i class="fa-solid fa-utensils"></i>
         <span>Recipe</span>
     </div>
 
-    <div [routerLink]="['/dashboard/category']" class="items">
+    <div [ngClass]="{'selected': selected === 'Category'}" (click)="isSelected('Category')" [routerLink]="['/dashboard/category']" class="items">
         <i class="fa-solid fa-table-cells-large"></i>
          <span>Category</span>
     </div>
 
 
-    <div [routerLink]="['/dashboard']" class="items">
+    <div [ngClass]="{'selected': selected === 'Users'}" (click)="isSelected('Users')" [routerLink]="['/dashboard/user']" class="items">
         <i class="fa-solid fa-users-rectangle"></i>
         <span>Users</span>
     </div>

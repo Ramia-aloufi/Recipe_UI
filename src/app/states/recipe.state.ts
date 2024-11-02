@@ -4,6 +4,7 @@ import { Category } from '../models/category.model';
 import { StateService } from '../services/state.service';
 import { Recipe } from '../models/recipe.model';
 import { RecipeService } from '../services/recipe.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -31,9 +32,11 @@ export class RecipeManager extends StateService<Recipe[]> {
         this.setData(res.data);
         this.all$.next(res.data)
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        console.log(err);
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -43,9 +46,10 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (_) => {
         this.loadRecipes;
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -55,9 +59,10 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (_) => {
         this.loadRecipes();
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -67,9 +72,10 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (res) => {
         this.recipe$.next(res.data);
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -79,9 +85,10 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (_) => {
         this.loadRecipes()
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }

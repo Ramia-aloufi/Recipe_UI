@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Favorite } from "../models/favorite.model";
-import { Recipe } from "../models/recipe.model";
 import { FavoriteService } from "../services/favorite.service";
 import { StateService } from "../services/state.service";
-import { UserManager } from "./user.state";
+import { AuthManager } from "./auth.state";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root',
@@ -11,8 +11,21 @@ import { UserManager } from "./user.state";
   export class FavoriteManager extends StateService<Favorite[]> {
 
   
-    constructor(private service: FavoriteService,private user: UserManager) {
+    constructor(private service: FavoriteService,private user: AuthManager) {
       super();
+    }
+    getFavorite(){
+      this.setLoading(true);
+      this.user.getState().subscribe({
+        next:(data)=>{
+            this.setData(data.data?.favorite || null)
+            this.setLoading(false);
+        },
+        error: (err:HttpErrorResponse) => {
+          this.setError(err.error.message) 
+          this.setLoading(false)
+        }
+      })
     }
   
 
@@ -24,9 +37,10 @@ import { UserManager } from "./user.state";
           this.setLoading(false);
           this.user.getProfile()
         },
-        error: (err) => {
-          this.setError(err.error.message);
-        },
+        error: (err:HttpErrorResponse) => {
+          this.setError(err.error.message) 
+          this.setLoading(false)
+        }
       });
       this.setLoading(false);
     }
@@ -38,9 +52,10 @@ import { UserManager } from "./user.state";
           this.setLoading(false);
           this.user.getProfile()
         },
-        error: (err) => {
-          this.setError(err.error.message);
-        },
+        error: (err:HttpErrorResponse) => {
+          this.setError(err.error.message) 
+          this.setLoading(false)
+        }
       });
       this.setLoading(false);
     }

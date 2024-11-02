@@ -21,6 +21,11 @@ color: white;
 transition: all .3s ease-in-out;
 
 }
+.selected{
+ background-color: #c05164;
+color: white;
+transition: all .3s ease-in-out;
+}
 
 .items .active{
     background-color: #c05164;

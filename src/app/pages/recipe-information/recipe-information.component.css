@@ -5,6 +5,7 @@
   overflow: hidden;
   margin-top: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #444;
 
 }
 hr{
@@ -51,7 +52,7 @@ hr{
 .card-content-header h1 {
 margin-bottom: 1rem;
 }
-.card-content-header .list{
+.card-content-body .list{
     display: flex;
     gap: 2rem;
     margin-bottom: 1rem;
@@ -89,8 +90,17 @@ color: #7d7d7d;
 .details-title>*{
     cursor: pointer;
 }
-
-
+.card-content-body{
+  margin-bottom: 2rem;
+}
+.card-content-body p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.small{
+  color: #777;
+  cursor: pointer;
+}
 @media only screen and (max-width: 768px) {
     .card {
         display: block;

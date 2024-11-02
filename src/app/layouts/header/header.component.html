@@ -1,16 +1,41 @@
 <div class="header">
     <a class="logo" [routerLink]="['/']">Top Chefs</a>
-    <div class="">
-        <form action="" method="post">
-            <input type="search" (input)="onSearch($event)" placeholder="Search for a recipe" />
-        </form>
-    </div>
-    @if (userData$ | async ; as data) {
-    <div class="user-data">
-        <button [routerLink]="['/favorite']"><i class="fa-regular fa-bookmark"></i></button>
-        <img [routerLink]="['/profile']" src="{{ data.profileImage }}" />
-    </div>
-    }@else{
-    <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
+    @if(showSearch){
+        <div class="search">
+            <form action="" method="post">
+                <input type="search" (input)="onSearch($event)" placeholder="Search for a recipe" />
+            </form>
+        </div>
     }
+    @if (userData$ | async ; as data) {
+        @if(data.data){
+            <div class="user-data">
+                <button [routerLink]="['/favorite']"><i class="fa-regular fa-bookmark"></i></button>
+                <img [routerLink]="['/profile']" src="{{ data.data.profileImage }}" />
+            </div>
+        }@else{
+            @if(!isSmallScreen){
+                <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
+        }@else{   
+             <i class="fa-regular fa-user"></i>
+        }
+            
+            }
+    }
+    <div class="bars" (click)="toggleSidebar()">
+        @if(!isSidebarOpen){
+            <i class="fa-solid fa-magnifying-glass"></i>
+        }@else {
+            <i class="fa-solid fa-xmark"></i>
+        }
 </div>
+</div>
+<div class="sidebar" [ngClass]="{ 'active': isSidebarOpen }">
+    @if(showSearch){
+        <div class="search">
+            <form action="" method="post">
+                <input type="search" (input)="onSearch($event)" placeholder="Search for a recipe" />
+            </form>
+        </div>
+    }
+  </div>

@@ -1,18 +1,23 @@
 <div class="">
 @if(userData$ | async ; as user){
+    @if(user.loading){
+        <span>loading</span>
+    }@else if (user.error) {
+        <span>data.error</span>
+    }@else if (user.data) {
     <div class="user-data">
-
-        <img src="{{user.profileImage}}" alt="">
-        <h2>{{user.username}}</h2>
-        <span>{{user.bio}}</span>
+        <img src="{{user.data.profileImage}}" alt="">
+        <h2>{{user.data.username}}</h2>
+        <span>{{user.data.bio}}</span>
         <div class="actions">
             <button class="btn-secondary">edit Profile</button>
             <button class="btn" (click)="onLogout()">log out <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
         </div>
 
 </div>
+    }
 <div class="grid">
-    @for(recipe of user.recipes ;track recipe._id){
+    @for(recipe of user.data?.recipes ;track recipe._id){
         <app-recipe-card [recipe] = "recipe"></app-recipe-card>
     }
 </div>

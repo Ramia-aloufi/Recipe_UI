@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserManager } from '../../states/user.state';
+import { AuthManager } from '../../states/auth.state';
 import { CommonModule } from '@angular/common';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
 
@@ -11,6 +11,6 @@ import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.co
   styleUrl: './favorites.component.css'
 })
 export class FavoritesComponent {
-  userData$ = this.user.user$
-constructor(private user :UserManager){}
+  userData$ = this.user.getState()
+constructor(private user :AuthManager){}
 }

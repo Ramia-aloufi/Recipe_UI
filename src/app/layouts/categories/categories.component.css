@@ -1,16 +1,15 @@
 .categories{
-    overflow-x: hidden;
-    padding:  .5rem 0;
-    /* background-color: cornflowerblue; */
-    /* height: 50px;
+    overflow-x: scroll;
+    overflow-y: hidden;
     display: flex;
-    gap: 12px; */
+
 }
 .category-item{
 font-weight: 500;
-padding: 1rem ;
 cursor: pointer;
+padding: 1rem;
 color: gray;
+white-space: nowrap;
 }
 .selected{
 color: black;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserManager } from '../../states/user.state';
+import { AuthManager } from '../../states/auth.state';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
-  userData$ = this.userManager.user$;
+  userData$ = this.userManager.getState()
 
-  constructor(private userManager: UserManager){}
+  constructor(private userManager: AuthManager){}
 }

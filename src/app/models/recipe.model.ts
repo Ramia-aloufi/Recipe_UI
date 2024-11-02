@@ -9,6 +9,7 @@ import { User } from "./user.model";
 export interface Recipe {
         _id:string
         title: string;
+        description: string;
         preparationTime: number;
         cookingTime: number;
         servings: number;

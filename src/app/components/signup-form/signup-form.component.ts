@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { UserManager } from '../../states/user.state';
+import { AuthManager } from '../../states/auth.state';
 
 @Component({
   selector: 'app-signup-form',
@@ -19,7 +19,7 @@ export class SignupFormComponent {
   registerForm: FormGroup;
   isSubmitted = false;
 
-  constructor(private fb: FormBuilder,private um:UserManager) {
+  constructor(private fb: FormBuilder,private um:AuthManager) {
     this.registerForm = this.fb.group(
       {
         username: ['', [Validators.required, Validators.minLength(4)]],

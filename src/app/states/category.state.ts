@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Category } from '../models/category.model';
 import { CategoryService } from '../services/category.service';
 import { StateService } from '../services/state.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +22,11 @@ export class CategoryManager extends StateService<Category[]> {
       next: (res) => {
         this.setData(res.data);
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        console.log(err);
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -33,9 +36,10 @@ export class CategoryManager extends StateService<Category[]> {
       next: (_) => {
         this.loadCategory();
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -45,9 +49,10 @@ export class CategoryManager extends StateService<Category[]> {
       next: (_) => {
         this.loadCategory();
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -57,9 +62,10 @@ export class CategoryManager extends StateService<Category[]> {
       next: (res) => {
         this.category$.next(res.data);
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }
@@ -69,9 +75,11 @@ export class CategoryManager extends StateService<Category[]> {
       next: (_) => {
         this.loadCategory();
       },
-      error: (err) => {
-        this.setError(err.error.message);
-      },
+      error: (err:HttpErrorResponse) => {
+        console.log(err);
+        this.setError(err.error.message) 
+        this.setLoading(false)
+      }
     });
     this.setLoading(false);
   }

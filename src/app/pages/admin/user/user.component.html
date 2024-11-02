@@ -1,0 +1,47 @@
+<div class="dashboard">
+
+    <app-aside></app-aside>
+    <div class="card">
+        @if (usersState$ | async;as users) {
+            @if (users.loading) {
+                <span>loading...</span>
+            }@else if (users.error) {
+                <span>{{users.error}}</span>
+            }@else if (users.data) {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>image</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of users.data; track $index) {
+                            <tr>
+                                <td>{{$index +1}}</td>
+                                <td>{{item.username}}</td>
+                                <td><img src="{{item.profileImage}}" alt=""></td>
+                                <td>{{item.role}}</td>
+    
+                                <td class="actions">
+                                    <button  class="delete">
+                                      <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                    <button  class="update">
+                                      <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                  </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+    
+            }
+    
+        }
+    </div>
+</div>
+

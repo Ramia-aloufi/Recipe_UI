@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { UserManager } from '../../states/user.state';
-import { Store } from '@ngrx/store';
+import { AuthManager } from '../../states/auth.state';
 import { RecipeManager } from '../../states/recipe.state';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -12,19 +12,41 @@ import { RecipeManager } from '../../states/recipe.state';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent {
-  userData$ = this.userManager.user$;
+export class HeaderComponent implements OnInit{
+  userData$ = this.auth.getState();
+  showSearch: boolean = false;
+  isSidebarOpen = false;
+  isSmallScreen = window.innerWidth <= 768;
 
   constructor(
-    private userManager: UserManager,
-    private recipeState: RecipeManager
+    private auth: AuthManager,
+    private recipeState: RecipeManager,
+    private router: Router
   ) {}
-
+  ngOnInit() {
+    var routeSubscription: Subscription;
+    routeSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.showSearch = event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/home';
+      }
+    });
+  }
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
   onSearch(searchKey: Event) {
     const target = searchKey.target as HTMLInputElement;
     if (target) {
       this.recipeState.search(target.value);
     }
+  }
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
+  }
+
+  private checkScreenSize() {
+    this.isSmallScreen = window.innerWidth <= 768;
   }
 
 }

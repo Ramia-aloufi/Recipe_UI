@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserManager } from '../../states/user.state';
+import { AuthManager } from '../../states/auth.state';
 
 @Component({
   selector: 'app-login-form',
@@ -14,7 +14,7 @@ export class LoginFormComponent {
   loginForm: FormGroup;
   isSubmitted = false;
 
-  constructor(private fb: FormBuilder,private userManager:UserManager,private router: Router) {
+  constructor(private fb: FormBuilder,private userManager:AuthManager,private router: Router) {
     this.loginForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -50,6 +50,10 @@ export class LoginFormComponent {
       email:email
     }
     this.userManager.login(user)
-    this.router.navigate(['/'])
+    this.userManager.getState().subscribe(state=>{
+      if(!state.loading && !state.error && state.data){
+        this.router.navigate(['/'])
       }
+    })
+   }
 }
