@@ -10,6 +10,7 @@
   padding: 1rem 2rem;
   z-index: 10;
   background-color: #fff;
+  z-index: 11111;
 }
 .header input[type="search"] {
   padding-left: 1rem;
@@ -72,6 +73,9 @@ input::placeholder{
 }
 .account{
   display: none;
+}
+.fa-user{
+  cursor: pointer;
 }
 
 @media (max-width:600px) {
