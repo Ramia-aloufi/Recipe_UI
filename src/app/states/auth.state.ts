@@ -3,6 +3,7 @@ import { User } from "../models/user.model";
 import { AuthService } from "../services/auth.service";
 import { StateService } from "../services/state.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { TokenManager } from "./token.state";
 
 
   @Injectable({
@@ -11,7 +12,7 @@ import { HttpErrorResponse } from "@angular/common/http";
   
   export class AuthManager extends StateService<User> {
 
-      constructor(private store:AuthService){
+      constructor(private store:AuthService,private token:TokenManager){
         super();
       }
       
@@ -48,7 +49,8 @@ import { HttpErrorResponse } from "@angular/common/http";
           this.store.login(credentials).subscribe({
             next: res => {              
             if(res.data){
-            sessionStorage.setItem("token",res.data)
+              this.token.set(res.data)
+            // sessionStorage.setItem("token",res.data)
             this.getProfile()
             this.setLoading(false)
 
@@ -62,11 +64,13 @@ import { HttpErrorResponse } from "@angular/common/http";
         })
       }
       logout(): void {
-        sessionStorage.removeItem("token")
+        this.token.remove()
+        // sessionStorage.removeItem("token")
         this.setData(null)
       }
       isUser():boolean{
-        return sessionStorage.getItem('token') ? true : false
+        return this.token.get() ? true : false
+        // return sessionStorage.getItem('token') ? true : false
       }
 
   }

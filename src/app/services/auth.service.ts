@@ -5,6 +5,7 @@ import { ApiResponse } from '../models/api.model';
 import { User, UserData } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { TokenManager } from '../states/token.state';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,8 @@ import { Store } from '@ngrx/store';
 export class AuthService {
 
   private apiUrl = environment.apiUrl
-  private token = sessionStorage.getItem('token')
-  private headers = new HttpHeaders({
-    'Authorization': `Bearer ${this.token}`,
-    'Content-Type': 'application/json'
-  });
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private token:TokenManager) {
   
  }
 
@@ -31,11 +28,10 @@ export class AuthService {
   }
 
   profile(tok:string|null): Observable<ApiResponse<User>> {
-    this.token = tok
-    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.headers });
+    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.token.header() });
   }
   admin(): Observable<ApiResponse<boolean>> {
-    return this.http.get<ApiResponse<boolean>>(this.apiUrl+"/users/admin-only",{ headers: this.headers });
+    return this.http.get<ApiResponse<boolean>>(this.apiUrl+"/users/admin-only",{ headers: this.token.header() });
   }
 
 }

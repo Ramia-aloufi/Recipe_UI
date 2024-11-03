@@ -4,6 +4,7 @@ import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { ApiResponse } from "../models/api.model";
 import { User, UserAdmin } from "../models/user.model";
+import { TokenManager } from "../states/token.state";
 
 @Injectable({
     providedIn: 'root'
@@ -11,30 +12,23 @@ import { User, UserAdmin } from "../models/user.model";
 export class UserService {
 
     private apiUrl = environment.apiUrl + "/users/"
-    private token = sessionStorage.getItem('token')
-    private headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
 
-    });
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,private token:TokenManager) { }
     // Get all users
     getAll(): Observable<ApiResponse<UserAdmin[] | null>> {
-        return this.http.get<ApiResponse<UserAdmin[] | null>>(this.apiUrl+"all",{headers:this.headers});
+        return this.http.get<ApiResponse<UserAdmin[] | null>>(this.apiUrl+"all",{headers:this.token.header()});
     }
     // Get one user
     getOne(name:string): Observable<ApiResponse<User | null>> {
-        return this.http.get<ApiResponse<User | null>>(this.apiUrl + 'view/' + name,{headers:this.headers});
+        return this.http.get<ApiResponse<User | null>>(this.apiUrl + 'view/' + name);
     }
     // Follow user by name by the user already logged in
     follow(name:string): Observable<ApiResponse<User | null>> {
-        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'follow/' + name,{headers:this.headers});
+        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'follow/' + name,{headers:this.token.header()});
     }
     // unFollow user by name  by the user already logged in
-    unfollow(name:string): Observable<ApiResponse<User | null>> {
-        console.log(this.token);
-        
-        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'unfollow/' + name,{headers:this.headers});
+    unfollow(name:string): Observable<ApiResponse<User | null>> {        
+        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'unfollow/' + name,{headers:this.token.header()});
     }
 
 }
