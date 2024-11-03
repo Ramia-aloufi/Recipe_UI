@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserManager } from '../../states/user.state';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
+import { ProfileManager } from '../../states/profile.state';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,13 +14,13 @@ import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.co
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
-  userData$ = this.userManager.user$
+  userData$ = this.profileManager.getState()
 
-  constructor(private userManager: UserManager, private route: ActivatedRoute){}
+  constructor(private profileManager: ProfileManager, private route: ActivatedRoute){}
 
   ngOnInit() {
     this.route.params.subscribe((param) => {
-      this.userManager.getOne(param['name'])
+      this.profileManager.getOne(param['name'])
     })
 }
 }

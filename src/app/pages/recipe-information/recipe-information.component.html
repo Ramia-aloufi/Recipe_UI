@@ -22,7 +22,16 @@
           <small>112k followers</small>
         </div>
       </div>
-      <button class="btn-secondary">follow</button>
+      @if(auth$ |async ;as user ){
+        @if( user.data){
+        @if( recipe.chef.following?.includes(user.data.username)){
+        <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
+
+      }@else {
+        <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">follow</button>
+      }
+    }
+    }
     </div>
     }
     <div class="card-content-body">

@@ -29,18 +29,5 @@ import { HttpErrorResponse } from "@angular/common/http";
               }
         })
     }
-    getOne(name:string){
-      this.setLoading(true)
-      this.service.getOne(name).subscribe({
-        next:res=>{   
-
-            this.userSubject.next(res.data)
-            this.setLoading(false)
-          },error: (err:HttpErrorResponse) => {
-            this.setError(err.error.message) 
-            this.setLoading(false)
-          }
-    })
-    }
 
   }

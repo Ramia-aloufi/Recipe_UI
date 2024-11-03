@@ -1,27 +1,36 @@
 
-@if(userData$ | async ; as user){
-    <span class="small"><span [routerLink]="['/']" >Home</span> > {{user.username}}</span>
-
-    <div class="user-data">
-        <img src="{{user.profileImage}}" alt="">
-        <h2>{{user.username}}</h2>
-        <span>{{user.bio}}</span>
-        <div class="actions">
-            <button class="btn-secondary">follow</button>
-        </div>
-
-</div>
-    
-<div class="grid">
-    @if(user.recipes && user.recipes.length > 0){
-    @for(recipe of user.recipes ;track recipe._id){
-        <app-recipe-card [recipe] = "recipe"></app-recipe-card>
+@if(userData$ | async ; as state){
+    @if(state.loading){
+        <span>loading..</span>
     }
-}@else {
-    <span>No recipes at the moment. Stay tuned for delicious additions!</span>
-}
+    @if(state.error){
+        <span>{{state.error}}</span>
+    }
+    @if(state.data ; as user){
+        <span class="small"><span [routerLink]="['/']" >Home</span> > {{user.username}}</span>
 
-</div>
+        <div class="user-data">
+            <img src="{{user.profileImage}}" alt="">
+            <h2>{{user.username}}</h2>
+            <span>{{user.bio}}</span>
+            <div class="actions">
+                <button class="btn-secondary">follow</button>
+            </div>
+    
+    </div>
+        
+    <div class="grid">
+        @if(user.recipes && user.recipes.length > 0){
+        @for(recipe of user.recipes ;track recipe._id){
+            <app-recipe-card [recipe] = "recipe"></app-recipe-card>
+        }
+    }@else {
+        <span>No recipes at the moment. Stay tuned for delicious additions!</span>
+    }
+    
+    </div>
+    }
+
 
 
 }
