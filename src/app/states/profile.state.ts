@@ -27,7 +27,6 @@ import { UserService } from "../services/user.service";
     })
     }
     follow(name:string){
-        
         this.setLoading(true)
         this.service.follow(name).subscribe({
           next:res=>{   

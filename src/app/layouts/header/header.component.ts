@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AuthManager } from '../../states/auth.state';
 import { RecipeManager } from '../../states/recipe.state';
 import { Subscription } from 'rxjs';
+import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule,RecipeFormComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -16,6 +17,7 @@ export class HeaderComponent implements OnInit{
   userData$ = this.auth.getState();
   showSearch: boolean = false;
   isSidebarOpen = false;
+  isFormOpen = false;
   isSmallScreen = window.innerWidth <= 768;
 
   constructor(
@@ -33,6 +35,11 @@ export class HeaderComponent implements OnInit{
   }
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
+  }
+  toggleNewRecipe() {
+    console.log("Clicked");
+    
+    this.isFormOpen = !this.isFormOpen;
   }
   onSearch(searchKey: Event) {
     const target = searchKey.target as HTMLInputElement;

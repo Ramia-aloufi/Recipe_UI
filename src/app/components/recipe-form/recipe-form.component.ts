@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -27,6 +27,7 @@ export class RecipeFormComponent implements OnInit {
   recipeData: Recipe | null = null
   imagePreview: string = '';
 
+  @Output() notifyToggle = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -35,10 +36,10 @@ export class RecipeFormComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {
     this.recipeForm = this.fb.group({
-      title: ['', Validators.required],
+      title: ['', Validators.required, Validators.min(3)],
       preparationTime: [0, [Validators.required, Validators.min(1)]],
       cookingTime: [0, [Validators.required, Validators.min(1)]],
-      servings: [1, [Validators.required, Validators.min(1)]],
+      servings: [0, [Validators.required, Validators.min(1)]],
       category: ['', Validators.required],
       ingredients: this.fb.array([this.fb.control('')]),
       steps: this.fb.array([this.fb.control('')]),
@@ -65,7 +66,7 @@ export class RecipeFormComponent implements OnInit {
     this.recipe.recipeData.subscribe((data) => {
       if (data) {
         this.recipeData = data
-        this.recipeForm.patchValue({...data , category:data.category._id});
+        this.recipeForm.patchValue({ ...data, category: data.category._id });
         this.setFormArrayValues(this.ingredients, data.ingredients);
         this.setFormArrayValues(this.steps, data.steps);
         this.imagePreview = data.media[0]
@@ -79,13 +80,20 @@ export class RecipeFormComponent implements OnInit {
       formArray.push(this.fb.control(value));
     });
   }
+  triggerToggle() {
+    this.notifyToggle.emit();
+  }
   onSubmit() {
     this.isSubmitted = true;
+    if (this.recipeForm.invalid) {
+      this.recipeForm.markAllAsTouched();
+      return;
+    }
     if (this.isSubmitted && this.recipeForm.valid) {
       this.formData.append('title', this.recipeForm.get('title')?.value);
       this.formData.append('description', 'description');
-      this.formData.append('preparationTime',this.recipeForm.get('preparationTime')?.value);
-      this.formData.append('cookingTime',this.recipeForm.get('cookingTime')?.value);
+      this.formData.append('preparationTime', this.recipeForm.get('preparationTime')?.value);
+      this.formData.append('cookingTime', this.recipeForm.get('cookingTime')?.value);
       this.formData.append('servings', this.recipeForm.get('servings')?.value);
       this.formData.append('category', this.recipeForm.get('category')?.value);
       this.ingredients.controls.forEach((control) => {
@@ -103,13 +111,15 @@ export class RecipeFormComponent implements OnInit {
       }
       if (!this.recipeData) {
         this.recipe.addRecipe(this.formData);
-        this.recipeForm.reset()
       } else {
-        this.formData.forEach(aa => console.log(aa))
         this.recipe.updateRecipe(this.formData, this.recipeData._id);
-        this.recipeForm.reset()
-
       }
+      this.recipe.getState().subscribe(state => {
+        if (!state.error) {
+          this.recipeForm.reset()
+          this.triggerToggle()
+        }
+      })
     }
   }
   onFileSelected(event: Event, index: number): void {
@@ -126,12 +136,18 @@ export class RecipeFormComponent implements OnInit {
   }
   getErrorMessage(field: string): string {
     const control = this.recipeForm.get(field);
-    if (this.isSubmitted) {
-      const errors = control?.errors;
-      if (errors?.['required']) return `${field} is required`;
-      if (errors?.['minlength'])
-        return `${field} must be at least ${errors?.['minlength'].requiredLength} characters long`;
+    if (control?.touched && control?.errors) {
+      if (control.errors['required']) {
+        return `${field} is required.`;
+      }
+      if (control.errors['minlength']) {
+        return `${field} must be at least ${control.errors['minlength'].requiredLength} characters long.`;
+      }
+      if (control.errors['maxlength']) {
+        return `${field} cannot be more than ${control.errors['maxlength'].requiredLength} characters long.`;
+      }
     }
     return '';
   }
+
 }

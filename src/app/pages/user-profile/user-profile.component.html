@@ -1,35 +1,43 @@
-
 @if(userData$ | async ; as state){
-    @if(state.loading){
-        <span>loading..</span>
-    }
-    @if(state.error){
-        <span>{{state.error}}</span>
-    }
-    @if(state.data ; as user){
-        <span class="small"><span [routerLink]="['/']" >Home</span> > {{user.username}}</span>
+@if(state.loading){
+    <div class="spinner">
+        <app-spinner></app-spinner>
+      </div>}
 
-        <div class="user-data">
-            <img src="{{user.profileImage}}" alt="">
-            <h2>{{user.username}}</h2>
-            <span>{{user.bio}}</span>
-            <div class="actions">
-                <button class="btn-secondary">follow</button>
-            </div>
-    
-    </div>
-        
-    <div class="grid">
-        @if(user.recipes && user.recipes.length > 0){
-        @for(recipe of user.recipes ;track recipe._id){
-            <app-recipe-card [recipe] = "recipe"></app-recipe-card>
+@if(state.data ; as user){
+<span class="small"><span [routerLink]="['/']">Home</span> > {{user.username}}</span>
+
+<div class="user-data">
+    <img src="{{user.profileImage}}" alt="">
+    <h2>{{user.username}}</h2>
+    <span>{{user.bio}}</span>
+    <div class="actions">
+        @if(auth$ |async ;as profile ){
+        @if( profile.data){
+        @if(profile.data.following?.includes(user.username)){
+        <button (click)="onUnFollow(profile.data.username)" class="btn-secondary">unFollow</button>
+        }@else {
+        <button (click)="onFollow(profile.data.username)" class="btn-secondary">Follow</button>
         }
-    }@else {
-        <span>No recipes at the moment. Stay tuned for delicious additions!</span>
-    }
-    
+        }@else {
+        <button [routerLink]="['/auth']" class="btn-secondary">Follow</button>
+        }
+        }
     </div>
+
+</div>
+
+<div class="grid">
+    @if(user.recipes && user.recipes.length > 0){
+    @for(recipe of user.recipes ;track recipe._id){
+    <app-recipe-card [recipe]="recipe"></app-recipe-card>
     }
+    }@else {
+    <span>No recipes at the moment. Stay tuned for delicious additions!</span>
+    }
+
+</div>
+}
 
 
 

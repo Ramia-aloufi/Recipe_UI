@@ -150,12 +150,6 @@ form small{
   border: none;
 }
 
-/* thead{
-  background-color: #666362;
-  padding: 1rem;
-  color: #fff;
-} */
-
 
 
 /* Table styles */
@@ -200,13 +194,9 @@ justify-content: space-between;
 }
 
 .form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; 
+display: grid;
+gap: 1.5rem;
 }
-
-.form-group {
-  margin-bottom: 1rem; }
 .btn-def{
   background-color: transparent;
   border: none;
@@ -222,7 +212,13 @@ tr:hover {
   columns: auto  auto;
 
 }
-
+.spinner{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media only screen and (max-width: 600px) {
   .grid {
       columns: 1 auto;

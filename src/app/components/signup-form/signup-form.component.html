@@ -1,5 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div>
+<form class="form-container" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <small>{{ getErrorMessage("username") }}</small>
 
@@ -44,6 +43,5 @@
         required
       />
     </div>
-  </div>
   <button type="submit" class="btn">signup</button>
 </form>

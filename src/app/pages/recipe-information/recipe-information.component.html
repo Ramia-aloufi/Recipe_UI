@@ -1,5 +1,5 @@
 @if (singleRecipe$ | async ;as recipe) {
-  <span class="small"><span [routerLink]="['/']" >Home</span> > {{recipe.title}}</span>
+<span class="small"><span [routerLink]="['/']">Home</span> > {{recipe.title}}</span>
 <div class="card">
   <div class="card-img">
     <img src="{{ recipe.media[0] }}" alt="" />
@@ -23,19 +23,20 @@
         </div>
       </div>
       @if(auth$ |async ;as user ){
-        @if( user.data){
-        @if( recipe.chef.following?.includes(user.data.username)){
-        <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
-
+      @if( user.data){
+      @if(recipe.chef.following?.includes(user.data.username)){
+      <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
       }@else {
-        <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">follow</button>
+      <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">Follow</button>
       }
-    }
-    }
+      }@else {
+      <button [routerLink]="['/auth']" class="btn-secondary">Follow</button>
+      }
+      }
     </div>
     }
     <div class="card-content-body">
-      <p >{{recipe.description}}</p>
+      <p>{{recipe.description}}</p>
       <div class="list">
         <span><strong>Serving:</strong> {{ recipe.servings }}
           <i class="fa-solid fa-users-rectangle"></i>
@@ -65,19 +66,28 @@
         </ul>
         } @if(selectedSection === 'steps'){
         <ul>
-          @for (step of recipe.steps;; track $index){
+          @for (step of recipe.steps;track $index){
           <li>{{ step }}</li>
           }
         </ul>
-        } @if(selectedSection === 'steps'){ @if(recipe.comments){
+        } @if(selectedSection === 'comments'){
+          <div class="comment">
+        @if(recipe.comments){
         <ul>
           @for (comment of recipe.comments; track $index){
           <li>{{ comment.commentText }}</li>
           }
         </ul>
+
         }@else {
         <span>no comment yet</span>
-        } }
+        }
+        <div class="flex">
+          <input type="text" placeholder="add New comment">
+          <i class="fa-regular fa-square-plus"></i>
+        </div>
+      </div>
+        }
       </div>
 
     </div>
@@ -85,5 +95,6 @@
 </div>
 
 }@else {
-<h1>loading</h1>
-}
+<div class="spinner">
+  <app-spinner></app-spinner>
+</div>}

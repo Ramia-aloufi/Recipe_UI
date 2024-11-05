@@ -5,6 +5,7 @@ import { StateService } from '../services/state.service';
 import { Recipe } from '../models/recipe.model';
 import { RecipeService } from '../services/recipe.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class RecipeManager extends StateService<Recipe[]> {
     recipeData = this.recipeToUpdate$.asObservable()
 
     private filteredRecipe:Recipe[] | null = null
-  constructor(private service: RecipeService) {
+  constructor(private service: RecipeService,private toastr: ToastrService) {
     super();
   }
 
@@ -43,7 +44,8 @@ export class RecipeManager extends StateService<Recipe[]> {
   updateRecipe(recipe: FormData,id:string) {
     this.setLoading(true);
     this.service.updateRecipe(recipe,id).subscribe({
-      next: (_) => {
+      next: (res) => {
+        this.toastr.success(res.message.toString());
         this.loadRecipes;
       },
       error: (err:HttpErrorResponse) => {
@@ -56,7 +58,8 @@ export class RecipeManager extends StateService<Recipe[]> {
   deleteRecipe(recipe: Recipe) {
     this.setLoading(true);
     this.service.deleteRecipe(recipe._id).subscribe({
-      next: (_) => {
+      next: (res) => {
+        this.toastr.success(res.message.toString());
         this.loadRecipes();
       },
       error: (err:HttpErrorResponse) => {
@@ -82,7 +85,8 @@ export class RecipeManager extends StateService<Recipe[]> {
   addRecipe(recipe: FormData) {
     this.setLoading(true);
     this.service.addRecipe(recipe).subscribe({
-      next: (_) => {
+      next: (res) => {
+        this.toastr.success(res.message.toString());
         this.loadRecipes()
       },
       error: (err:HttpErrorResponse) => {

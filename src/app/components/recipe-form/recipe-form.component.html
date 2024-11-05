@@ -1,89 +1,89 @@
 <form class="form-container" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-      <!-- Media Section -->
-      <div class="form-group" formArrayName="media">
-        <h3>Media</h3>
-        @for( mediaGroup of media.controls;track $index ){
-          <small>{{  getErrorMessage("media") }}</small>
-          <div class="flex form-group upload"  >
-            <img class="uploadImg" [src]="imagePreview" (click)="fileInput.click()"/>
-            <div class="uploadText">
-              <span>Click to upload</span>
-              <i class="fa-solid fa-arrow-up-from-bracket"></i>
-            </div>
-          <input #fileInput style="display: none;"  type="file"   [formControlName]="$index" (change)="onFileSelected($event, $index)" placeholder="Enter media URL" />
-        </div>
+  <!-- Media  -->
+  <div class="form-group" formArrayName="media">
+    <h3>Media</h3>
+    @for( mediaGroup of media.controls;track $index ){
+    <small>{{ getErrorMessage("media") }}</small>
+    <div class="flex form-group upload">
+      <img class="uploadImg" [src]="imagePreview" (click)="fileInput.click()" />
+      <div class="uploadText">
+        <span>Click to upload</span>
+        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </div>
+      <input #fileInput style="display: none;" type="file" [formControlName]="$index"
+        (change)="onFileSelected($event, $index)" placeholder="Enter media URL" />
+    </div>
+    }
+  </div>
+  <!-- Title  -->
+  <div class="form-group" >
+    <small>{{ getErrorMessage("title") }}</small>
+    <label>Title</label>
+    <input formControlName="title" placeholder="Enter recipe name" />
+  </div>
+    <!--   -->
+  <div  class="flex">
+    <div class="form-group" >
+      <small>{{ getErrorMessage("preparationTime") }}</small>
+      <label>Preparation Time (minutes)</label>
+      <input formControlName="preparationTime" type="number" />
+    </div>
+
+    <div class="form-group" >
+      <small>{{ getErrorMessage("cookingTime") }}</small>
+      <label>Cooking Time (minutes)</label>
+      <input formControlName="cookingTime" type="number" />
+    </div>
+
+    <div class="form-group" >
+      <small>{{ getErrorMessage("servings") }}</small>
+      <label>Servings</label>
+      <input formControlName="servings" type="number" />
+    </div>
+  </div>
+
+  <!-- category  -->
+  <div class="form-group" >
+    <small>{{ getErrorMessage("category") }}</small>
+    <label>Category</label>
+    @if( categoryState$ | async ;as state ){
+    <select formControlName="category">
+      @for (category of state.data; track $index) {
+      <option [value]="category._id">{{category.name}}</option>
       }
-      </div>
-
-    <div class="form-group">
-      <small>{{  getErrorMessage("title") }}</small>
-      <label>Title</label>
-      <input formControlName="title" placeholder="Enter recipe name" />
-    </div>
-    <div class="flex" >
-      <div >
-        <small>{{  getErrorMessage("preparationTime") }}</small>
-        <label>Preparation Time (minutes)</label>
-        <input formControlName="preparationTime" type="number" />
-      </div>
-    
-      <div >
-        <small>{{  getErrorMessage("cookingTime") }}</small>
-        <label>Cooking Time (minutes)</label>
-        <input formControlName="cookingTime" type="number" />
-      </div>
-    
-      <div >
-        <small>{{  getErrorMessage("servings") }}</small>
-        <label>Servings</label>
-        <input formControlName="servings" type="number" />
-      </div>
-    </div>
-  
-
-  
-    <div>
-      <small>{{  getErrorMessage("category") }}</small>
-      <label>Category</label>
-      @if( categoryState$ | async ;as state   ){
-        <select formControlName="category">
-        @for (category of state.data; track $index) {
-            <option [value]="category._id" >{{category.name}}</option>
-        }
     </select>
 
-      }
-    </div>
-  
-
-  
-    <!-- Ingredients Section -->
-    <div formArrayName="ingredients">
-      <h3>Ingredients</h3>
-      @for (ingredientGroup of ingredients.controls; track $index) {
-        <small>{{  getErrorMessage("ingredients") }}</small>
-      <div  class="form-group flex" >
-        <input [formControlName]="$index"  placeholder="Enter ingredient name" />
-        <button type="button" class="btn-def" (click)="remove(ingredients,$index)"><i class="fa-regular fa-circle-xmark"></i></button>
-      </div>
     }
-      <button type="button" class="btn-def"  (click)="add(ingredients)"><i class="fa-solid fa-plus"></i> Add Ingredient</button>
-    </div>
-  
-    <!-- Steps Section -->
-    <div formArrayName="steps">
-      <h3>Steps</h3>
-      @for (stepGroup of steps.controls; track $index) {
-        <small>{{  getErrorMessage("steps") }}</small>
-      <div  class="form-group flex">
-        <input [formControlName]="$index"  placeholder="Enter step instruction" />
-        <button type="button" class="btn-def" (click)="remove(steps,$index)"><i class="fa-regular fa-circle-xmark"></i></button>
-      </div>
-    }
-      <button type="button" class="btn-def" (click)="add(steps)"><i class="fa-solid fa-plus"></i> Add Step</button>
-    </div>
+  </div>
 
-  
-    <button class="btn" type="submit">{{!recipeData ? "Save" : "Update"}}</button>
-  </form>
-  
+  <!-- Ingredients  -->
+  <div class="form-group"  formArrayName="ingredients">
+    <small>{{ getErrorMessage("ingredients") }}</small>
+    <h3>Ingredients</h3>
+    @for (ingredientGroup of ingredients.controls; track $index) {
+    <div class="flex">
+      <input [formControlName]="$index" placeholder="Enter ingredient name" />
+      <button type="button" class="btn-def" (click)="remove(ingredients,$index)"><i
+          class="fa-regular fa-circle-xmark"></i></button>
+    </div>
+    }
+    <button type="button" class="btn-def" (click)="add(ingredients)"><i class="fa-solid fa-plus"></i> Add
+      Ingredient</button>
+  </div>
+
+  <!-- Steps  -->
+  <div class="form-group" formArrayName="steps">
+    <small>{{ getErrorMessage("steps") }}</small>
+    <h3>Steps</h3>
+    @for (stepGroup of steps.controls; track $index) {
+    <div class="flex">
+      <input [formControlName]="$index" placeholder="Enter step instruction" />
+      <button type="button" class="btn-def" (click)="remove(steps,$index)"><i
+          class="fa-regular fa-circle-xmark"></i></button>
+    </div>
+    }
+    <button type="button" class="btn-def" (click)="add(steps)"><i class="fa-solid fa-plus"></i> Add Step</button>
+  </div>
+
+  <button class="btn" type="submit">{{!recipeData ? "Save" : "Update"}}</button>
+</form>

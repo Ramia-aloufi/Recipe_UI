@@ -4,6 +4,7 @@ import { AuthService } from "../services/auth.service";
 import { StateService } from "../services/state.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { TokenManager } from "./token.state";
+import { ToastrService } from "ngx-toastr";
 
 
   @Injectable({
@@ -12,7 +13,7 @@ import { TokenManager } from "./token.state";
   
   export class AuthManager extends StateService<User> {
 
-      constructor(private store:AuthService,private token:TokenManager){
+      constructor(private store:AuthService,private token:TokenManager,private toastr: ToastrService){
         super();
       }
       
@@ -22,6 +23,7 @@ import { TokenManager } from "./token.state";
             next:res=>{
               if(res.data)
               this.setData(res.data)
+              this.toastr.success(res.message.toString());
               this.setLoading(false)
             },
             error: (err:HttpErrorResponse) => {
@@ -50,7 +52,8 @@ import { TokenManager } from "./token.state";
             next: res => {              
             if(res.data){
               this.token.set(res.data)
-            // sessionStorage.setItem("token",res.data)
+              this.toastr.success(res.message.toString());
+
             this.getProfile()
             this.setLoading(false)
 
@@ -59,6 +62,7 @@ import { TokenManager } from "./token.state";
           },
           error: (err:HttpErrorResponse) => {
             this.setError(err.error.message) 
+            this.toastr.error(err.error.message.toString());
             this.setLoading(false)
           }
         })

@@ -1,8 +1,9 @@
 <div class="">
 @if(userData$ | async ; as user){
     @if(user.loading){
-        <span>loading</span>
-    }@else if (user.error) {
+        <div class="spinner">
+            <app-spinner></app-spinner>
+          </div>    }@else if (user.error) {
         <span>data.error</span>
     }@else if (user.data) {
     <div class="user-data">

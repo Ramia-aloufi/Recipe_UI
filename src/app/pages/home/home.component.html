@@ -1,18 +1,20 @@
 <app-categories></app-categories>
 
-<div class="grid">
   @if(state$ | async ; as state){
     @if(state.loading){
-
-    }@else if (state.error) {
+      <div class="spinner ">
+      <app-spinner></app-spinner>
+    </div>
 
     }@else {
+      <div class="grid">
       @for (recipe of state.data; track recipe.title) {
         <app-recipe-card [recipe] = "recipe"></app-recipe-card>
       
         }
+      </div>
+
     }
 
   }
 
-</div>

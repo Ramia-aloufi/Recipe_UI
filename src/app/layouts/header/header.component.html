@@ -10,14 +10,15 @@
     @if (userData$ | async ; as data) {
         @if(data.data){
             <div class="user-data">
-                <button [routerLink]="['/favorite']"><i class="fa-regular fa-bookmark"></i></button>
+                 <i [routerLink]="['/favorite']" class="fa-regular fa-bookmark"></i>
+                 <i (click)="toggleNewRecipe()" class="fa-regular fa-square-plus"></i>
                 <img [routerLink]="['/profile']" src="{{ data.data.profileImage }}" />
             </div>
         }@else{
             @if(!isSmallScreen){
                 <button [routerLink]="['/auth']" class="btn">Login/Signup</button>
         }@else{   
-             <i class="fa-regular fa-user"></i>
+             <i [routerLink]="['/auth']" class="fa-regular fa-user"></i>
         }
             
             }
@@ -39,3 +40,14 @@
         </div>
     }
   </div>
+    @if (isFormOpen) {
+        <div (click)="toggleNewRecipe()" class="recipe-form">
+<div (click)="$event.stopPropagation()" class="form">
+    <div  class="flex">
+        <span>New Recipe</span>
+        <i (click)="toggleNewRecipe()" class="fa-regular fa-circle-xmark close"></i>
+    </div>
+    <app-recipe-form (notifyToggle)="toggleNewRecipe()"></app-recipe-form>
+</div>
+</div>
+    }

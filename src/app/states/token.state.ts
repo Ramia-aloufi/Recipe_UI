@@ -18,7 +18,6 @@ import { HttpHeaders } from "@angular/common/http";
     sessionStorage.removeItem("token")
    }
    header():HttpHeaders{
-    console.log(this.get());
    return new HttpHeaders({
         'Authorization': `Bearer ${this.get()}`,
         // 'Content-Type': 'application/json'

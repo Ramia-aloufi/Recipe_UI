@@ -5,11 +5,12 @@ import { RecipeManager } from '../../states/recipe.state';
 import { UserManager } from '../../states/user.state';
 import { ProfileManager } from '../../states/profile.state';
 import { AuthManager } from '../../states/auth.state';
+import { SpinnerComponent } from '../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-recipe-information',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule,SpinnerComponent],
   templateUrl: './recipe-information.component.html',
   styleUrl: './recipe-information.component.css',
 })
