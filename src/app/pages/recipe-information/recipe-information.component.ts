@@ -18,6 +18,7 @@ export class RecipeInformationComponent implements OnInit {
   singleRecipe$ = this.recipeState.recipe$
   selectedSection: string = 'ingredients';
   auth$ = this.auth.getState()
+  isExpand = false
 
   constructor( private route: ActivatedRoute , private recipeState:RecipeManager,private profileManager:ProfileManager,private auth:AuthManager) {}
 
@@ -36,5 +37,8 @@ export class RecipeInformationComponent implements OnInit {
   }
   onUnFollow(name:string){
     this.profileManager.unfollow(name)
+  }
+  toggleExpand(){
+    this.isExpand = !this.isExpand
   }
 }

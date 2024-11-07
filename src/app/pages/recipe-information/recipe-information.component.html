@@ -9,91 +9,94 @@
       <i class="fa-regular fa-heart"></i>
       <i class="fa-solid fa-arrow-up-from-bracket"></i>
     </div>
-    <div class="card-content-header">
-      <span>{{ recipe.category.name }}</span>
-      <h1>{{ recipe.title }}</h1>
-    </div>
-    @if (recipe.chef) {
-    <div class="card-content-chef">
-      <div [routerLink]="['/profile',recipe.chef.username]" class="card-content-chef">
-        <img src="{{ recipe.chef.profileImage }}" alt="" />
-        <div class="card-content-chef-info">
-          <span>{{ recipe.chef.username }}</span>
-          <small>112k followers</small>
+    <div class="card-body">
+      <div class="card-content-header">
+        <span>{{ recipe.category.name }}</span>
+        <h1>{{ recipe.title }}</h1>
+      </div>
+      @if (recipe.chef) {
+      <div class="card-content-chef">
+        <div [routerLink]="['/profile',recipe.chef.username]" class="card-content-chef">
+          <img src="{{ recipe.chef.profileImage }}" alt="" />
+          <div class="card-content-chef-info">
+            <span>{{ recipe.chef.username }}</span>
+            <small>112k followers</small>
+          </div>
         </div>
-      </div>
-      @if(auth$ |async ;as user ){
-      @if( user.data){
-      @if(recipe.chef.following?.includes(user.data.username)){
-      <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
-      }@else {
-      <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">Follow</button>
-      }
-      }@else {
-      <button [routerLink]="['/auth']" class="btn-secondary">Follow</button>
-      }
-      }
-    </div>
-    }
-    <div class="card-content-body">
-      <p>{{recipe.description}}</p>
-      <div class="list">
-        <span><strong>Serving:</strong> {{ recipe.servings }}
-          <i class="fa-solid fa-users-rectangle"></i>
-        </span>
-        <span><strong>CookingTime:</strong> {{ recipe.cookingTime }}/m
-          <i class="fa-regular fa-clock"></i></span>
-        <span><strong>PreparationTime:</strong> {{ recipe.preparationTime }}
-          <i class="fa-regular fa-clock"></i></span>
-      </div>
-    </div>
-    <div class="card-content-details">
-      <hr />
-      <div class="details-title">
-        <span (click)="showSection('ingredients')" [class.active]="selectedSection === 'ingredients'">Ingredients</span>
-        <span (click)="showSection('steps')" [class.active]="selectedSection === 'steps'">Steps</span>
-        <span (click)="showSection('comments')" [class.active]="selectedSection === 'comments'">Comments</span>
-      </div>
-      <hr />
-      <div class="details-section">
-        @if(selectedSection === 'ingredients'){
-        <ul>
-          @for (ingredient of recipe.ingredients;; track $index){
-          <li>
-            {{ ingredient }}
-          </li>
-          }
-        </ul>
-        } @if(selectedSection === 'steps'){
-        <ul>
-          @for (step of recipe.steps;track $index){
-          <li>{{ step }}</li>
-          }
-        </ul>
-        } @if(selectedSection === 'comments'){
-          <div class="comment">
-        @if(recipe.comments){
-        <ul>
-          @for (comment of recipe.comments; track $index){
-          <li>{{ comment.commentText }}</li>
-          }
-        </ul>
-
+        @if(auth$ |async ;as user ){
+        @if( user.data){
+        @if(recipe.chef.following?.includes(user.data.username)){
+        <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
         }@else {
-        <span>no comment yet</span>
+        <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">Follow</button>
         }
-        <div class="flex">
-          <input type="text" placeholder="add New comment">
-          <i class="fa-regular fa-square-plus"></i>
+        }@else {
+        <button [routerLink]="['/auth']" class="btn-secondary">Follow</button>
+        }
+        }
+      </div>
+      }
+      <div class="card-content-body">
+        <p [class.expand]="isExpand"> {{ isExpand ? recipe.description : (recipe.description | slice:0:50) }}
+          <span class="show" (click)="toggleExpand()">{{isExpand?'...less':'...more'}} </span>
+        </p>
+        <div class="list">
+          <span>Serving <i class="fa-solid fa-users-rectangle"></i>: {{ recipe.servings }}</span>
+          <span>CookingTime <i class="fa-regular fa-clock"></i>: {{ recipe.cookingTime }}/m</span>
+          <span>PreparationTime <i class="fa-regular fa-clock"></i>: {{ recipe.preparationTime }}</span>
         </div>
       </div>
-        }
+      <div class="card-content-details">
+        <hr />
+        <div class="details-title">
+          <span (click)="showSection('ingredients')"
+            [class.active]="selectedSection === 'ingredients'">Ingredients</span>
+          <span (click)="showSection('steps')" [class.active]="selectedSection === 'steps'">Steps</span>
+          <span (click)="showSection('comments')" [class.active]="selectedSection === 'comments'">Comments</span>
+        </div>
+        <hr />
+        <div class="details-section">
+          @if(selectedSection === 'ingredients'){
+          <ul>
+            @for (ingredient of recipe.ingredients;; track $index){
+            <li>
+              {{ ingredient }}
+            </li>
+            }
+          </ul>
+          } @if(selectedSection === 'steps'){
+          <ul>
+            @for (step of recipe.steps;track $index){
+            <li>{{ step }}</li>
+            }
+          </ul>
+          } @if(selectedSection === 'comments'){
+          <div class="comment">
+            <div class="comment-data">
+              @if(recipe.comments){
+              <ul>
+                @for (comment of recipe.comments; track $index){
+                <li>{{ comment.commentText }}</li>
+                }
+              </ul>
+
+              }@else {
+              <span>no comment yet</span>
+              }
+            </div>
+
+          </div>
+          }
+        </div>
       </div>
 
+    </div>
+    <div class="comment-input">
+      <input type="text" placeholder="add new comment">
+      <i class="fa-regular fa-square-plus"></i>
     </div>
   </div>
 </div>
-
 }@else {
 <div class="spinner">
   <app-spinner></app-spinner>

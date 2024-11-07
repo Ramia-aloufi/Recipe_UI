@@ -1,18 +1,19 @@
 .card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   border-radius: 1rem;
   height: 80vh;
   overflow: hidden;
   margin-top: 2rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   color: #444;
+  position: relative;
 
 }
 hr{
     opacity: 0.1;
 }
 .card-img {
-  flex: 1;
   overflow: hidden;
 }
 .card-img img {
@@ -29,8 +30,14 @@ hr{
 
 }
 .card-content {
-  flex: 1;
-  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1rem auto 3rem;
+  padding:  1rem ;
+  gap: 1rem;
+}
+.card-body{
+  overflow-y: scroll;
 }
 .details-title {
   padding: 1rem 0;
@@ -58,10 +65,9 @@ margin-bottom: 1rem;
     display: flex;
     gap: 2rem;
     margin-bottom: 1rem;
+    color: #aaa;
+    font-size: 14px;
     font-weight: lighter;
-    color: gray;
-    font-weight: 100;
-    font-size: small;
 }
 .card-content-chef {
   display: flex;
@@ -84,44 +90,61 @@ color: #7d7d7d;
 }
 
 .card-content-action{
-    float: right;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}
 
-}
-.card-content-action >*{
-    padding: 1rem;
-}
 .details-title>*{
     cursor: pointer;
 }
-.card-content-body{
-  margin-bottom: 2rem;
-}
-.card-content-body p {
+
+ p {
   line-height: 1.6;
   margin-bottom: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-height: 1.6em;
+  transition: max-height 0.3s ease;
 }
 .small{
   color: #777;
   cursor: pointer;
 }
-.comment{
+.comment-input{
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  gap: 1rem;
+  align-items: center;
 }
-.comment .flex{
-  height: 50px;
+.comment-input i{
+  font-size: 1.5rem;
+  color: #777;
+
 }
-.comment ul,.comment span{
-  flex :1;
-  overflow-y: scroll;
+.expand{
+  white-space: normal;
+  max-height: 100%;
 }
-.comment .flex i {
-  font-size: 2rem;
+.show{
+  cursor: pointer;
+font-weight: bold;
+
 }
+
+
+
+
+
+
+
 @media only screen and (max-width: 768px) {
     .card {
         display: block;
         height: auto;
     }
+
 }
+
+
