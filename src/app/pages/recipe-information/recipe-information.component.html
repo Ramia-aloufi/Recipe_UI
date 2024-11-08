@@ -72,18 +72,24 @@
           </ul>
           } @if(selectedSection === 'comments'){
           <div class="comment">
-            <div class="comment-data">
               @if(recipe.comments){
-              <ul>
+                <div class="comment-container">
                 @for (comment of recipe.comments; track $index){
-                <li>{{ comment.commentText }}</li>
+                  <div class="comment-data">
+                    <div class="comment-data-user">
+                      <img src="{{comment.user.profileImage}}" alt="">
+                      <span>{{comment.user.username}}</span>
+                    </div>
+                    <span>{{ comment.commentText }}</span>
+                  </div>
+                  <hr>
                 }
-              </ul>
+              </div>
 
               }@else {
               <span>no comment yet</span>
               }
-            </div>
+           
 
           </div>
           }
@@ -92,8 +98,8 @@
 
     </div>
     <div class="comment-input">
-      <input type="text" placeholder="add new comment">
-      <i class="fa-regular fa-square-plus"></i>
+      <input type="text" placeholder="add new comment" [(ngModel)] = "commentText">
+      <i (click)="onAddComment()" class="fa-regular fa-square-plus"></i>
     </div>
   </div>
 </div>

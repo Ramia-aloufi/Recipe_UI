@@ -132,7 +132,36 @@ color: #7d7d7d;
 font-weight: bold;
 
 }
+.comment-container{
+  overflow-y: scroll;
+  max-height: 140px;
 
+}
+.comment-data{
+  display: flex;
+place-items: center;
+  gap: 2rem;
+  padding: .5rem 0;
+}
+.comment-data-user img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #777;
+}
+.comment-data-user{
+display: flex;
+place-items: center;
+gap: .5rem;
+
+}
+.comment-data-user span{
+  font-size: small;
+}
+.details-section{
+  max-height: 140px;
+
+}
 
 
 
@@ -144,6 +173,16 @@ font-weight: bold;
         display: block;
         height: auto;
     }
+
+}
+
+@media (max-width: 400px) {
+  .card-content-body .list{
+    font-size: 11px;
+    gap: 1rem;
+
+
+  }
 
 }
 
