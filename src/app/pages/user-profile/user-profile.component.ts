@@ -36,7 +36,6 @@ export class UserProfileComponent {
 }
 onFollow(name:string){
   console.log(name);
-
   this.profileManager.follow(name)
 }
 onUnFollow(name:string){

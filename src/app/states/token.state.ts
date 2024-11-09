@@ -20,7 +20,6 @@ import { HttpHeaders } from "@angular/common/http";
    header():HttpHeaders{
    return new HttpHeaders({
         'Authorization': `Bearer ${this.get()}`,
-        // 'Content-Type': 'application/json'
       });
    }
   }

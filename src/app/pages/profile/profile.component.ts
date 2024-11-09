@@ -14,9 +14,8 @@ import { SpinnerComponent } from "../../components/spinner/spinner.component";
 export class ProfileComponent {
   userData$ = this.state.getState()
 
-  constructor(private state:AuthManager) {
-    
-  }
+  constructor(private state:AuthManager) {}
+  
   onLogout() {
     this.state.logout();
   }

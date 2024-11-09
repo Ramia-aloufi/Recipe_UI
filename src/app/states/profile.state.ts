@@ -4,13 +4,14 @@ import { User } from "../models/user.model";
 import { StateService } from "../services/state.service";
 import { UserService } from "../services/user.service";
 import { ToastrService } from "ngx-toastr";
+import { RecipeManager } from "./recipe.state";
 
 @Injectable({
     providedIn: 'root',
   })
   export class ProfileManager extends StateService<User> {
 
-    constructor(private service: UserService,private toaster:ToastrService) {
+    constructor(private service: UserService,private toaster:ToastrService,private recipe:RecipeManager) {
         super();
       }
     
@@ -32,6 +33,8 @@ import { ToastrService } from "ngx-toastr";
         this.service.follow(name).subscribe({
           next:res=>{   
               this.setData(res.data)
+              this.recipe.getRecipe(this.recipe.recipeID$.getValue())
+              
               this.setLoading(false)
             },error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
@@ -45,6 +48,7 @@ import { ToastrService } from "ngx-toastr";
         this.service.unfollow(name).subscribe({
           next:res=>{   
               this.setData(res.data)
+              this.recipe.getRecipe(this.recipe.recipeID$.getValue())
               this.setLoading(false)
             },error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 

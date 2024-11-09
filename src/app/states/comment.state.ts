@@ -6,6 +6,7 @@ import { StateService } from "../services/state.service";
 import { CommentService } from "../services/comment.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
+import { RecipeManager } from "./recipe.state";
 
 @Injectable({
     providedIn: 'root',
@@ -13,16 +14,15 @@ import { ToastrService } from "ngx-toastr";
   export class CommentManager extends StateService<Comment> {
 
   
-    constructor(private service:CommentService,private toaster:ToastrService) {
+    constructor(private service:CommentService,private toaster:ToastrService,private recipe:RecipeManager) {
       super();
     }
     add(data:{text:string,recipe:string}){
         this.setLoading(true)
         this.service.newComment(data).subscribe({
-            next:res=>{
-                console.log(res);
-                
+            next:res=>{                
                 this.setData(res.data)
+                this.recipe.getRecipe(this.recipe.recipeID$.getValue())
                 this.setLoading(false)
             },
             error:(er:HttpErrorResponse)=>{
@@ -37,8 +37,8 @@ import { ToastrService } from "ngx-toastr";
         this.setLoading(true)
         this.service.removeComment(id).subscribe({
             next:res=>{
-                console.log(res);
                 this.setData(res.data)
+                this.recipe.getRecipe(this.recipe.recipeID$.getValue())
                 this.setLoading(false)
             },
             error:(er:HttpErrorResponse)=>{

@@ -19,6 +19,8 @@ export class RecipeManager extends StateService<Recipe[]> {
     new BehaviorSubject<Recipe[] | null>(null);
   private recipeToUpdate$: BehaviorSubject<Recipe | null> =
     new BehaviorSubject<Recipe | null>(null);
+   recipeID$: BehaviorSubject<string > =
+    new BehaviorSubject<string >('');
   recipeData = this.recipeToUpdate$.asObservable()
   constructor(private service: RecipeService, private toastr: ToastrService) {
     super();

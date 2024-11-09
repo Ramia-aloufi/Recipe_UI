@@ -31,6 +31,7 @@ export class RecipeInformationComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.recipeState.getRecipe(param['id'])
       this.recipeID = param['id']
+      this.recipeState.recipeID$.next(this.recipeID)
     })
     this.auth.getState().subscribe(data=>{
       this.user = data.data?.username
@@ -41,9 +42,6 @@ export class RecipeInformationComponent implements OnInit {
     this.selectedSection = section;
   }
   onFollow(name:string ){
-    console.log(this.user);
-    console.log(this.user);
-    console.log(this.isFollowingChef());
     
     this.profileManager.follow(name)
   }

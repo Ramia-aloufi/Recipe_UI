@@ -15,9 +15,9 @@
         @if(auth$ |async ;as profile ){
         @if( profile.data){
         @if(isFollower()){
-        <button (click)="onUnFollow(profile.data.username)" class="btn-secondary">unFollow</button>
+        <button (click)="onUnFollow(user.username)" class="btn-secondary">unFollow</button>
         }@else {
-        <button (click)="onFollow(profile.data.username)" class="btn-secondary">Follow</button>
+        <button (click)="onFollow(user.username)" class="btn-secondary">Follow</button>
         }
         }@else {
         <button [routerLink]="['/auth']" class="btn-secondary">Follow</button>
