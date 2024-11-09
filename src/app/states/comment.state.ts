@@ -33,4 +33,20 @@ import { ToastrService } from "ngx-toastr";
             }
         })
     }
+    remove(id:string){
+        this.setLoading(true)
+        this.service.removeComment(id).subscribe({
+            next:res=>{
+                console.log(res);
+                this.setData(res.data)
+                this.setLoading(false)
+            },
+            error:(er:HttpErrorResponse)=>{
+                this.setLoading(false)
+                console.log(er.error.message);
+                this.toaster.error(er.error.message)
+                this.setError(er.error.message)
+            }
+        })
+    }
 }

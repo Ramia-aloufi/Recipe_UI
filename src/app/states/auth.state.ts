@@ -74,7 +74,6 @@ import { ToastrService } from "ngx-toastr";
       }
       isUser():boolean{
         return this.token.get() ? true : false
-        // return sessionStorage.getItem('token') ? true : false
       }
 
   }

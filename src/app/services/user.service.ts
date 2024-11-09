@@ -24,11 +24,11 @@ export class UserService {
     }
     // Following user by name by the user already logged in
     follow(name:string): Observable<ApiResponse<User | null>> {                 
-        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'follow/' + name,{headers:this.token.header()}) 
+        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'follow/' + name,{} ,{headers:this.token.header()}) 
     }
     // unFollow user by name  by the user already logged in
     unfollow(name:string): Observable<ApiResponse<User | null>> {        
-        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'unfollow/' + name,{headers:this.token.header()});
+        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'unfollow/' + name,{},{headers:this.token.header()});
     }
 
 }

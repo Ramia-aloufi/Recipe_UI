@@ -25,8 +25,8 @@
         </div>
         @if(auth$ |async ;as user ){
         @if( user.data){
-        @if(recipe.chef.following?.includes(user.data.username)){
-        <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
+        @if(isFollowingChef()){
+          <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
         }@else {
         <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">Follow</button>
         }
@@ -81,6 +81,11 @@
                       <span>{{comment.user.username}}</span>
                     </div>
                     <span>{{ comment.commentText }}</span>
+                    @if(auth$ | async;as auth ){
+                      @if (auth.data?.username == comment.user.username) {
+                    <i (click)="onDeleteComment(comment._id)" class="del" class="fa-regular fa-trash-can"></i>
+                      }
+                    }
                   </div>
                   <hr>
                 }

@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { User } from "../models/user.model";
 import { StateService } from "../services/state.service";
 import { UserService } from "../services/user.service";
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
     providedIn: 'root',
   })
   export class ProfileManager extends StateService<User> {
 
-    constructor(private service: UserService) {
+    constructor(private service: UserService,private toaster:ToastrService) {
         super();
       }
     
@@ -34,6 +35,7 @@ import { UserService } from "../services/user.service";
               this.setLoading(false)
             },error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
+              this.toaster.error(err.error.message)
               this.setLoading(false)
             }
       })

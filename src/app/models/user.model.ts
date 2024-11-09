@@ -9,7 +9,7 @@ export interface User {
     profileImage?: string;
     favorite?:Favorite[]
     recipes?:Recipe[]
-    following?:string[]
+    following?:User[]
 
   }
 

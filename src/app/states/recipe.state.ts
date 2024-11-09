@@ -13,16 +13,14 @@ import { ToastrService } from 'ngx-toastr';
 export class RecipeManager extends StateService<Recipe[]> {
   recipe$: BehaviorSubject<Recipe | null> =
     new BehaviorSubject<Recipe | null>(null);
-    category$: BehaviorSubject<Category | null> =
+  category$: BehaviorSubject<Category | null> =
     new BehaviorSubject<Category | null>(null);
-    all$: BehaviorSubject<Recipe[] | null> =
+  all$: BehaviorSubject<Recipe[] | null> =
     new BehaviorSubject<Recipe[] | null>(null);
-    private recipeToUpdate$: BehaviorSubject<Recipe | null> =
+  private recipeToUpdate$: BehaviorSubject<Recipe | null> =
     new BehaviorSubject<Recipe | null>(null);
-    recipeData = this.recipeToUpdate$.asObservable()
-
-    private filteredRecipe:Recipe[] | null = null
-  constructor(private service: RecipeService,private toastr: ToastrService) {
+  recipeData = this.recipeToUpdate$.asObservable()
+  constructor(private service: RecipeService, private toastr: ToastrService) {
     super();
   }
 
@@ -33,23 +31,23 @@ export class RecipeManager extends StateService<Recipe[]> {
         this.setData(res.data);
         this.all$.next(res.data)
       },
-      error: (err:HttpErrorResponse) => {
+      error: (err: HttpErrorResponse) => {
         console.log(err);
-        this.setError(err.error.message) 
+        this.setError(err.error.message)
         this.setLoading(false)
       }
     });
     this.setLoading(false);
   }
-  updateRecipe(recipe: FormData,id:string) {
+  updateRecipe(recipe: FormData, id: string) {
     this.setLoading(true);
-    this.service.updateRecipe(recipe,id).subscribe({
+    this.service.updateRecipe(recipe, id).subscribe({
       next: (res) => {
         this.toastr.success(res.message.toString());
         this.loadRecipes;
       },
-      error: (err:HttpErrorResponse) => {
-        this.setError(err.error.message) 
+      error: (err: HttpErrorResponse) => {
+        this.setError(err.error.message)
         this.setLoading(false)
       }
     });
@@ -62,8 +60,8 @@ export class RecipeManager extends StateService<Recipe[]> {
         this.toastr.success(res.message.toString());
         this.loadRecipes();
       },
-      error: (err:HttpErrorResponse) => {
-        this.setError(err.error.message) 
+      error: (err: HttpErrorResponse) => {
+        this.setError(err.error.message)
         this.setLoading(false)
       }
     });
@@ -75,8 +73,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (res) => {
         this.recipe$.next(res.data);
       },
-      error: (err:HttpErrorResponse) => {
-        this.setError(err.error.message) 
+      error: (err: HttpErrorResponse) => {
+        this.setError(err.error.message)
         this.setLoading(false)
       }
     });
@@ -89,34 +87,33 @@ export class RecipeManager extends StateService<Recipe[]> {
         this.toastr.success(res.message.toString());
         this.loadRecipes()
       },
-      error: (err:HttpErrorResponse) => {
-        this.setError(err.error.message) 
+      error: (err: HttpErrorResponse) => {
+        this.setError(err.error.message)
         this.setLoading(false)
       }
     });
     this.setLoading(false);
   }
-  setRecipe(recipe:Recipe){
+  setRecipe(recipe: Recipe) {
     this.recipeToUpdate$.next(recipe)
   }
   clearRecipe() {
     this.recipeToUpdate$.next(null);
   }
-
   filterRecipeBy(category: Category | null) {
     const allRecipes = this.all$.getValue();
     const filteredRecipes = !category
       ? allRecipes
       : allRecipes?.filter(recipe => recipe.category?._id === category._id) || [];
-    this.setData(filteredRecipes); 
+    this.setData(filteredRecipes);
 
-    }
-    search(searchKey:string){        
-        const allRecipes = this.all$.getValue();
-        const filteredRecipes = !searchKey
-        ? allRecipes
-        : allRecipes?.filter(recipe => recipe.title.toLowerCase().includes(searchKey)) || [];
-      this.setData(filteredRecipes); 
+  }
+  search(searchKey: string) {
+    const allRecipes = this.all$.getValue();
+    const filteredRecipes = !searchKey
+      ? allRecipes
+      : allRecipes?.filter(recipe => recipe.title.toLowerCase().includes(searchKey)) || [];
+    this.setData(filteredRecipes);
 
-    }
+  }
 }

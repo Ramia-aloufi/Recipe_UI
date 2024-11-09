@@ -14,7 +14,7 @@
     <div class="actions">
         @if(auth$ |async ;as profile ){
         @if( profile.data){
-        @if(profile.data.following?.includes(user.username)){
+        @if(isFollower()){
         <button (click)="onUnFollow(profile.data.username)" class="btn-secondary">unFollow</button>
         }@else {
         <button (click)="onFollow(profile.data.username)" class="btn-secondary">Follow</button>

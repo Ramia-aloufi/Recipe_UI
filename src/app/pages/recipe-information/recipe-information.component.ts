@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RecipeManager } from '../../states/recipe.state';
-import { UserManager } from '../../states/user.state';
 import { ProfileManager } from '../../states/profile.state';
 import { AuthManager } from '../../states/auth.state';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
-import { CommentService } from '../../services/comment.service';
 import { FormsModule } from '@angular/forms';
 import { CommentManager } from '../../states/comment.state';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-recipe-information',
@@ -24,6 +23,7 @@ export class RecipeInformationComponent implements OnInit {
   isExpand = false
   recipeID = ''
   commentText = ''
+  user:string | undefined = ''
 
   constructor( private route: ActivatedRoute , private recipeState:RecipeManager,private profileManager:ProfileManager,private auth:AuthManager,private commentManager:CommentManager) {}
 
@@ -32,13 +32,19 @@ export class RecipeInformationComponent implements OnInit {
       this.recipeState.getRecipe(param['id'])
       this.recipeID = param['id']
     })
-    this.auth.getState()
+    this.auth.getState().subscribe(data=>{
+      this.user = data.data?.username
+    })
 
   }
   showSection(section: string) {
     this.selectedSection = section;
   }
-  onFollow(name:string){
+  onFollow(name:string ){
+    console.log(this.user);
+    console.log(this.user);
+    console.log(this.isFollowingChef());
+    
     this.profileManager.follow(name)
   }
   onUnFollow(name:string){
@@ -62,4 +68,10 @@ export class RecipeInformationComponent implements OnInit {
   }
     
   }
+  onDeleteComment(id:string){
+    this.commentManager.remove(id)
+  }
+  isFollowingChef(): boolean {
+    return this.singleRecipe$.getValue()?.chef?.following?.some(follower => follower.username === this.user) ?? false;
+}
 }

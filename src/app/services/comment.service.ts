@@ -16,4 +16,7 @@ export class CommentService {
   newComment(data:{text:string,recipe:string}):Observable<ApiResponse<Comment>>{
     return this.http.post<ApiResponse<Comment>>(this.url,data,{headers:this.token.header()})
   }
+  removeComment(id:string){
+    return this.http.delete<ApiResponse<Comment>>(this.url+id,{headers:this.token.header()})
+  }
 }

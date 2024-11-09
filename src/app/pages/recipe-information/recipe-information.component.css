@@ -144,29 +144,31 @@ place-items: center;
   padding: .5rem 0;
 }
 .comment-data-user img{
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   border: 1px solid #777;
 }
 .comment-data-user{
 display: flex;
 place-items: center;
-gap: .5rem;
+flex: 1;
+gap: 10px;
 
 }
 .comment-data-user span{
+  font-size: large;
+  white-space: nowrap;
+  text-overflow: ellipsis;}
+.comment-data span{
   font-size: small;
+  flex: 2;
+
 }
 .details-section{
   max-height: 140px;
 
 }
-
-
-
-
-
 
 @media only screen and (max-width: 768px) {
     .card {
