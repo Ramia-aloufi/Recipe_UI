@@ -36,14 +36,14 @@ export class RecipeFormComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {
     this.recipeForm = this.fb.group({
-      title: ['', Validators.required, Validators.min(3)],
+      title: ['', [Validators.required, Validators.min(3)]],
       preparationTime: [0, [Validators.required, Validators.min(1)]],
       cookingTime: [0, [Validators.required, Validators.min(1)]],
       servings: [0, [Validators.required, Validators.min(1)]],
       category: ['', Validators.required],
-      ingredients: this.fb.array([this.fb.control('')]),
-      steps: this.fb.array([this.fb.control('')]),
-      media: this.fb.array([this.fb.control(File)]),
+      ingredients: this.fb.array([this.fb.control('', Validators.required)]),
+      steps: this.fb.array([this.fb.control('', Validators.required)]),
+      media: this.fb.array([this.fb.control(null, Validators.required)]),
     });
   }
   get media(): FormArray {
@@ -66,12 +66,17 @@ export class RecipeFormComponent implements OnInit {
     this.recipe.recipeData.subscribe((data) => {
       if (data) {
         this.recipeData = data
-        this.recipeForm.patchValue({ ...data, category: data.category._id });
         this.setFormArrayValues(this.ingredients, data.ingredients);
         this.setFormArrayValues(this.steps, data.steps);
+        this.setFormArrayValues(this.media, data.media);
         this.imagePreview = data.media[0]
+        this.recipeForm.patchValue({
+          ...data, category: data.category._id
+        });
         this.cdRef.detectChanges();
+
       }
+
     });
   }
   setFormArrayValues(formArray: FormArray, values: String[]) {
@@ -104,7 +109,6 @@ export class RecipeFormComponent implements OnInit {
       });
       if (this.selectedFile) {
         console.log(this.selectedFile);
-        console.log("lllll");
         this.media.controls.forEach((control, index) => {
           this.formData.append(`media`, control.value);
         });
@@ -148,6 +152,12 @@ export class RecipeFormComponent implements OnInit {
       }
     }
     return '';
+  }
+  updateForm(data: any) {
+    this.recipeForm.get('title')?.setValue(data.title);
+    this.setFormArrayValues(this.ingredients, data.ingredients);
+    this.setFormArrayValues(this.steps, data.steps);
+    this.setFormArrayValues(this.media, data.media); // media could be URLs or File objects
   }
 
 }

@@ -5,18 +5,26 @@
 
     <div class="item">
         <span>Category</span>
-        <span>11</span>
+        @if(category$ |async ; as category){
+            <span>{{category.data?.length ?? "0"}}</span>
+
+        }
     </div>
 
     <div class="item">
         <span>Recipe</span>
-        <span>14</span>
-    </div>
+        @if(recipe$ |async ; as recipe){
+            <span>{{recipe.data?.length ?? "0"}}</span>
+
+        }   
+     </div>
 
     <div class="item">
         <span>Users</span>
-        <span>11</span>
-    </div>
+        @if(user$ |async ; as user){
+            <span>{{user.data?.length ?? "0"}}</span>
+        }   
+     </div>
 
 
 </div>

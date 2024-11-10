@@ -5,6 +5,7 @@ import { StateService } from "../services/state.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { TokenManager } from "./token.state";
 import { ToastrService } from "ngx-toastr";
+import { Router } from "@angular/router";
 
 
   @Injectable({
@@ -13,7 +14,7 @@ import { ToastrService } from "ngx-toastr";
   
   export class AuthManager extends StateService<User> {
 
-      constructor(private store:AuthService,private token:TokenManager,private toastr: ToastrService){
+      constructor(private store:AuthService,private token:TokenManager,private toastr: ToastrService,private route:Router){
         super();
       }
       
@@ -69,8 +70,8 @@ import { ToastrService } from "ngx-toastr";
       }
       logout(): void {
         this.token.remove()
-        // sessionStorage.removeItem("token")
         this.setData(null)
+        this.route.navigate(['/'])
       }
       isUser():boolean{
         return this.token.get() ? true : false
