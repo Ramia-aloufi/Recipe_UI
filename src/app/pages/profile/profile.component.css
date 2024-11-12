@@ -5,12 +5,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
 .user-data img{
     width: 120px;
     height: 120px;
     border-radius: 50%;
     border: 2px solid #111;
+
+
+
 }
 .actions{
     display: flex;
@@ -26,3 +30,43 @@
 .logout{
     color: #fff;
 }
+.updated-image{
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.updated-image::before{
+content: '+';
+color: #fff;
+position: absolute;
+font-size: 2rem;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+z-index: 1;
+cursor: pointer;
+background-color: #00000020;
+width: 8rem;
+height: 8rem;
+border-radius: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.update-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    gap: .7rem;
+
+}
+.update-input>*{
+    width: 100%;
+}
+

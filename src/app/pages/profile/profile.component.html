@@ -1,34 +1,53 @@
 <div class="">
-@if(userData$ | async ; as user){
+    @if(userData$ | async ; as user){
     @if(user.loading){
-        <div class="spinner">
-            <app-spinner></app-spinner>
-          </div>    }@else if (user.error) {
-        <span>data.error</span>
+    <div class="spinner">
+        <app-spinner></app-spinner>
+    </div> }@else if (user.error) {
+    <span>data.error</span>
     }@else if (user.data) {
     <div class="user-data">
+        @if(isEdit){
+        <div class="update-input">
+            <div class="updated-image">
+            <img  src="{{image ? image : img}}" (click)="fileInput.click()" alt=""></div>
+            <input type="text" [(ngModel)]="username">
+            <input type="text" [(ngModel)]="bio">
+            <input style="display: none;" type="file" #fileInput (change)="onFileSelected($event)">
+            <button class="btn" (click)="onSubmit()" type="submit">Update</button>
+            <button class="btn-secondary" (click)="onEdit()">cancel</button>
+        </div>
+
+
+
+        }@else {
         <img src="{{user.data.profileImage}}" alt="">
         <h2>{{user.data.username}}</h2>
         <span>{{user.data.bio}}</span>
         <div class="actions">
-            <button class="btn-secondary">edit Profile</button>
-            <button class="btn" (click)="onLogout()">log out <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            <button (click)="onEdit()" class="btn-secondary">edit Profile</button>
+            <button class="btn" (click)="onLogout()">log out <i
+                    class="fa-solid fa-arrow-right-from-bracket"></i></button>
         </div>
+        }
 
-</div>
+    </div>
     }
-<div class="grid">
-    @if(user.data?.recipes){
-    @for(recipe of user.data?.recipes ;track recipe._id){
-        <app-recipe-card [recipe] = "recipe"></app-recipe-card>
+    @if(!isEdit){
+    <div class="grid">
+        @if(user.data?.recipes){
+        @for(recipe of user.data?.recipes ;track recipe._id){
+        <app-recipe-card [recipe]="recipe"></app-recipe-card>
+        }
+        }@else {
+        <span>No recipes found. Start adding some delicious recipes!</span>
+
+        }
+
+    </div>
     }
-}@else {
-    <span>No recipes found. Start adding some delicious recipes!</span>
 
-}
-
-</div>
-}
+    }
 
 
 </div>

@@ -6,6 +6,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { TokenManager } from "./token.state";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
+import { UserService } from "../services/user.service";
 
 
   @Injectable({
@@ -14,7 +15,7 @@ import { Router } from "@angular/router";
   
   export class AuthManager extends StateService<User> {
 
-      constructor(private store:AuthService,private token:TokenManager,private toastr: ToastrService,private route:Router){
+      constructor(private store:AuthService,private userService:UserService,private token:TokenManager,private toastr: ToastrService,private route:Router){
         super();
       }
       
@@ -75,6 +76,21 @@ import { Router } from "@angular/router";
       }
       isUser():boolean{
         return this.token.get() ? true : false
+      }
+      updateUser(user:FormData){
+        this.setLoading(true)
+        this.userService.update(user).subscribe({
+            next:res=>{
+              if(res.data)
+              this.setData(res.data)
+              this.toastr.success(res.message.toString());
+              this.setLoading(false)
+            },
+            error: (err:HttpErrorResponse) => {
+              this.setError(err.error.message) 
+              this.setLoading(false)
+            }
+        })
       }
 
   }

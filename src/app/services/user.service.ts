@@ -30,5 +30,9 @@ export class UserService {
     unfollow(name:string): Observable<ApiResponse<User | null>> {        
         return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'unfollow/' + name,{},{headers:this.token.header()});
     }
+    update(user:FormData):Observable<ApiResponse<User|null>>{
+        return this.http.put<ApiResponse<User | null>>(this.apiUrl + 'one' , user,{headers:this.token.header()});
+
+    }
 
 }
