@@ -16,19 +16,17 @@ export class CategoryManager extends StateService<Category[]> {
     super();
   }
 
-  loadCategory() {
+  loadCategory( page:number = 1) {
     this.setLoading(true);
-    this.service.getCategories().subscribe({
+    this.service.getCategories(page).subscribe({
       next: (res) => {
         this.setData(res.data);
+        this.setMeta(res.meta);
       },
       error: (err:HttpErrorResponse) => {
-        console.log(err);
         this.setError(err.error.message) 
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   updateCategory(category: Category) {
     this.setLoading(true);
@@ -38,10 +36,8 @@ export class CategoryManager extends StateService<Category[]> {
       },
       error: (err:HttpErrorResponse) => {
         this.setError(err.error.message) 
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   deleteCategory(category: Category) {
     this.setLoading(true);
@@ -51,10 +47,8 @@ export class CategoryManager extends StateService<Category[]> {
       },
       error: (err:HttpErrorResponse) => {
         this.setError(err.error.message) 
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   getCategory(id: string) {
     this.setLoading(true);
@@ -64,10 +58,8 @@ export class CategoryManager extends StateService<Category[]> {
       },
       error: (err:HttpErrorResponse) => {
         this.setError(err.error.message) 
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   addCategory(category: string) {
     this.setLoading(true);
@@ -78,9 +70,7 @@ export class CategoryManager extends StateService<Category[]> {
       error: (err:HttpErrorResponse) => {
         console.log(err);
         this.setError(err.error.message) 
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
 }

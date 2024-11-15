@@ -15,8 +15,9 @@ export class UserService {
 
     constructor(private http: HttpClient,private token:TokenManager) { }
     // Get all users
-    getAll(): Observable<ApiResponse<UserAdmin[] | null>> {
-        return this.http.get<ApiResponse<UserAdmin[] | null>>(this.apiUrl+"all",{headers:this.token.header()});
+    getAll(page:number = 1): Observable<ApiResponse<UserAdmin[] | null>> {
+        var pageSize = 10
+        return this.http.get<ApiResponse<UserAdmin[] | null>>(this.apiUrl+"all"+`?page=${page}&size=${pageSize}`,{headers:this.token.header()});
     }
     // Get one user profile
     getOne(name:string): Observable<ApiResponse<User | null>> {

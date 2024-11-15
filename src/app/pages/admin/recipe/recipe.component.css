@@ -6,11 +6,12 @@
   }
   .card {
     max-height: 80vh;
-    overflow-y: auto;
     margin: 20px 0;
     border-radius: 1rem;
     box-shadow: 0px 0px 1px rgba(68, 68, 68, 0.3);
-  
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 1fr 60vh 1fr;
   }
   
   .actions {
@@ -50,8 +51,8 @@
 justify-content: center;
 align-items: center;
 display: flex;
-    /* transform: translate(50%,-50%); */
     background-color: #00000050;
+    z-index: 111;
   }
   .form_card{
     background-color: #fff;
@@ -70,8 +71,10 @@ display: flex;
   .form{
     overflow-y: scroll;
     height: 70vh;
-
   }
+
+
+
 
   
   

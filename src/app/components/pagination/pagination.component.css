@@ -1,0 +1,19 @@
+.pages-container{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  .page{
+    border: 1px solid #777;
+    padding: .2rem .5rem;
+    cursor: pointer;
+    color: #777;
+    border-radius: 10px;
+  }
+  .active,.page:hover{
+    color: #fff;
+    background-color:#c05164 ;
+    border: 1px solid transparent;
+  }

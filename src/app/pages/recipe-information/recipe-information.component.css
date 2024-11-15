@@ -94,6 +94,9 @@ color: #7d7d7d;
   justify-content: end;
   gap: 1rem;
 }
+.card-content-action i{
+  cursor: pointer;
+}
 
 .details-title>*{
     cursor: pointer;
@@ -170,7 +173,32 @@ gap: 10px;
 
 }
 
-@media only screen and (max-width: 768px) {
+.default-comment{
+  color: #777;
+  font-size: medium;
+}
+
+.share-popup {
+  position: fixed;
+  top: 25%;
+  right: 5%;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  display: grid;
+  border-radius: 11px;
+}
+
+.share-popup a {
+  margin: 5px;
+  cursor: pointer;
+  color: #777;
+  font-size: small;
+}
+
+
+@media (max-width: 768px) {
     .card {
         display: block;
         height: auto;
@@ -183,8 +211,8 @@ gap: 10px;
     font-size: 11px;
     gap: 1rem;
 
-
   }
+
 
 }
 

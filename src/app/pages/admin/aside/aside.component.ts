@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { asideState } from '../aside.state';
 
 @Component({
@@ -10,12 +10,13 @@ import { asideState } from '../aside.state';
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })
-export class AsideComponent {
+export class AsideComponent  {
   selected = this.state.getItem()
-  constructor(private state:asideState){
+  constructor(private state:asideState,private route:ActivatedRoute){
 
   }
   isSelected(select:string){
     this.state.select(select)
   }
+
 }

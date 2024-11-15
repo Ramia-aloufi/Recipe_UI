@@ -21,10 +21,8 @@ import { RecipeManager } from "./recipe.state";
       this.service.getOne(name).subscribe({
         next:res=>{   
             this.setData(res.data)
-            this.setLoading(false)
           },error: (err:HttpErrorResponse) => {
             this.setError(err.error.message) 
-            this.setLoading(false)
           }
     })
     }
@@ -34,12 +32,9 @@ import { RecipeManager } from "./recipe.state";
           next:res=>{   
               this.setData(res.data)
               this.recipe.getRecipe(this.recipe.recipeID$.getValue())
-              
-              this.setLoading(false)
-            },error: (err:HttpErrorResponse) => {
+                        },error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
               this.toaster.error(err.error.message)
-              this.setLoading(false)
             }
       })
     }
@@ -49,10 +44,8 @@ import { RecipeManager } from "./recipe.state";
           next:res=>{   
               this.setData(res.data)
               this.recipe.getRecipe(this.recipe.recipeID$.getValue())
-              this.setLoading(false)
             },error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
-              this.setLoading(false)
             }
       })
     }

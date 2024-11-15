@@ -23,11 +23,8 @@ import { RecipeManager } from "./recipe.state";
             next:res=>{                
                 this.setData(res.data)
                 this.recipe.getRecipe(this.recipe.recipeID$.getValue())
-                this.setLoading(false)
             },
             error:(er:HttpErrorResponse)=>{
-                this.setLoading(false)
-                console.log(er.error.message);
                 this.toaster.error(er.error.message)
                 this.setError(er.error.message)
             }
@@ -39,11 +36,8 @@ import { RecipeManager } from "./recipe.state";
             next:res=>{
                 this.setData(res.data)
                 this.recipe.getRecipe(this.recipe.recipeID$.getValue())
-                this.setLoading(false)
             },
             error:(er:HttpErrorResponse)=>{
-                this.setLoading(false)
-                console.log(er.error.message);
                 this.toaster.error(er.error.message)
                 this.setError(er.error.message)
             }

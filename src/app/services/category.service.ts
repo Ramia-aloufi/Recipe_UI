@@ -14,8 +14,9 @@ export class CategoryService {
   constructor(private http: HttpClient,private token:TokenManager) {}
 
   // Get all category
-  getCategories(): Observable<ApiResponse<Category[] | null>> {
-    return this.http.get<ApiResponse<Category[] | null>>(this.apiUrl);
+  getCategories(page:number = 1): Observable<ApiResponse<Category[] | null>> {
+    var pageSize = 10
+    return this.http.get<ApiResponse<Category[] | null>>(this.apiUrl+`?page=${page}&size=${pageSize}`);
   }
 
   // Get a single category by ID

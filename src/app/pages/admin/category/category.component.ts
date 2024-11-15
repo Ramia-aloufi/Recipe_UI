@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CategoryManager } from '../../../states/category.state';
 import { Category } from '../../../models/category.model';
+import { PaginationComponent } from "../../../components/pagination/pagination.component";
+import { SpinnerComponent } from "../../../components/spinner/spinner.component";
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [AsideComponent,CommonModule,FormsModule],
+  imports: [AsideComponent, CommonModule, FormsModule, PaginationComponent, SpinnerComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
@@ -49,6 +51,10 @@ export class CategoryComponent {
     this.isAddNewCategory = !this.isAddNewCategory
     this.newCategory = ""
 
+  }
+  onPageChange(page: number): void {
+    console.log(page);
+    this.state.loadCategory(page);
   }
 
 }

@@ -16,8 +16,9 @@ export class RecipeService {
   constructor(private http: HttpClient,private token:TokenManager) {}
 
   // Get all recipes
-  getRecipes(): Observable<ApiResponse<Recipe[]>> {
-    return this.http.get<ApiResponse<Recipe[]>>(this.apiUrl);
+  getRecipes( page:number = 1): Observable<ApiResponse<Recipe[]>> {
+    var pageSize = 10
+    return this.http.get<ApiResponse<Recipe[]>>(`${this.apiUrl}?page=${page}&size=${pageSize}`);
   }
 
   // Get a single recipe by ID

@@ -7,7 +7,8 @@ import { AuthManager } from '../../states/auth.state';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
 import { CommentManager } from '../../states/comment.state';
-import { User } from '../../models/user.model';
+import { Recipe } from '../../models/recipe.model';
+import { FavoriteManager } from '../../states/favorite.state';
 
 @Component({
   selector: 'app-recipe-information',
@@ -24,8 +25,11 @@ export class RecipeInformationComponent implements OnInit {
   recipeID = ''
   commentText = ''
   user:string | undefined = ''
-
-  constructor( private route: ActivatedRoute , private recipeState:RecipeManager,private profileManager:ProfileManager,private auth:AuthManager,private commentManager:CommentManager) {}
+  recipeFavorite$ = this.favoriteManager.getState()
+  favorite = false;
+  isSharePopup = false;
+  pageUrl: string = window.location.href;
+  constructor( private route: ActivatedRoute , private recipeState:RecipeManager,private profileManager:ProfileManager,private auth:AuthManager,private commentManager:CommentManager,private favoriteManager:FavoriteManager) {}
 
   ngOnInit() {
     this.route.params.subscribe((param) => {
@@ -72,4 +76,41 @@ export class RecipeInformationComponent implements OnInit {
   isFollowingChef(): boolean {
     return this.singleRecipe$.getValue()?.chef?.following?.some(follower => follower.username === this.user) ?? false;
 }
+addToFavorite(recipe:Recipe){
+  this.favoriteManager.addFavorite(recipe._id)
+  this.auth.getProfile()
+}
+removeFavorite(recipe:Recipe){
+  var id :string|undefined= undefined
+  this.recipeFavorite$.subscribe(data => {
+    if(data.data)
+     id = data.data?.find(fav => fav?.recipe?._id === recipe._id)?._id   
+  })
+  this.favoriteManager.deleteFavorite(id)
+}
+isFavorite(recipeId: string): boolean {
+  this.auth.getState().subscribe(state=>{
+      this.favorite = state.data?.favorite?.some(fav => fav?.recipe?._id === recipeId) ?? false;
+    })
+    return this.favorite 
+  }
+  onSharePopup() {
+    this.isSharePopup = !this.isSharePopup;
+  }
+
+
+
+  copyLink() {
+    navigator.clipboard.writeText(this.pageUrl).then(() => {
+      alert("Link copied to clipboard!");
+    });
+  }
+
+  shareOnFacebook() {
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(this.pageUrl)}`, '_blank');
+  }
+
+  shareOnTwitter() {
+    window.open(`https://x.com/share?url=${encodeURIComponent(this.pageUrl)}`, '_blank');
+  }
 }

@@ -1,0 +1,5 @@
+<div class="pages-container">
+    @for (page of [].constructor(totalPages); track $index) {
+    <span (click)="loadPage($index + 1)" [class.active]="currentPage === $index + 1" class="page">{{$index + 1}}</span>
+    }
+  </div>

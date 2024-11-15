@@ -20,11 +20,9 @@ import { ToastrService } from "ngx-toastr";
       this.user.getState().subscribe({
         next:(data)=>{
             this.setData(data.data?.favorite || null)
-            this.setLoading(false);
         },
         error: (err:HttpErrorResponse) => {
           this.setError(err.error.message) 
-          this.setLoading(false)
         }
       })
     }
@@ -35,32 +33,25 @@ import { ToastrService } from "ngx-toastr";
       this.setLoading(true);
       this.service.removeFavorite(id).subscribe({
         next: (res) => {
-          this.setLoading(false);
           this.toastr.success(res.message.toString());
-
           this.user.getProfile()
         },
         error: (err:HttpErrorResponse) => {
           this.setError(err.error.message) 
-          this.setLoading(false)
         }
       });
-      this.setLoading(false);
     }
 
     addFavorite(recipe: string) {
       this.setLoading(true);
       this.service.addFavorite(recipe).subscribe({
         next: (res) => {
-          this.setLoading(false);
           this.toastr.success(res.message.toString());
           this.user.getProfile()
         },
         error: (err:HttpErrorResponse) => {
           this.setError(err.error.message) 
-          this.setLoading(false)
         }
       });
-      this.setLoading(false);
     }
   }

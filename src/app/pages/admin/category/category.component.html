@@ -14,11 +14,13 @@
 
       </button>
     </div>
-    @if(categoryState$ | async ;as postService){ @if(postService.loading){
-    <span>loading..</span>
-    } @else if(postService.error){
-    <span>{{ postService.error }}</span>
-    } @else if(postService.data){
+    @if(categoryState$ | async ;as state){
+       @if(state.loading){
+        <app-spinner></app-spinner>
+           } @else if(state.error){
+    <span>{{ state.error }}</span>
+    } @else if(state.data){
+      <div class="table-container">
     <table>
       <thead>
         <tr>
@@ -28,7 +30,7 @@
         </tr>
       </thead>
       <tbody>
-        @for(category of postService.data ; track $index){
+        @for(category of state.data ; track $index){
         <tr>
           <td>{{ $index + 1 }}</td>
           @if(editing && rowNum == $index +1 ){
@@ -54,7 +56,11 @@
         }
       </tbody>
     </table>
+  </div>
 
-    } }
+    }@if (state.meta) {
+      <app-pagination  (load)="onPageChange($event)" [totalPages]="state.meta.totalPages || 0 "></app-pagination>
+    }
+   }
   </div>
 </div>

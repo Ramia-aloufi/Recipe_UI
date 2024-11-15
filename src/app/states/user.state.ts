@@ -16,16 +16,16 @@ import { HttpErrorResponse } from "@angular/common/http";
         super();
       }
     
-    loadUsers(){
+    loadUsers(page:number = 1){
         this.setLoading(true)
-        this.service.getAll().subscribe({
+        this.service.getAll(page).subscribe({
             next:res=>{              
                 this.setData(res.data)
-                this.setLoading(false)
+                this.setMeta(res.meta)
+
               },
               error: (err:HttpErrorResponse) => {
                 this.setError(err.error.message) 
-                this.setLoading(false)
               }
         })
     }

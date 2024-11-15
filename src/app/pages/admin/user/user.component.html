@@ -2,12 +2,17 @@
 
     <app-aside></app-aside>
     <div class="card">
-        @if (usersState$ | async;as users) {
-            @if (users.loading) {
-                <span>loading...</span>
-            }@else if (users.error) {
-                <span>{{users.error}}</span>
-            }@else if (users.data) {
+        <div class="add">
+<h3></h3>
+
+          </div>
+        @if (usersState$ | async;as state) {
+            @if (state.loading) {
+                <app-spinner></app-spinner>
+            }@else if (state.error) {
+                <span>{{state.error}}</span>
+            }@else if (state.data) {
+                <div class="table-container">
                 <table>
                     <thead>
                         <tr>
@@ -19,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (item of users.data; track $index) {
+                        @for (item of state.data; track $index) {
                             <tr>
                                 <td>{{$index +1}}</td>
                                 <td>{{item.username}}</td>
@@ -38,8 +43,12 @@
                         }
                     </tbody>
                 </table>
+            </div>
     
             }
+            @if (state.meta) {
+                <app-pagination  (load)="onPageChange($event)" [totalPages]="state.meta.totalPages || 0 "></app-pagination>
+              }
     
         }
     </div>

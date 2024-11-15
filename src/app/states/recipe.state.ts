@@ -11,49 +11,46 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class RecipeManager extends StateService<Recipe[]> {
-  recipe$: BehaviorSubject<Recipe | null> =
-    new BehaviorSubject<Recipe | null>(null);
-  category$: BehaviorSubject<Category | null> =
-    new BehaviorSubject<Category | null>(null);
-  all$: BehaviorSubject<Recipe[] | null> =
-    new BehaviorSubject<Recipe[] | null>(null);
-  private recipeToUpdate$: BehaviorSubject<Recipe | null> =
-    new BehaviorSubject<Recipe | null>(null);
-   recipeID$: BehaviorSubject<string > =
-    new BehaviorSubject<string >('');
+  private recipeToUpdate$ = new BehaviorSubject<Recipe | null>(null);
+
+  recipe$ = new BehaviorSubject<Recipe | null>(null);
+  category$ = new BehaviorSubject<Category | null>(null);
+  all$ = new BehaviorSubject<Recipe[] | null>(null);
+  recipeID$ = new BehaviorSubject<string>('');
   recipeData = this.recipeToUpdate$.asObservable()
+
+
+
+
   constructor(private service: RecipeService, private toastr: ToastrService) {
     super();
   }
 
-  loadRecipes() {
+  loadRecipes(_page: number = 1) {
     this.setLoading(true);
-    this.service.getRecipes().subscribe({
+    this.service.getRecipes(_page).subscribe({
       next: (res) => {
         this.setData(res.data);
         this.all$.next(res.data)
+        this.setMeta(res.meta)
       },
       error: (err: HttpErrorResponse) => {
-        console.log(err);
         this.setError(err.error.message)
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
+
   updateRecipe(recipe: FormData, id: string) {
     this.setLoading(true);
     this.service.updateRecipe(recipe, id).subscribe({
       next: (res) => {
         this.toastr.success(res.message.toString());
-        this.loadRecipes;
+        this.loadRecipes();
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   deleteRecipe(recipe: Recipe) {
     this.setLoading(true);
@@ -64,10 +61,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   getRecipe(id: string) {
     this.setLoading(true);
@@ -77,10 +72,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   addRecipe(recipe: FormData) {
     this.setLoading(true);
@@ -91,10 +84,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
-        this.setLoading(false)
       }
     });
-    this.setLoading(false);
   }
   setRecipe(recipe: Recipe) {
     this.recipeToUpdate$.next(recipe)

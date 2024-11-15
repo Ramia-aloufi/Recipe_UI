@@ -26,25 +26,22 @@ import { UserService } from "../services/user.service";
               if(res.data)
               this.setData(res.data)
               this.toastr.success(res.message.toString());
-              this.setLoading(false)
             },
             error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
-              this.setLoading(false)
             }
         })
       }
       getProfile(): void {
+        this.setLoading(true)
         var token = sessionStorage.getItem('token')     
         this.store.profile(token).subscribe({
             next: res => {              
               if(res.data)
                 this.setData(res.data)
-                this.setLoading(false)
             },
             error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
-              this.setLoading(false)
             }
           })
       }
@@ -55,17 +52,12 @@ import { UserService } from "../services/user.service";
             if(res.data){
               this.token.set(res.data)
               this.toastr.success(res.message.toString());
-
             this.getProfile()
-            this.setLoading(false)
-
-
           }
           },
           error: (err:HttpErrorResponse) => {
             this.setError(err.error.message) 
             this.toastr.error(err.error.message.toString());
-            this.setLoading(false)
           }
         })
       }
@@ -84,11 +76,9 @@ import { UserService } from "../services/user.service";
               if(res.data)
               this.setData(res.data)
               this.toastr.success(res.message.toString());
-              this.setLoading(false)
             },
             error: (err:HttpErrorResponse) => {
               this.setError(err.error.message) 
-              this.setLoading(false)
             }
         })
       }

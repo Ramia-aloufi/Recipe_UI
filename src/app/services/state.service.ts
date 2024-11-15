@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IState } from '../states/app.state';
+import { PaginationMeta } from '../models/api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class StateService<T> {
     this.state$ = new BehaviorSubject<IState<T | null>>({
       loading: false,
       data: null,
-      error: null
+      error: null,
+      meta:undefined
     });
   }
    // Getter to expose the current state as an observable
@@ -38,7 +40,9 @@ export class StateService<T> {
   setData(data: T | null) {
     this.setState({ data, loading: false, error: null });
   }
-
+  setMeta(meta: PaginationMeta | undefined) {
+    this.setState({ meta, loading: false, error: null });
+  }
   // For error handling
   setError(error: string | {}) {
     this.setState({ error, loading: false });

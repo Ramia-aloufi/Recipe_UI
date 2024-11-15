@@ -5,7 +5,7 @@ export interface ApiResponse<T> {
     meta?: PaginationMeta;
   }
   
-  interface PaginationMeta {
+  export interface PaginationMeta {
     total: number;
     page: number;
     pageSize: number;

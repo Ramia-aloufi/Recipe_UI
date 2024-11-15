@@ -6,7 +6,7 @@
     <div class="item">
         <span>Category</span>
         @if(category$ |async ; as category){
-            <span>{{category.data?.length ?? "0"}}</span>
+            <span>{{category.meta?.total ?? "0"}}</span>
 
         }
     </div>
@@ -14,7 +14,7 @@
     <div class="item">
         <span>Recipe</span>
         @if(recipe$ |async ; as recipe){
-            <span>{{recipe.data?.length ?? "0"}}</span>
+            <span>{{recipe.meta?.total ?? "0"}}</span>
 
         }   
      </div>
@@ -22,7 +22,7 @@
     <div class="item">
         <span>Users</span>
         @if(user$ |async ; as user){
-            <span>{{user.data?.length ?? "0"}}</span>
+            <span>{{user.meta?.total ?? "0"}}</span>
         }   
      </div>
 
