@@ -41,7 +41,7 @@ export class RecipeComponent {
 
   }
   onDelete(recipe:Recipe){
-    // this.state.deleteRecipe(category)
+    this.state.deleteRecipe(recipe)
   }
   showForm(){
     this.state.clearRecipe()
@@ -52,9 +52,7 @@ export class RecipeComponent {
     this.recipeDetails = recipe
     this.isShowDetails = !this.isShowDetails
   }
-  onPageChange(page: number): void {
-    console.log(page);
-    
+  onPageChange(page: number): void {    
     this.state.loadRecipes(page);
   }
   
