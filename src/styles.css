@@ -273,5 +273,20 @@ tr:hover {
   body{
     margin-top: 3rem !important;
   }
+  .grid-item img{
+    max-height: 200px !important;
+    object-fit: cover;
+  }
+  .grid-item{
+    margin-top: 0 !important;
+  }
+
+}
+
+@media screen and (max-width: 400px) {
+
+  .grid-item img{
+    max-height: 170px !important;
+  }
 
 }
