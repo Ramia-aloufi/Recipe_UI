@@ -203,6 +203,60 @@ gap: 10px;
         display: block;
         height: auto;
     }
+    .card-img img {
+      height: 40vh !important;
+    }
+    .card-content-header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .card-content-chef{
+      margin: 12px 0;
+    }
+    .btn-secondary {
+      padding: 6px 12px;
+      font-size: small;
+    }
+    .card-content-chef img{
+      width: 40px;
+      height: 40px;
+
+    }
+    .card-content-chef span{
+      font-size: small;
+    }
+    .card-content-chef small{
+      font-size: x-small;
+    }
+    .card-content-body span{
+      font-size: 12px;
+
+    }
+    .card-content-chef {
+      margin: 5px 0;
+        }
+    .card-content-body p {
+font-size: small;
+    }
+    .details-title span {
+      font-size: small !important;
+      padding: 0;
+
+    }
+    .small{
+      font-size: small;
+    }
+.card{
+  margin: 0;
+}
+.card-content{
+  grid-template-rows: 9px auto 1fr;
+  gap: 0;
+}
+.details-section li{
+  font-size: small;
+}
+
 
 }
 
@@ -212,8 +266,16 @@ gap: 10px;
     gap: 1rem;
 
   }
-
-
+   .card-img img {
+    height: 30vh !important;
+  }
+  .card-content-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  .card-content-chef{
+    margin: 12px 0;
+  }
 }
 
 

@@ -1,7 +1,12 @@
 <div class="categories">
-  <span (click)="onFilter(null)" [ngClass]="{'selected': selectedCategory === undefined}" class="category-item">All</span>
-  @if(categoryState$ | async ;as state){ @if(state.loading){
-  <span>loading...</span>
+  @if (recipeState$ | async ; as recipeState) {
+  @if (!recipeState.loading) {
+
+    <span (click)="onFilter(null)" [ngClass]="{'selected': selectedCategory === undefined}" class="category-item">All</span>
+  @if(categoryState$ | async ;as state )
+  
+  { @if(state.loading){
+  <span>...</span>
   }@else if (state.error) {
   <span>{{ state.error }}</span>
   }@else if (state.data) { @for (category of state.data ; track category.name) {
@@ -10,5 +15,5 @@
   }}</span>
   }@empty {
   <span>category</span>
-  } } }
+  } } } }}
 </div>

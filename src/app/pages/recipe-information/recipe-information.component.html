@@ -2,7 +2,7 @@
 <span class="small"><span [routerLink]="['/']">Home</span> > {{recipe.title}}</span>
 <div class="card">
   <div class="card-img">
-    <img src="{{ recipe.media[0] }}" alt="" />
+    <img  src="{{ recipe.media[0] }}" alt="" />
   </div>
   <div class="card-content">
     <div class="card-content-action">
@@ -53,9 +53,9 @@
           <span class="show" (click)="toggleExpand()">{{isExpand?'...less':'...more'}} </span>
         </p>
         <div class="list">
-          <span>Serving <i class="fa-solid fa-users-rectangle"></i>: {{ recipe.servings }}</span>
-          <span>CookingTime <i class="fa-regular fa-clock"></i>: {{ recipe.cookingTime }}/m</span>
-          <span>PreparationTime <i class="fa-regular fa-clock"></i>: {{ recipe.preparationTime }}</span>
+          <span><i class="fa-solid fa-users-rectangle"></i> Serving : {{ recipe.servings }}</span>
+          <span><i class="fa-regular fa-clock"></i> Cooking : {{ recipe.cookingTime }}/m</span>
+          <span><i class="fa-regular fa-clock"></i> Prep : {{ recipe.preparationTime }}</span>
         </div>
       </div>
       <div class="card-content-details">
