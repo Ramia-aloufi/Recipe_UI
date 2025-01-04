@@ -18,7 +18,7 @@
   border: none;
   height: 45px;
   border-radius: 1.5rem;
-  background-color: #f4f4f4;
+  background-color: #f7f7f7;
 }
 .header .search{
   flex: 5;
@@ -31,7 +31,7 @@
 }
 input::placeholder{
   padding-left: 1rem;
-  opacity: .4;
+  opacity: .5;
 }
 .user-data{
   flex: 1;

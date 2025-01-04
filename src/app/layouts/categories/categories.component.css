@@ -10,6 +10,7 @@ cursor: pointer;
 padding: 1rem;
 color: gray;
 white-space: nowrap;
+cursor: pointer;
 }
 .selected{
 color: black;

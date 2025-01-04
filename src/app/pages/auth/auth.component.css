@@ -4,16 +4,30 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 85vh;
+    padding: 1rem;
 
 
+}
+.toggle-link{
+color: #444;
+font-weight: 100;
+font-size: medium;
+margin-top: 1rem;
+
+}
+.link{
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
 }
 .col-2{
 overflow: hidden;
 position: relative;
+border-radius: 1rem;
 }
 
 .col-2 img{
-object-fit: cover;
+object-fit: center;
 }
 
 .col-1{
@@ -37,11 +51,7 @@ object-fit: cover;
     background-color: rgba(192, 81, 100,0.5); ;
 
   }
-  form{
-    width: 50%;
-    display: grid;
-    padding: 2rem;
-  }
+
 h1{
     margin-bottom: 2rem;
 }
@@ -54,7 +64,7 @@ h1{
 
 }
 .text{
-  font-size: x-large;
+  font-size: large;
 
 }
 br{

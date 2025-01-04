@@ -1,4 +1,8 @@
 <div class="container">
+  <div class="col-2">
+    <img src="{{ randomImage }}" alt="" />
+    <h1 class="text">Cook <br>Share <br>Enjoy <br>Unique recipes!</h1>
+  </div>
   <div class="col-1">
     <div class="">
       @if (isLoginMode) {
@@ -16,15 +20,19 @@
       <p (click)="toggleMode()" class="toggle-link">
         {{
           isLoginMode
-            ? "Don't have an account? Signup"
-            : "Already have an account? Login"
+            ? "Don't have an account?"
+            : "Already have an account?"
         }}
+        <span class="link">
+          {{
+            isLoginMode
+              ? "Signup"
+              : "Login"
+          }}
+        </span>
       </p>
     </div>
   </div>
 
-  <div class="col-2">
-    <img src="{{ randomImage }}" alt="" />
-    <h1 class="text">Cook <br>Share <br>Enjoy <br>Unique recipes!</h1>
-  </div>
+
 </div>

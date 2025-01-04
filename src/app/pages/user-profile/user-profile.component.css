@@ -12,21 +12,23 @@
     height: 100px;
 }
 .user-data{
-    height: 50vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    margin-bottom: 1rem;
 }
 .user-data img{
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid #111;
 }
 .small{
     color: #777;
     cursor: pointer;
+  }
+  .actions{
+    margin-top: 1rem;
   }
