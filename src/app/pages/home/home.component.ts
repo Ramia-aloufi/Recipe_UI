@@ -7,7 +7,6 @@ import { SpinnerComponent } from "../../components/spinner/spinner.component";
 import { Recipe } from '../../models/recipe.model';
 import { filter, map, take } from 'rxjs';
 import { PaginationComponent } from "../../components/pagination/pagination.component";
-
 @Component({
   selector: 'app-home',
   standalone: true,

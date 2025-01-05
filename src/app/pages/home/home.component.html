@@ -1,23 +1,27 @@
 <app-categories></app-categories>
 
-  @if(state$ | async ; as state){
-    @if
-    (state.data){
-      <div class="grid" >
-      @for (recipe of state.data; track $index) {
-        <app-recipe-card [recipe] = "recipe"></app-recipe-card>
-        }
-
-      </div>
-
-    }
-    @if(state.loading){
-      <div class="">
-        <app-spinner></app-spinner>
-      </div>
-    }
-    @if (state.data && state.data.length > 5 && state.meta) {
-      <app-pagination  (load)="onPageChange($event)" [totalPages]="state.meta.totalPages || 0 "></app-pagination>
-    }
+@if(state$ | async ; as state){ 
+  @if (state.data){
+<div class="grid">
+  @for (recipe of state.data; track $index) {
+  <app-recipe-card [recipe]="recipe"></app-recipe-card>
   }
-
+</div>
+} 
+@if(state.loading){
+<div class="">
+  <app-spinner></app-spinner>
+</div>
+}@else if (state.data && state.data.length === 0) {
+<div class="empty">
+  <img src="norecipe.png" alt="No Recipe Available" class="no-recipe-image" >
+  <span>No recipes found. Try different keywords or filters.</span>
+</div>
+}
+ @if (state.data && state.data.length > 5 && state.meta) {
+<app-pagination
+  (load)="onPageChange($event)"
+  [totalPages]="state.meta.totalPages || 0"
+></app-pagination>
+} 
+}

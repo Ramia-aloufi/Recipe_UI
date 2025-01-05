@@ -11,6 +11,7 @@
         </div>
       <div class="recipe-chef">
         @if (recipe.chef) {
+          <img src={{recipe.chef.profileImage}} alt="">
         <span>{{ recipe.chef.username }}</span>
         }
 
