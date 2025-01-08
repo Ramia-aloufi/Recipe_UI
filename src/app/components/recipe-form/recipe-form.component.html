@@ -58,10 +58,10 @@
 
   <!-- Ingredients  -->
   <div class="form-group"  formArrayName="ingredients">
-    <small>{{ getErrorMessage("ingredients") }}</small>
     <h3>Ingredients</h3>
     @for (ingredientGroup of ingredients.controls; track $index) {
     <div class="flex">
+      <small>{{ getIngredientErrorMessage($index) }}</small>
       <input [formControlName]="$index" placeholder="Enter ingredient name" />
       <button type="button" class="btn-def" (click)="remove(ingredients,$index)"><i
           class="fa-regular fa-circle-xmark"></i></button>

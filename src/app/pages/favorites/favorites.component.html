@@ -1,15 +1,21 @@
-<h3>Saved Recipes</h3>
-<div class="grid">
+<span class="small"><span [routerLink]="['/']">Home</span> > Saved Recipes</span>
     @if (userData$ | async; as data) {
-        @if(data.loading){
-            <span>loading</span>
-        }@else if (data.error) {
-            <span>data.error</span>
-        }@else if (data.data) {
-        @for (item of data.data.favorite; track $index) {
-            <app-recipe-card [recipe] = "item.recipe"></app-recipe-card>
-        }
-    }
-    }
-    <div class=""></div>
+        <div class="grid">
+            @if (data.error) {
+                <span>There was an error loading your favorite recipes. Please try again
+                    later.</span>
+            } @else if (data.data) {
+                @for (item of data.data.favorite; track $index) {
+                    <app-recipe-card [recipe]="item.recipe"></app-recipe-card>
+                }
+            }
 </div>
+    
+@if(data.data && data.data.favorite && data.data.favorite.length === 0){
+    <div class="empty">
+        <img src="norecipe.png" alt="No Recipe Available" class="no-recipe-image" />
+        <span>No favorite recipes found. Start adding your favorite recipes to see them
+         here!</span>
+    </div>
+    }
+}

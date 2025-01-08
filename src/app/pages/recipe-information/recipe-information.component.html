@@ -6,12 +6,17 @@
   </div>
   <div class="card-content">
     <div class="card-content-action">
+      @if (isCurrentUser(recipe.chef.username)) {
+        <i (click)="onUpdateRecipe(recipe)" class="fa-solid fa-pen"></i>
+        <i (click)="onDeleteRecipe(recipe)" class="fa-solid fa-trash"></i>
+      } @else {
       @if(isFavorite(recipe._id)){
         <i (click)="removeFavorite(recipe)" class="fa-solid fa-bookmark"></i>
     }@else {
       <i (click)="addToFavorite(recipe)" class="fa-regular fa-bookmark"></i>
     }
       <i class="fa-solid fa-arrow-up-from-bracket" (click)="onSharePopup()"></i>
+  }
       <!-- Share Popup -->
 <div *ngIf="isSharePopup" class="share-popup">
   <h3>Share this page</h3>
@@ -26,6 +31,8 @@
         <span>{{ recipe.category.name }}</span>
         <h1>{{ recipe.title }}</h1>
       </div>
+      @if (!isCurrentUser(recipe.chef.username)) {
+      
       @if (recipe.chef) {
       <div class="card-content-chef">
         <div [routerLink]="['/profile',recipe.chef.username]" class="card-content-chef">
@@ -47,7 +54,7 @@
         }
         }
       </div>
-      }
+      }}
       <div class="card-content-body">
         <p [class.expand]="isExpand"> {{ isExpand ? recipe.description : (recipe.description | slice:0:50) }}
           <span class="show" (click)="toggleExpand()">{{isExpand?'...less':'...more'}} </span>
@@ -120,6 +127,17 @@
     </div>
   </div>
 </div>
+@if(isEdit){
+  <div class="modal">
+    <div class="modal-content">
+      <div class="flex">
+      <span>Update Recipe</span>
+      <span class="close" (click)="toggleModal()">&times;</span>
+    </div>
+      <app-recipe-form (notifyToggle)="toggleModal(true)"></app-recipe-form>
+    </div>
+  </div>
+}
 }@else {
 <div class="spinner">
   <app-spinner></app-spinner>

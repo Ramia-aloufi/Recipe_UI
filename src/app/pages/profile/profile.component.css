@@ -70,3 +70,14 @@ pointer-events: none;
     width: 100%;
 }
 
+.empty{
+    color: #777;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.empty img{
+    width: 200px;
+    height: 200px;
+}

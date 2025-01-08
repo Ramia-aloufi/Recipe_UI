@@ -1,0 +1,12 @@
+.empty{
+    height: 80vh;
+    color: #777;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.empty img{
+    width: 200px;
+    height: 200px;
+}

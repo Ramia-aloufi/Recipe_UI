@@ -27,6 +27,11 @@ export class RecipeManager extends StateService<Recipe[]> {
   }
 
   loadRecipes(_page: number = 1) {
+    if (!navigator.onLine) {
+      this.toastr.error('No internet connection. Please check your network.');
+      this.setLoading(false);
+      return;
+    }
     this.setLoading(true);
     this.service.getRecipes(_page).subscribe({
       next: (res) => {
@@ -34,8 +39,13 @@ export class RecipeManager extends StateService<Recipe[]> {
         this.all$.next(res.data)
         this.setMeta(res.meta)
       },
-      error: (err: HttpErrorResponse) => {
+      error: (err) => {
+        console.log(err);
+        
         this.setError(err.error.message)
+        this.toastr.error(err.error.message 
+          
+        );
       }
     });
   }
@@ -49,6 +59,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
+        this.toastr.error(err.error.message);
+
       }
     });
   }
@@ -61,6 +73,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
+        this.toastr.success(err.error.message);
+
       }
     });
   }

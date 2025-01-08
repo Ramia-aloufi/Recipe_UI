@@ -1,0 +1,8 @@
+<div class="grid-item" (click)="onClick(recipe._id)">
+  <img class="recipe-img" [src]="recipe.media[0]" />
+  <div class="recipe-info">
+    <div class="flex" (click)="$event.stopPropagation()">
+      <h2>{{ recipe.title }}</h2>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -24,8 +30,8 @@ export class RecipeFormComponent implements OnInit {
   isSubmitted = false;
   selectedFile: File | null = null;
   formData = new FormData();
-  recipeData: Recipe | null = null
   imagePreview: string = '';
+  recipeData: Recipe | null = null;
 
   @Output() notifyToggle = new EventEmitter<void>();
 
@@ -36,11 +42,23 @@ export class RecipeFormComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {
     this.recipeForm = this.fb.group({
-      title: ['', [Validators.required, Validators.min(3)]],
-      preparationTime: [0, [Validators.required, Validators.min(1)]],
-      cookingTime: [0, [Validators.required, Validators.min(1)]],
-      servings: [0, [Validators.required, Validators.min(1)]],
-      category: ['', Validators.required],
+      title: [
+        this.recipeData?.title || '',
+        [Validators.required, Validators.min(3)],
+      ],
+      preparationTime: [
+        this.recipeData?.preparationTime || '',
+        [Validators.required, Validators.min(1)],
+      ],
+      cookingTime: [
+        this.recipeData?.cookingTime || '',
+        [Validators.required, Validators.min(1)],
+      ],
+      servings: [
+        this.recipeData?.servings || '',
+        [Validators.required, Validators.min(1)],
+      ],
+      category: [this.recipeData?.category || '', Validators.required],
       ingredients: this.fb.array([this.fb.control('', Validators.required)]),
       steps: this.fb.array([this.fb.control('', Validators.required)]),
       media: this.fb.array([this.fb.control(null, Validators.required)]),
@@ -65,18 +83,17 @@ export class RecipeFormComponent implements OnInit {
   ngOnInit() {
     this.recipe.recipeData.subscribe((data) => {
       if (data) {
-        this.recipeData = data
+        this.recipeData = data;
         this.setFormArrayValues(this.ingredients, data.ingredients);
         this.setFormArrayValues(this.steps, data.steps);
         this.setFormArrayValues(this.media, data.media);
-        this.imagePreview = data.media[0]
+        this.imagePreview = data.media[0];
         this.recipeForm.patchValue({
-          ...data, category: data.category._id
+          ...data,
+          category: data.category._id,
         });
         this.cdRef.detectChanges();
-
       }
-
     });
   }
   setFormArrayValues(formArray: FormArray, values: String[]) {
@@ -85,57 +102,70 @@ export class RecipeFormComponent implements OnInit {
       formArray.push(this.fb.control(value));
     });
   }
-  triggerToggle() {
-    this.notifyToggle.emit();
-  }
+
   onSubmit() {
     this.isSubmitted = true;
     if (this.recipeForm.invalid) {
       this.recipeForm.markAllAsTouched();
       return;
     }
-    if (this.isSubmitted && this.recipeForm.valid) {
-      this.formData.append('title', this.recipeForm.get('title')?.value);
-      this.formData.append('description', 'description');
-      this.formData.append('preparationTime', this.recipeForm.get('preparationTime')?.value);
-      this.formData.append('cookingTime', this.recipeForm.get('cookingTime')?.value);
-      this.formData.append('servings', this.recipeForm.get('servings')?.value);
-      this.formData.append('category', this.recipeForm.get('category')?.value);
-      this.ingredients.controls.forEach((control) => {
-        this.formData.append(`ingredients`, control.value);
-      });
-      this.steps.controls.forEach((control, index) => {
-        this.formData.append(`steps`, control.value);
-      });
-      if (this.selectedFile) {
-        console.log(this.selectedFile);
-        this.media.controls.forEach((control, index) => {
-          this.formData.append(`media`, control.value);
-        });
-      }
-      if (!this.recipeData) {
-        this.recipe.addRecipe(this.formData);
-      } else {
-        this.recipe.updateRecipe(this.formData, this.recipeData._id);
-      }
-      this.recipe.getState().subscribe(state => {
-        if (!state.error) {
-          this.recipeForm.reset()
-          this.triggerToggle()
-        }
-      })
+
+    this.prepareFormData();
+
+    if (!this.recipeData) {
+      this.recipe.addRecipe(this.formData);
+    } else {
+      this.recipe.updateRecipe(this.formData, this.recipeData._id);
+    }
+    this.handleSuccess();
+  }
+  prepareFormData() {
+    this.formData = new FormData();
+    this.formData.append('title', this.recipeForm.get('title')?.value);
+    this.formData.append('description', 'description');
+    this.formData.append(
+      'preparationTime',
+      this.recipeForm.get('preparationTime')?.value
+    );
+    this.formData.append(
+      'cookingTime',
+      this.recipeForm.get('cookingTime')?.value
+    );
+    this.formData.append('servings', this.recipeForm.get('servings')?.value);
+    this.formData.append('category', this.recipeForm.get('category')?.value);
+
+    this.ingredients.controls.forEach((control) => {
+      this.formData.append('ingredients', control.value);
+    });
+
+    this.steps.controls.forEach((control) => {
+      this.formData.append('steps', control.value);
+    });
+
+    if (this.selectedFile) {
+      this.formData.append('media', this.selectedFile);
     }
   }
-  onFileSelected(event: Event, index: number): void {
+  handleSuccess() {
+    this.recipe.getState().subscribe((state) => {
+      if (!state.error) {
+        this.reset()
+      }
+    });
+  }
+  reset(){
+    this.recipeForm.reset();
+    this.notifyToggle.emit();
+  this.recipeData = null;
+    this.selectedFile = null;
+  }
+  onFileSelected(event: Event, index: number) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.selectedFile = file;
-
+      this.imagePreview = URL.createObjectURL(file);
       this.media.at(index).setValue(file);
-      const reader = new FileReader();
-      reader.onload = () => (this.imagePreview = reader.result as string);
-      reader.readAsDataURL(file);
     }
   }
   getErrorMessage(field: string): string {
@@ -153,11 +183,25 @@ export class RecipeFormComponent implements OnInit {
     }
     return '';
   }
+  getIngredientErrorMessage(index: number): string {
+    const control = this.ingredients.at(index);
+    if (control?.touched && control?.errors) {
+      if (control.errors['required']) {
+        return `Ingredient is required.`;
+      }
+      if (control.errors['minlength']) {
+        return `Ingredient must be at least ${control.errors['minlength'].requiredLength} characters long.`;
+      }
+      if (control.errors['maxlength']) {
+        return `Ingredient cannot be more than ${control.errors['maxlength'].requiredLength} characters long.`;
+      }
+    }
+    return '';
+  }
   updateForm(data: any) {
     this.recipeForm.get('title')?.setValue(data.title);
     this.setFormArrayValues(this.ingredients, data.ingredients);
     this.setFormArrayValues(this.steps, data.steps);
     this.setFormArrayValues(this.media, data.media); // media could be URLs or File objects
   }
-
 }

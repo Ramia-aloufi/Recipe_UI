@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { CategoryManager } from '../../states/category.state';
 import { RecipeManager } from '../../states/recipe.state';

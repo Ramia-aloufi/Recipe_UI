@@ -10,7 +10,7 @@ import { AuthManager } from '../../states/auth.state';
 @Component({
   selector: 'app-recipe-card',
   standalone: true,
-  imports: [CommonModule,CategoriesComponent],
+  imports: [CommonModule],
   templateUrl: './recipe-card.component.html',
   styleUrl: './recipe-card.component.css'
 })

@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { RecipeCardComponent } from '../../components/recipe-card/recipe-card.component';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
+import { ProfileRecipeCardComponent } from "../../components/profile-recipe-card/profile-recipe-card.component";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, RecipeCardComponent, SpinnerComponent, FormsModule],
+  imports: [CommonModule, RecipeCardComponent, SpinnerComponent, FormsModule, ProfileRecipeCardComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
