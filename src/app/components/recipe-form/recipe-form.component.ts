@@ -156,7 +156,7 @@ export class RecipeFormComponent implements OnInit {
   reset(){
     this.recipeForm.reset();
     this.notifyToggle.emit();
-  this.recipeData = null;
+    this.recipeData = null;
     this.selectedFile = null;
   }
   onFileSelected(event: Event, index: number) {

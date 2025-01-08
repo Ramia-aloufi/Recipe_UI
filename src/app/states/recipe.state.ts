@@ -89,9 +89,13 @@ export class RecipeManager extends StateService<Recipe[]> {
     this.service.getRecipeById(id).subscribe({
       next: (res) => {
         this.recipe$.next(res.data);
+        this.setLoading(false);
+
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
+        this.setLoading(false);
+
       }
     });
   }

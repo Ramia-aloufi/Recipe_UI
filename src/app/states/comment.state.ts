@@ -22,7 +22,9 @@ import { RecipeManager } from "./recipe.state";
         this.service.newComment(data).subscribe({
             next:res=>{                
                 this.setData(res.data)
+                this.toaster.success(res.message as string)                
                 this.recipe.getRecipe(this.recipe.recipeID$.getValue())
+
             },
             error:(er:HttpErrorResponse)=>{
                 this.toaster.error(er.error.message)
@@ -36,6 +38,7 @@ import { RecipeManager } from "./recipe.state";
             next:res=>{
                 this.setData(res.data)
                 this.recipe.getRecipe(this.recipe.recipeID$.getValue())
+                this.toaster.success(res.message as string)
             },
             error:(er:HttpErrorResponse)=>{
                 this.toaster.error(er.error.message)

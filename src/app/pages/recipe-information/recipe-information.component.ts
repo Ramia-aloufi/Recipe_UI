@@ -82,12 +82,10 @@ export class RecipeInformationComponent implements OnInit {
         text: this.commentText,
         recipe: this.recipeID,
       };
-      console.log(data);
-
       this.commentManager.add(data);
       this.commentText = '';
     } else {
-      console.log('add comment');
+      this.toastr.error('Comment cannot be empty');
     }
   }
   onDeleteComment(id: string) {
