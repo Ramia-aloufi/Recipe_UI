@@ -60,6 +60,7 @@ export class RecipeInformationComponent implements OnInit {
   fetchRecipe(): void {
     const recipeId = this.route.snapshot.paramMap.get('id');
     if (recipeId) {
+      this.recipeID = recipeId;
       this.recipeState.getRecipe(recipeId);
       };
     }
