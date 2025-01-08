@@ -26,8 +26,8 @@ export class UserProfileComponent {
   ngOnInit() {
     this.route.params.subscribe((param) => {
       this.profileManager.getOne(param['name'])
-      this.userData$.subscribe(aa=>{
-        this.follower = aa.data?.following
+      this.userData$.subscribe(data=>{
+        this.follower = data.data?.following
       })
       this.auth$.subscribe(data=>{
         this.user = data.data?.username
@@ -43,6 +43,10 @@ onUnFollow(name:string){
   this.profileManager.unfollow(name)
 }
 isFollower():boolean{
+  console.log(this.follower);
+  console.log(this.user);
+  
+  
 return this.follower?.some(follower=>follower.username  == this.user ) ?? false
 }
 

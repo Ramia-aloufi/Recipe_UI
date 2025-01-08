@@ -15,7 +15,7 @@
         @if(auth$ |async ;as profile ){
         @if( profile.data){
         @if(isFollower()){
-        <button (click)="onUnFollow(user.username)" class="btn-secondary">unFollow</button>
+        <button (click)="onUnFollow(user.username)" class="btn-secondary">Unfollow</button>
         }@else {
         <button (click)="onFollow(user.username)" class="btn-secondary">Follow</button>
         }
@@ -29,7 +29,8 @@
 
 <div class="grid">
     @if(user.recipes && user.recipes.length > 0){
-    @for(recipe of user.recipes ;track recipe._id){
+        <span>{{user.recipes.length}}</span>
+    @for(recipe of user.recipes ;track recipe.title){
     <app-recipe-card [recipe]="recipe"></app-recipe-card>
     }
     }@else {

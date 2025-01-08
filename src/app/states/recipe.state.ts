@@ -86,6 +86,7 @@ export class RecipeManager extends StateService<Recipe[]> {
   }
   getRecipe(id: string) {
     this.setLoading(true);
+    console.log(id);
     this.service.getRecipeById(id).subscribe({
       next: (res) => {
         this.recipe$.next(res.data);

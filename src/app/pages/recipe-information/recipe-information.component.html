@@ -2,11 +2,13 @@
 <span class="small"><span [routerLink]="['/']">Home</span> > {{recipe.title}}</span>
 <div class="card">
   <div class="card-img">
-    <img  src="{{ recipe.media[0] }}" alt="" />
+    @for (img of recipe.media ; track $index) {
+    <img  src="{{ img}}" alt="" />
+    }
   </div>
   <div class="card-content">
     <div class="card-content-action">
-      @if (isCurrentUser(recipe.chef.username)) {
+      @if (recipe.chef && recipe.chef.username && isCurrentUser(recipe.chef.username)) {
         <i (click)="onUpdateRecipe(recipe)" class="fa-solid fa-pen"></i>
         <i (click)="onDeleteRecipe(recipe)" class="fa-solid fa-trash"></i>
       } @else {
@@ -28,17 +30,19 @@
     </div>
     <div class="card-body">
       <div class="card-content-header">
-        <span>{{ recipe.category.name }}</span>
+        @if(recipe.category && recipe.category.name){
+        <span>{{recipe.category.name }}</span>
+        }
         <h1>{{ recipe.title }}</h1>
       </div>
-      @if (!isCurrentUser(recipe.chef.username)) {
+      @if (recipe.chef && !isCurrentUser(recipe.chef.username)) {
       
       @if (recipe.chef) {
       <div class="card-content-chef">
         <div [routerLink]="['/profile',recipe.chef.username]" class="card-content-chef">
           <img src="{{ recipe.chef.profileImage }}" alt="" />
           <div class="card-content-chef-info">
-            <span>{{ recipe.chef.username }}</span>
+            <span>{{ recipe.chef.username || "" }}</span>
             <small>112k followers</small>
           </div>
         </div>
@@ -91,7 +95,7 @@
           </ul>
           } @if(selectedSection === 'comments'){
           <div class="comment">
-              @if(recipe.comments.length > 0){
+              @if(recipe.comments && recipe.comments.length > 0){
                 <div class="comment-container">
                 @for (comment of recipe.comments; track $index){
                   <div class="comment-data">
@@ -102,7 +106,7 @@
                     <span>{{ comment.commentText }}</span>
                     @if(auth$ | async;as auth ){
                       @if (auth.data?.username == comment.user.username) {
-                    <i (click)="onDeleteComment(comment._id)" class="del" class="fa-regular fa-trash-can"></i>
+                    <i (click)="onDeleteComment(comment)" class="del" class="fa-regular fa-trash-can"></i>
                       }
                     }
                   </div>

@@ -1,5 +1,5 @@
 import { Category } from "./category.model";
-import { Comment } from "./comment.model";
+import { IComment } from "./comment.model";
 import { User } from "./user.model";
 
 
@@ -18,5 +18,5 @@ export interface Recipe {
         media: string[];
         ingredients: string[];
         steps: string[];
-        comments: Comment[];
+        comments: IComment[];
     }

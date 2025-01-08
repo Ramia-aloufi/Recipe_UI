@@ -10,7 +10,8 @@ import { CommentManager } from '../../states/comment.state';
 import { Recipe } from '../../models/recipe.model';
 import { FavoriteManager } from '../../states/favorite.state';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
-import { Toast, ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+import { IComment } from '../../models/comment.model';
 
 @Component({
   selector: 'app-recipe-information',
@@ -46,24 +47,22 @@ export class RecipeInformationComponent implements OnInit {
     private commentManager: CommentManager,
     private favoriteManager: FavoriteManager,
     private toastr: ToastrService,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.fetchRecipe();
-    // this.auth$.subscribe((state) => {
-    //   this.user = state.data?.username;
-    // });
+    this.auth$.subscribe((state) => {
+      this.user = state.data?.username;
+    });
   }
-
   fetchRecipe(): void {
     const recipeId = this.route.snapshot.paramMap.get('id');
     if (recipeId) {
       this.recipeID = recipeId;
       this.recipeState.getRecipe(recipeId);
-      };
     }
+  }
   showSection(section: string) {
     this.selectedSection = section;
   }
@@ -88,8 +87,8 @@ export class RecipeInformationComponent implements OnInit {
       this.toastr.error('Comment cannot be empty');
     }
   }
-  onDeleteComment(id: string) {
-    this.commentManager.remove(id);
+  onDeleteComment(comment: IComment) {
+    this.commentManager.remove(comment);
   }
   isFollowingChef(): boolean {
     return (
@@ -151,22 +150,22 @@ export class RecipeInformationComponent implements OnInit {
   }
   onUpdateRecipe(recipe: Recipe) {
     this.isEdit = true;
-    this.recipeState.setRecipe(recipe)
+    this.recipeState.setRecipe(recipe);
   }
   onDeleteRecipe(recipe: Recipe) {
     const confirmed = confirm('Are you sure you want to delete this recipe?');
     if (confirmed) {
       this.recipeState.deleteRecipe(recipe);
 
-        this.toastr.success('Recipe deleted successfully');
-        this.router.navigate(['/']);
+      this.toastr.success('Recipe deleted successfully');
+      this.router.navigate(['/']);
     }
   }
   toggleModal(fetchRecipe: boolean = false) {
     this.isEdit = false;
-    this.recipeState.clearRecipe()
+    this.recipeState.clearRecipe();
     if (!this.isEdit && fetchRecipe) {
-      console.log("Clicked");
+      console.log('Clicked');
       this.fetchRecipe();
     }
   }

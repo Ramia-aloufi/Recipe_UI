@@ -44,8 +44,6 @@ export class ProfileComponent {
     if (this.file) {
       this.formData.append('profileImage', this.file);
     }
-    console.log(this.file);
-
     this.state.updateUser(this.formData)
   }
   onFileSelected(event: Event) {
