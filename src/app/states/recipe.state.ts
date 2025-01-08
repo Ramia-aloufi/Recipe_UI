@@ -6,6 +6,7 @@ import { Recipe } from '../models/recipe.model';
 import { RecipeService } from '../services/recipe.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { AuthManager } from './auth.state';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class RecipeManager extends StateService<Recipe[]> {
 
 
 
-  constructor(private service: RecipeService, private toastr: ToastrService) {
+  constructor(private service: RecipeService, private toastr: ToastrService,private auth:AuthManager) {
     super();
   }
 
@@ -56,6 +57,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (res) => {
         this.toastr.success(res.message.toString());
         this.loadRecipes();
+        this.auth.getProfile()
+
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
@@ -95,6 +98,7 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (res) => {
         this.toastr.success(res.message.toString());
         this.loadRecipes()
+        this.auth.getProfile()
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)

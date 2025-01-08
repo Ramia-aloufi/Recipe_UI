@@ -36,9 +36,7 @@ export class HeaderComponent implements OnInit{
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
-  toggleNewRecipe() {
-    console.log("Clicked");
-    
+  toggleNewRecipe() {    
     this.isFormOpen = !this.isFormOpen;
   }
   onSearch(searchKey: Event) {
