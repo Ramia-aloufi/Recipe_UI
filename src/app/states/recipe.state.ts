@@ -75,6 +75,7 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (res) => {
         this.toastr.success(res.message.toString());
         this.loadRecipes();
+        this.auth.getProfile()
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
