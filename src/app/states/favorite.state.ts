@@ -15,17 +15,17 @@ import { ToastrService } from "ngx-toastr";
     constructor(private service: FavoriteService,private user: AuthManager,private toastr: ToastrService) {
       super();
     }
-    getFavorite(){
-      this.setLoading(true);
-      this.user.getState().subscribe({
-        next:(data)=>{
-            this.setData(data.data?.favorite || null)
-        },
-        error: (err:HttpErrorResponse) => {
-          this.setError(err.error.message) 
-        }
-      })
-    }
+    // getFavorite(){
+    //   this.setLoading(true);
+    //   this.user.getState().subscribe({
+    //     next:(data)=>{
+    //         this.setData(data.data?.favorite || null)
+    //     },
+    //     error: (err:HttpErrorResponse) => {
+    //       this.setError(err.error.message) 
+    //     }
+    //   })
+    // }
   
 
 
@@ -43,6 +43,8 @@ import { ToastrService } from "ngx-toastr";
     }
 
     addFavorite(recipe: string) {
+      console.log(recipe);
+      
       this.setLoading(true);
       this.service.addFavorite(recipe).subscribe({
         next: (res) => {

@@ -15,7 +15,7 @@
         @if(auth$ |async ;as profile ){
         @if( profile.data){
         @if(isFollower()){
-        <button (click)="onUnFollow(user.username)" class="btn-secondary">Unfollow</button>
+        <button (click)="onFollow(user.username)" class="btn-secondary">Unfollow</button>
         }@else {
         <button (click)="onFollow(user.username)" class="btn-secondary">Follow</button>
         }

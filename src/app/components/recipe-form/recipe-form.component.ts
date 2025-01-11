@@ -18,11 +18,11 @@ import { RecipeManager } from '../../states/recipe.state';
 import { Recipe } from '../../models/recipe.model';
 
 @Component({
-  selector: 'app-recipe-form',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './recipe-form.component.html',
-  styleUrl: './recipe-form.component.css',
+    selector: 'app-recipe-form',
+    standalone: true,
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './recipe-form.component.html',
+    styleUrl: './recipe-form.component.css'
 })
 export class RecipeFormComponent implements OnInit {
   recipeForm: FormGroup;

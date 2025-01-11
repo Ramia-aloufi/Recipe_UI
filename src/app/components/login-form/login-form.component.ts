@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { AuthManager } from '../../states/auth.state';
 
 @Component({
-  selector: 'app-login-form',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.css'
+    selector: 'app-login-form',
+    standalone: true,
+    imports: [ReactiveFormsModule],
+    templateUrl: './login-form.component.html',
+    styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
   loginForm: FormGroup;

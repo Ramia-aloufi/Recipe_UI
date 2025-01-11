@@ -9,11 +9,11 @@ import { PaginationComponent } from "../../../components/pagination/pagination.c
 import { SpinnerComponent } from "../../../components/spinner/spinner.component";
 
 @Component({
-  selector: 'app-recipe',
-  standalone: true,
-  imports: [AsideComponent, CommonModule, FormsModule, RecipeFormComponent, PaginationComponent, SpinnerComponent],
-  templateUrl: './recipe.component.html',
-  styleUrl: './recipe.component.css'
+    selector: 'app-recipe',
+    standalone: true,
+    imports: [AsideComponent, CommonModule, FormsModule, RecipeFormComponent, PaginationComponent, SpinnerComponent],
+    templateUrl: './recipe.component.html',
+    styleUrl: './recipe.component.css'
 })
 export class RecipeComponent {
   state$ = this.state.getState()

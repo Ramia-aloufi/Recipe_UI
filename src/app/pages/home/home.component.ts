@@ -8,11 +8,11 @@ import { Recipe } from '../../models/recipe.model';
 import { filter, map, take } from 'rxjs';
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, CategoriesComponent, RecipeCardComponent, SpinnerComponent, PaginationComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    standalone: true,
+    imports: [CommonModule, CategoriesComponent, RecipeCardComponent, SpinnerComponent, PaginationComponent],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit  {
   state$ = this.recipeManager.getState()

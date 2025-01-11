@@ -6,11 +6,11 @@ import { PaginationComponent } from "../../../components/pagination/pagination.c
 import { SpinnerComponent } from "../../../components/spinner/spinner.component";
 
 @Component({
-  selector: 'app-user',
-  standalone: true,
-  imports: [CommonModule, AsideComponent, PaginationComponent, SpinnerComponent],
-  templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+    selector: 'app-user',
+    standalone: true,
+    imports: [CommonModule, AsideComponent, PaginationComponent, SpinnerComponent],
+    templateUrl: './user.component.html',
+    styleUrl: './user.component.css'
 })
 export class UserComponent {
   usersState$ = this.state.getState()

@@ -6,11 +6,10 @@ import { FavoriteManager } from '../../states/favorite.state';
 import { AuthManager } from '../../states/auth.state';
 
 @Component({
-  selector: 'app-profile-recipe-card',
-  standalone: true,
-  imports: [],
-  templateUrl: './profile-recipe-card.component.html',
-  styleUrl: './profile-recipe-card.component.css'
+    selector: 'app-profile-recipe-card',
+    standalone: true,
+    templateUrl: './profile-recipe-card.component.html',
+    styleUrl: './profile-recipe-card.component.css'
 })
 export class ProfileRecipeCardComponent {
   recipeFavorite$ = this.favoriteManager.getState()

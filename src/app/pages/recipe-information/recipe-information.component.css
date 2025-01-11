@@ -179,9 +179,9 @@ gap: 10px;
 }
 
 .share-popup {
-  /* position: fixed; */
-  top: 25%;
-  right: 5%;
+  position: absolute;
+  top: 7%;
+  right: 1%;
   padding: 20px;
   background-color: white;
   border: 1px solid #ccc;

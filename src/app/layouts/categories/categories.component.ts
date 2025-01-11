@@ -5,11 +5,11 @@ import { RecipeManager } from '../../states/recipe.state';
 import { Category } from '../../models/category.model';
 
 @Component({
-  selector: 'app-categories',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css'
+    selector: 'app-categories',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './categories.component.html',
+    styleUrl: './categories.component.css'
 })
 export class CategoriesComponent   {
   public categoryState$ = this.categoryState.getState()

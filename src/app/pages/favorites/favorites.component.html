@@ -6,7 +6,7 @@
                     later.</span>
             } @else if (data.data) {
                 @for (item of data.data.favorite; track $index) {
-                    <app-recipe-card [recipe]="item.recipe"></app-recipe-card>
+                    <app-recipe-card [recipe]="item"></app-recipe-card>
                 }
             }
 </div>

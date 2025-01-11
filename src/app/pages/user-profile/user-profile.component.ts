@@ -9,11 +9,11 @@ import { SpinnerComponent } from "../../components/spinner/spinner.component";
 import { User } from '../../models/user.model';
 
 @Component({
-  selector: 'app-user-profile',
-  standalone: true,
-  imports: [CommonModule, RecipeCardComponent, RouterModule, SpinnerComponent],
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css'
+    selector: 'app-user-profile',
+    standalone: true,
+    imports: [CommonModule, RecipeCardComponent, RouterModule, SpinnerComponent],
+    templateUrl: './user-profile.component.html',
+    styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
   userData$ = this.profileManager.getState()
@@ -38,10 +38,7 @@ onFollow(name:string){
   console.log(name);
   this.profileManager.follow(name)
 }
-onUnFollow(name:string){
-  
-  this.profileManager.unfollow(name)
-}
+
 isFollower():boolean{
   console.log(this.follower);
   console.log(this.user);

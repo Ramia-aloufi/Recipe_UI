@@ -9,11 +9,11 @@ import {
 import { AuthManager } from '../../states/auth.state';
 
 @Component({
-  selector: 'app-signup-form',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './signup-form.component.html',
-  styleUrl: './signup-form.component.css',
+    selector: 'app-signup-form',
+    standalone: true,
+    imports: [ReactiveFormsModule],
+    templateUrl: './signup-form.component.html',
+    styleUrl: './signup-form.component.css'
 })
 export class SignupFormComponent {
   registerForm: FormGroup;

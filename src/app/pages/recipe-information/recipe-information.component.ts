@@ -14,17 +14,17 @@ import { ToastrService } from 'ngx-toastr';
 import { IComment } from '../../models/comment.model';
 
 @Component({
-  selector: 'app-recipe-information',
-  standalone: true,
-  imports: [
-    RouterModule,
-    CommonModule,
-    SpinnerComponent,
-    FormsModule,
-    RecipeFormComponent,
-  ],
-  templateUrl: './recipe-information.component.html',
-  styleUrl: './recipe-information.component.css',
+    selector: 'app-recipe-information',
+    standalone: true,
+    imports: [
+        RouterModule,
+        CommonModule,
+        SpinnerComponent,
+        FormsModule,
+        RecipeFormComponent,
+    ],
+    templateUrl: './recipe-information.component.html',
+    styleUrl: './recipe-information.component.css'
 })
 export class RecipeInformationComponent implements OnInit {
   singleRecipe$ = this.recipeState.recipe$;
@@ -60,18 +60,18 @@ export class RecipeInformationComponent implements OnInit {
     const recipeId = this.route.snapshot.paramMap.get('id');
     if (recipeId) {
       this.recipeID = recipeId;
+      this.recipeState.recipeID$.next(recipeId);
       this.recipeState.getRecipe(recipeId);
     }
   }
   showSection(section: string) {
     this.selectedSection = section;
   }
-  onFollow(name: string) {
-    this.profileManager.follow(name);
+  onFollow(name: string,) {
+    this.profileManager.follow(name,this.recipeID);
+    
   }
-  onUnFollow(name: string) {
-    this.profileManager.unfollow(name);
-  }
+
   toggleExpand() {
     this.isExpand = !this.isExpand;
   }
@@ -99,22 +99,14 @@ export class RecipeInformationComponent implements OnInit {
         ) ?? false
     );
   }
-  addToFavorite(recipe: Recipe) {
+  toggleFavorite(recipe: Recipe) {
     this.favoriteManager.addFavorite(recipe._id);
     this.auth.getProfile();
-  }
-  removeFavorite(recipe: Recipe) {
-    var id: string | undefined = undefined;
-    this.recipeFavorite$.subscribe((data) => {
-      if (data.data)
-        id = data.data?.find((fav) => fav?.recipe?._id === recipe._id)?._id;
-    });
-    this.favoriteManager.deleteFavorite(id);
   }
   isFavorite(recipeId: string): boolean {
     this.auth.getState().subscribe((state) => {
       this.favorite =
-        state.data?.favorite?.some((fav) => fav?.recipe?._id === recipeId) ??
+        state.data?.favorite?.some((fav) => fav?._id === recipeId) ??
         false;
     });
     return this.favorite;

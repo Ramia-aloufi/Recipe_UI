@@ -8,11 +8,11 @@ import { PaginationComponent } from "../../../components/pagination/pagination.c
 import { SpinnerComponent } from "../../../components/spinner/spinner.component";
 
 @Component({
-  selector: 'app-category',
-  standalone: true,
-  imports: [AsideComponent, CommonModule, FormsModule, PaginationComponent, SpinnerComponent],
-  templateUrl: './category.component.html',
-  styleUrl: './category.component.css'
+    selector: 'app-category',
+    standalone: true,
+    imports: [AsideComponent, CommonModule, FormsModule, PaginationComponent, SpinnerComponent],
+    templateUrl: './category.component.html',
+    styleUrl: './category.component.css'
 })
 export class CategoryComponent {
   categoryState$ = this.state.getState()

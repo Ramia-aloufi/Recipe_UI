@@ -7,7 +7,7 @@ export interface User {
     bio?: string;
     password?: string;
     profileImage?: string;
-    favorite?:Favorite[]
+    favorite?:Recipe[]
     recipes?:Recipe[]
     following?:User[]
 

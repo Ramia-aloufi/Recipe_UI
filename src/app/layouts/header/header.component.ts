@@ -7,11 +7,11 @@ import { Subscription } from 'rxjs';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [RouterModule, CommonModule,RecipeFormComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+    selector: 'app-header',
+    standalone: true,
+    imports: [RouterModule, CommonModule, RecipeFormComponent],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
   userData$ = this.auth.getState();

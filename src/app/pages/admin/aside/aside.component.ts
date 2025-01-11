@@ -4,11 +4,11 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { asideState } from '../aside.state';
 
 @Component({
-  selector: 'app-aside',
-  standalone: true,
-  imports: [RouterModule,CommonModule],
-  templateUrl: './aside.component.html',
-  styleUrl: './aside.component.css'
+    selector: 'app-aside',
+    standalone: true,
+    imports: [RouterModule, CommonModule],
+    templateUrl: './aside.component.html',
+    styleUrl: './aside.component.css'
 })
 export class AsideComponent  {
   selected = this.state.getItem()

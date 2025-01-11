@@ -1,81 +1,111 @@
 @if (singleRecipe$ | async ;as recipe) {
-<span class="small"><span [routerLink]="['/']">Home</span> > {{recipe.title}}</span>
+<span class="small"
+  ><span [routerLink]="['/']">Home</span> > {{ recipe.title }}</span
+>
 <div class="card">
   <div class="card-img">
     @for (img of recipe.media ; track $index) {
-    <img  src="{{ img}}" alt="" />
+    <img src="{{ img }}" alt="" />
     }
   </div>
   <div class="card-content">
     <div class="card-content-action">
-      @if (recipe.chef && recipe.chef.username && isCurrentUser(recipe.chef.username)) {
-        <i (click)="onUpdateRecipe(recipe)" class="fa-solid fa-pen"></i>
-        <i (click)="onDeleteRecipe(recipe)" class="fa-solid fa-trash"></i>
-      } @else {
-      @if(isFavorite(recipe._id)){
-        <i (click)="removeFavorite(recipe)" class="fa-solid fa-bookmark"></i>
-    }@else {
-      <i (click)="addToFavorite(recipe)" class="fa-regular fa-bookmark"></i>
-    }
+      @if (recipe.chef && recipe.chef.username &&
+      isCurrentUser(recipe.chef.username)) {
+      <i (click)="onUpdateRecipe(recipe)" class="fa-solid fa-pen"></i>
+      <i (click)="onDeleteRecipe(recipe)" class="fa-solid fa-trash"></i>
+      } @else { 
+        <i (click)="toggleFavorite(recipe)" [ngClass]="isFavorite(recipe._id) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"></i>
       <i class="fa-solid fa-arrow-up-from-bracket" (click)="onSharePopup()"></i>
-  }
+      }
       <!-- Share Popup -->
-<div *ngIf="isSharePopup" class="share-popup">
-  <h3>Share this page</h3>
-  <a (click)="copyLink()">Copy Link</a>
-  <a (click)="shareOnFacebook()">Share on Facebook</a>
-  <a (click)="shareOnTwitter()">Share on Twitter</a>
-  <a (click)="onSharePopup()">Close</a>
-</div>
+      @if(isSharePopup){
+      <div class="share-popup">
+        <h3>Share this page</h3>
+        <a (click)="copyLink()">Copy Link</a>
+        <a (click)="shareOnFacebook()">Share on Facebook</a>
+        <a (click)="shareOnTwitter()">Share on Twitter</a>
+        <a (click)="onSharePopup()">Close</a>
+      </div>
+      }
     </div>
     <div class="card-body">
       <div class="card-content-header">
         @if(recipe.category && recipe.category.name){
-        <span>{{recipe.category.name }}</span>
+        <span>{{ recipe.category.name }}</span>
         }
         <h1>{{ recipe.title }}</h1>
       </div>
-      @if (recipe.chef && !isCurrentUser(recipe.chef.username)) {
-      
-      @if (recipe.chef) {
+      @if (recipe.chef && !isCurrentUser(recipe.chef.username)) { @if
+      (recipe.chef) {
       <div class="card-content-chef">
-        <div [routerLink]="['/profile',recipe.chef.username]" class="card-content-chef">
+        <div
+          [routerLink]="['/profile', recipe.chef.username]"
+          class="card-content-chef"
+        >
           <img src="{{ recipe.chef.profileImage }}" alt="" />
           <div class="card-content-chef-info">
             <span>{{ recipe.chef.username || "" }}</span>
             <small>112k followers</small>
           </div>
         </div>
-        @if(auth$ |async ;as user ){
-        @if( user.data){
-        @if(isFollowingChef()){
-          <button (click)="onUnFollow(recipe.chef.username)" class="btn-secondary">unFollow</button>
+        @if(auth$ |async ;as user ){ @if( user.data){ @if(isFollowingChef()){
+        <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">
+          unFollow
+        </button>
         }@else {
-        <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">Follow</button>
-        }
-        }@else {
+        <button (click)="onFollow(recipe.chef.username)" class="btn-secondary">
+          Follow
+        </button>
+        } }@else {
         <button [routerLink]="['/auth']" class="btn-secondary">Follow</button>
-        }
-        }
+        } }
       </div>
       }}
       <div class="card-content-body">
-        <p [class.expand]="isExpand"> {{ isExpand ? recipe.description : (recipe.description | slice:0:50) }}
-          <span class="show" (click)="toggleExpand()">{{isExpand?'...less':'...more'}} </span>
+        <p [class.expand]="isExpand">
+          {{
+            isExpand
+              ? recipe.description
+              : (recipe.description | slice : 0 : 50)
+          }}
+          <span class="show" (click)="toggleExpand()"
+            >{{ isExpand ? "...less" : "...more" }}
+          </span>
         </p>
         <div class="list">
-          <span><i class="fa-solid fa-users-rectangle"></i> Serving : {{ recipe.servings }}</span>
-          <span><i class="fa-regular fa-clock"></i> Cooking : {{ recipe.cookingTime }}/m</span>
-          <span><i class="fa-regular fa-clock"></i> Prep : {{ recipe.preparationTime }}</span>
+          <span
+            ><i class="fa-solid fa-users-rectangle"></i> Serving :
+            {{ recipe.servings }}</span
+          >
+          <span
+            ><i class="fa-regular fa-clock"></i> Cooking :
+            {{ recipe.cookingTime }}/m</span
+          >
+          <span
+            ><i class="fa-regular fa-clock"></i> Prep :
+            {{ recipe.preparationTime }}</span
+          >
         </div>
       </div>
       <div class="card-content-details">
         <hr />
         <div class="details-title">
-          <span (click)="showSection('ingredients')"
-            [class.active]="selectedSection === 'ingredients'">Ingredients</span>
-          <span (click)="showSection('steps')" [class.active]="selectedSection === 'steps'">Steps</span>
-          <span (click)="showSection('comments')" [class.active]="selectedSection === 'comments'">Comments</span>
+          <span
+            (click)="showSection('ingredients')"
+            [class.active]="selectedSection === 'ingredients'"
+            >Ingredients</span
+          >
+          <span
+            (click)="showSection('steps')"
+            [class.active]="selectedSection === 'steps'"
+            >Steps</span
+          >
+          <span
+            (click)="showSection('comments')"
+            [class.active]="selectedSection === 'comments'"
+            >Comments</span
+          >
         </div>
         <hr />
         <div class="details-section">
@@ -95,54 +125,60 @@
           </ul>
           } @if(selectedSection === 'comments'){
           <div class="comment">
-              @if(recipe.comments && recipe.comments.length > 0){
-                <div class="comment-container">
-                @for (comment of recipe.comments; track $index){
-                  <div class="comment-data">
-                    <div class="comment-data-user">
-                      <img src="{{comment.user.profileImage}}" alt="">
-                      <span>{{comment.user.username}}</span>
-                    </div>
-                    <span>{{ comment.commentText }}</span>
-                    @if(auth$ | async;as auth ){
-                      @if (auth.data?.username == comment.user.username) {
-                    <i (click)="onDeleteComment(comment)" class="del" class="fa-regular fa-trash-can"></i>
-                      }
-                    }
-                  </div>
-                  <hr>
-                }
+            @if(recipe.comments && recipe.comments.length > 0){
+            <div class="comment-container">
+              @for (comment of recipe.comments; track $index){
+              <div class="comment-data">
+                <div class="comment-data-user">
+                  <img src="{{ comment.user.profileImage }}" alt="" />
+                  <span>{{ comment.user.username }}</span>
+                </div>
+                <span>{{ comment.commentText }}</span>
+                @if(auth$ | async;as auth ){ @if (auth.data?.username ==
+                comment.user.username) {
+                <i
+                  (click)="onDeleteComment(comment)"
+                  class="del"
+                  class="fa-regular fa-trash-can"
+                ></i>
+                } }
               </div>
-
-              }@else {
-              <span class="default-comment"><small>Be the first to share your insights</small></span>
+              <hr />
               }
-           
+            </div>
 
+            }@else {
+            <span class="default-comment"
+              ><small>Be the first to share your insights</small></span
+            >
+            }
           </div>
           }
         </div>
       </div>
-
     </div>
     <div class="comment-input">
-      <input type="text" placeholder="add new comment" [(ngModel)] = "commentText">
+      <input
+        type="text"
+        placeholder="add new comment"
+        [(ngModel)]="commentText"
+      />
       <i (click)="onAddComment()" class="fa-regular fa-square-plus"></i>
     </div>
   </div>
 </div>
 @if(isEdit){
-  <div class="modal">
-    <div class="modal-content">
-      <div class="flex">
+<div class="modal">
+  <div class="modal-content">
+    <div class="flex">
       <span>Update Recipe</span>
       <span class="close" (click)="toggleModal()">&times;</span>
     </div>
-      <app-recipe-form (notifyToggle)="toggleModal(true)"></app-recipe-form>
-    </div>
+    <app-recipe-form (notifyToggle)="toggleModal(true)"></app-recipe-form>
   </div>
-}
-}@else {
+</div>
+} }@else {
 <div class="spinner">
   <app-spinner></app-spinner>
-</div>}
+</div>
+}
