@@ -24,6 +24,9 @@ export class RecipeCardComponent {
     this.router.navigate(['/recipe/' + id]);
   }
   toggleFavorite(recipe:Recipe){
+    if(!sessionStorage.getItem('token') ){
+      this.router.navigate(['/auth'])
+    }
     this.favoriteManager.addFavorite(recipe._id)
   }
   isFavorite(recipeId: string): boolean {

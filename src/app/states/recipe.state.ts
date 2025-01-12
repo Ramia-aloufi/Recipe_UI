@@ -44,9 +44,7 @@ export class RecipeManager extends StateService<Recipe[]> {
         console.log(err);
         
         this.setError(err.error.message)
-        this.toastr.error(err.error.message 
-          
-        );
+        this.toastr.error(err.error.message);
       }
     });
   }

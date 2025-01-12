@@ -100,7 +100,11 @@ export class RecipeInformationComponent implements OnInit {
     );
   }
   toggleFavorite(recipe: Recipe) {
+    if(!sessionStorage.getItem('token') ){
+      this.router.navigate(['/auth'])
+    }
     this.favoriteManager.addFavorite(recipe._id);
+    this.auth
     this.auth.getProfile();
   }
   isFavorite(recipeId: string): boolean {
