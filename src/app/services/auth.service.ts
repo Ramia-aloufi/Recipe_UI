@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiResponse } from '../models/api.model';
 import { User, UserData } from '../models/user.model';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { TokenManager } from '../states/token.state';
 
 @Injectable({
