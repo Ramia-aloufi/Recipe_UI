@@ -3,7 +3,6 @@ import { AuthManager } from '../../states/auth.state';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
-import { RecipeCardComponent } from "../../components/recipe-card/recipe-card.component";
 import { ProfileRecipeCardComponent } from "../../components/profile-recipe-card/profile-recipe-card.component";
 
 @Component({

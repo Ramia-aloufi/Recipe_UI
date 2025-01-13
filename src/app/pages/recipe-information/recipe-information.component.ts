@@ -8,23 +8,22 @@ import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { FormsModule } from '@angular/forms';
 import { CommentManager } from '../../states/comment.state';
 import { Recipe } from '../../models/recipe.model';
-import { FavoriteManager } from '../../states/favorite.state';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
 import { ToastrService } from 'ngx-toastr';
 import { IComment } from '../../models/comment.model';
 
 @Component({
-    selector: 'app-recipe-information',
-    standalone: true,
-    imports: [
-        RouterModule,
-        CommonModule,
-        SpinnerComponent,
-        FormsModule,
-        RecipeFormComponent,
-    ],
-    templateUrl: './recipe-information.component.html',
-    styleUrl: './recipe-information.component.css'
+  selector: 'app-recipe-information',
+  standalone: true,
+  imports: [
+    RouterModule,
+    CommonModule,
+    SpinnerComponent,
+    FormsModule,
+    RecipeFormComponent,
+  ],
+  templateUrl: './recipe-information.component.html',
+  styleUrl: './recipe-information.component.css',
 })
 export class RecipeInformationComponent implements OnInit {
   singleRecipe$ = this.recipeState.recipe$;
@@ -35,17 +34,16 @@ export class RecipeInformationComponent implements OnInit {
   recipeID = '';
   commentText = '';
   user: string | undefined = '';
-  recipeFavorite$ = this.favoriteManager.getState();
   favorite = false;
   isSharePopup = false;
   pageUrl: string = window.location.href;
+  isFollowing = false;
   constructor(
     private route: ActivatedRoute,
     private recipeState: RecipeManager,
     private profileManager: ProfileManager,
     private auth: AuthManager,
     private commentManager: CommentManager,
-    private favoriteManager: FavoriteManager,
     private toastr: ToastrService,
     private router: Router
   ) {}
@@ -54,6 +52,13 @@ export class RecipeInformationComponent implements OnInit {
     this.fetchRecipe();
     this.auth$.subscribe((state) => {
       this.user = state.data?.username;
+    });
+
+    this.singleRecipe$.subscribe((recipe) => {
+      this.isFollowing =
+        recipe?.chef?.following?.some(
+          (follower) => follower.username === this.user
+        ) ?? false;
     });
   }
   fetchRecipe(): void {
@@ -67,9 +72,8 @@ export class RecipeInformationComponent implements OnInit {
   showSection(section: string) {
     this.selectedSection = section;
   }
-  onFollow(name: string,) {
-    this.profileManager.follow(name,this.recipeID);
-    
+  onFollow(name: string) {
+    this.profileManager.follow(name, this.recipeID);
   }
 
   toggleExpand() {
@@ -91,27 +95,21 @@ export class RecipeInformationComponent implements OnInit {
     this.commentManager.remove(comment);
   }
   isFollowingChef(): boolean {
-    return (
-      this.singleRecipe$
-        .getValue()
-        ?.chef?.following?.some(
-          (follower) => follower.username === this.user
-        ) ?? false
-    );
+    return this.isFollowing;
   }
   toggleFavorite(recipe: Recipe) {
-    if(!sessionStorage.getItem('token') ){
-      this.router.navigate(['/auth'])
+    if (!sessionStorage.getItem('token')) {
+      this.router.navigate(['/auth']);
     }
-    this.favoriteManager.addFavorite(recipe._id);
-    this.auth
+    var formdata = new FormData();
+    formdata.append('favorite', recipe._id);
+    this.auth.updateUser(formdata);
     this.auth.getProfile();
   }
   isFavorite(recipeId: string): boolean {
     this.auth.getState().subscribe((state) => {
       this.favorite =
-        state.data?.favorite?.some((fav) => fav?._id === recipeId) ??
-        false;
+        state.data?.favorite?.some((fav) => fav?._id === recipeId) ?? false;
     });
     return this.favorite;
   }
@@ -152,9 +150,9 @@ export class RecipeInformationComponent implements OnInit {
     const confirmed = confirm('Are you sure you want to delete this recipe?');
     if (confirmed) {
       this.recipeState.deleteRecipe(recipe);
-
-      this.toastr.success('Recipe deleted successfully');
-      this.router.navigate(['/']);
+      this.auth.getProfile();
+      this.recipeState.loadRecipes();
+      this.router.navigate(['/profile']);
     }
   }
   toggleModal(fetchRecipe: boolean = false) {

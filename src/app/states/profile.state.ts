@@ -44,5 +44,17 @@ export class ProfileManager extends StateService<User> {
       },
     });
   }
+  favorite(favorite:FormData) {
+    this.setLoading(true);
+    this.service.update(favorite).subscribe({
+      next: (res) => {
+        this.setData(res.data);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.setError(err.error.message);
+        this.toaster.error(err.error.message);
+      },
+    });
+  }
 
 }

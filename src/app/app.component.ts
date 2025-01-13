@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
 import { AuthManager } from './states/auth.state';
-import { FavoriteManager } from './states/favorite.state';
 
 @Component({
     selector: 'app-root',
@@ -14,7 +13,7 @@ import { FavoriteManager } from './states/favorite.state';
 export class AppComponent implements OnInit {
   title = 'recipe_UI';
 
-  constructor( private um:AuthManager ,private favorite:FavoriteManager){
+  constructor( private um:AuthManager ){
 
   }
 

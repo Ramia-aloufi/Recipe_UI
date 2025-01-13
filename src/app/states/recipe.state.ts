@@ -14,7 +14,8 @@ import { AuthManager } from './auth.state';
 export class RecipeManager extends StateService<Recipe[]> {
   private recipeToUpdate$ = new BehaviorSubject<Recipe | null>(null);
 
-  recipe$ = new BehaviorSubject<Recipe | null>(null);
+  private recipeSub$ = new BehaviorSubject<Recipe | null>(null);
+  recipe$ = this.recipeSub$.asObservable();
   category$ = new BehaviorSubject<Category | null>(null);
   all$ = new BehaviorSubject<Recipe[] | null>(null);
   recipeID$ = new BehaviorSubject<string>('');
@@ -52,10 +53,8 @@ export class RecipeManager extends StateService<Recipe[]> {
     this.service.updateRecipe(recipe, id).subscribe({
       next: (res) => {
         this.toastr.success(res.message.toString());
-        this.loadRecipes();
-        this.auth.getProfile()
+        this.recipeSub$.next(res.data);
         this.recipeToUpdate$.next(null);
-        this.getRecipe(this.recipeID$.getValue())
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
@@ -68,9 +67,9 @@ export class RecipeManager extends StateService<Recipe[]> {
     this.setLoading(true);
     this.service.deleteRecipe(recipe._id).subscribe({
       next: (res) => {
+        this.recipeSub$.next(null);
         this.toastr.success(res.message.toString());
-        this.loadRecipes();
-        this.auth.getProfile()
+       
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
@@ -83,7 +82,7 @@ export class RecipeManager extends StateService<Recipe[]> {
     this.setLoading(true);
     this.service.getRecipeById(id).subscribe({
       next: (res) => {
-        this.recipe$.next(res.data);
+        this.recipeSub$.next(res.data);
         this.setLoading(false);
 
       },
