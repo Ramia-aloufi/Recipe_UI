@@ -46,6 +46,13 @@ ul {
 a {
   text-decoration: none; 
 }
+.small{
+  padding:  0 2rem ;
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  color: #777;
+}
 
 /* Button */
 .btn {
@@ -235,9 +242,13 @@ gap: 1rem;
 width: 100%;
 }
 
+
 .grid {
   columns: auto auto ; 
   padding:0 2rem;
+}
+.grid-item{
+  cursor: pointer;
 }
 @media screen and (max-width: 480px) {
   .grid {
