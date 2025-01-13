@@ -43,8 +43,6 @@ import { ToastrService } from "ngx-toastr";
     }
 
     addFavorite(recipe: string) {
-      console.log(recipe);
-      
       this.setLoading(true);
       this.service.addFavorite(recipe).subscribe({
         next: (res) => {

@@ -41,11 +41,9 @@ export class CategoryComponent {
     this.state.deleteCategory(category)
   }
   onSave(){
-    console.log(this.newCategory);
   }
   showInput(){
     if(this.isAddNewCategory && this.newCategory.length > 3){
-      console.log(this.newCategory);
       this.state.addCategory(this.newCategory)
     }
     this.isAddNewCategory = !this.isAddNewCategory
@@ -53,7 +51,6 @@ export class CategoryComponent {
 
   }
   onPageChange(page: number): void {
-    console.log(page);
     this.state.loadCategory(page);
   }
 

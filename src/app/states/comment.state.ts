@@ -17,9 +17,7 @@ import { IComment } from "../models/comment.model";
     add(data:{text:string,recipe:string}){
         this.setLoading(true)
         this.service.newComment(data).subscribe({
-            next:res=>{   
-                console.log(res.data);
-                             
+            next:res=>{                                
                 this.setData(res.data)
                 this.toaster.success(res.message as string)                
                  this.recipe.getRecipe(data.recipe);
@@ -35,7 +33,6 @@ import { IComment } from "../models/comment.model";
         this.setLoading(true)
         this.service.removeComment(comment._id).subscribe({
             next:res=>{
-                console.log(res.data);
                 this.setData(res.data)
                 this.recipe.getRecipe(comment.recipe)
                 this.toaster.success(res.message as string)

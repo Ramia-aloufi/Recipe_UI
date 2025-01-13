@@ -161,7 +161,6 @@ export class RecipeInformationComponent implements OnInit {
     this.isEdit = false;
     this.recipeState.clearRecipe();
     if (!this.isEdit && fetchRecipe) {
-      console.log('Clicked');
       this.fetchRecipe();
     }
   }

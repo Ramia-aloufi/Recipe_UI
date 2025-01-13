@@ -18,12 +18,10 @@ export class UserComponent {
   constructor(private state:UserManager){
     this.state.loadUsers()
     this.usersState$.subscribe(aa=>{
-      console.log(aa.data);
       
     })
   }
   onPageChange(page: number): void {
-    console.log(page);
     this.state.loadUsers(page);
   }
 

@@ -68,7 +68,6 @@ export class CategoryManager extends StateService<Category[]> {
         this.loadCategory();
       },
       error: (err:HttpErrorResponse) => {
-        console.log(err);
         this.setError(err.error.message) 
       }
     });

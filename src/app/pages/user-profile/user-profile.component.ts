@@ -35,15 +35,10 @@ export class UserProfileComponent {
     })
 }
 onFollow(name:string){
-  console.log(name);
   this.profileManager.follow(name)
 }
 
 isFollower():boolean{
-  console.log(this.follower);
-  console.log(this.user);
-  
-  
 return this.follower?.some(follower=>follower.username  == this.user ) ?? false
 }
 

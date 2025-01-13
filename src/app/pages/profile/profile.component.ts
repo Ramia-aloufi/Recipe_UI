@@ -44,15 +44,12 @@ export class ProfileComponent {
   onSubmit() {
     var formData = new FormData();
     this.onEdit();
-    console.log(this.userData$);
     formData.append('username', this.username);
     formData.append('bio', this.bio);
     if (this.file) {
       formData.append('profileImage', this.file);
     }
-    formData.forEach((value, key) => {
-      console.log(key, value);
-    });
+
     
     this.state.updateUser(formData);
   }
