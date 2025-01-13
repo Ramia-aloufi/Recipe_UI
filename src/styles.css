@@ -24,6 +24,11 @@
 *::after,*::before{
     box-sizing: border-box;
 }
+body {
+  font-family: Arial, sans-serif; 
+  line-height: 1.6;   
+  margin-top: 5rem;
+}
 
 p,
 h1,
@@ -35,18 +40,14 @@ h6 {
   overflow-wrap: break-word;
 }
 
-
-input,
-button,
-textarea,
-select {
-  font: inherit;
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none; 
 }
 
-body{
-    padding: 0 2rem;
-    font-family: "Poppins", serif;
-}
+/* Button */
 .btn {
   background-color: #af4c5c;
   border: none; 
@@ -96,33 +97,18 @@ body{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   transform: translateY(2px); 
 }
-ul {
-  list-style-type: none;
+.btn-def{
+  background-color: transparent;
+  border: none;
+  color: #444;
 }
-a {
-  text-decoration: none; 
-}
-body {
-  font-family: Arial, sans-serif; 
-  line-height: 1.6;   
-  margin-top: 5rem;
-}
-input:focus{
-  outline: none;
-  border:1px solid #c05164;
-
-}
-input{
-  width: 100%;
-  padding: .7rem;
-  display: block;
-  border-radius: 11px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-input::placeholder{
-  color: rgba(0, 0, 0, 0.2);
+.btn-def:hover{
+  color: #c05164;
 }
 
+
+
+/* Form */
 
 form small{
   position: absolute;
@@ -134,8 +120,29 @@ form small{
  .form-group{
   position: relative;
 }
+input{
+  width: 100%;
+  padding: .7rem;
+  display: block;
+  border-radius: 11px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+input::placeholder{
+  color: rgba(0, 0, 0, 0.2);
+}
+input:focus{
+  outline: none;
+  border:1px solid #c05164;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
 
 
+/* Actions */
 .delete{
   background-color: transparent;
   color: gray;
@@ -154,9 +161,17 @@ form small{
 }
 
 
+/* Spinner */
 app-spinner{
   display: grid;
   place-items: center;
+}
+.spinner{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -193,15 +208,20 @@ tr {
   text-align: left;
   border-top: 1px solid #f2f2f2
 }
+tr:hover {
+  background-color: rgba(192, 81, 100,0.1);
+}
 
 td{
   color: rgba(0, 0, 0,0.4);
   padding: 0.5rem 0;
   padding-left: 1rem;
   text-align: left;
-
-
 }
+
+
+
+/* Containers */
 
 .flex{
 display: flex;
@@ -214,80 +234,53 @@ display: grid;
 gap: 1rem;
 width: 100%;
 }
-.btn-def{
-  background-color: transparent;
-  border: none;
-  color: #444;
-}
-.btn-def:hover{
-  color: #c05164;
-}
-tr:hover {
-  background-color: rgba(192, 81, 100,0.1);
-}
+
 .grid {
-  columns: auto  auto;
-
+  columns: auto auto ; 
+  padding:0 2rem;
 }
-.spinner{
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 480px) {
   .grid {
-      columns: 1 auto;
-  }
-}
-@media only screen and (min-width: 600px) {
-  .grid {
-      columns: 2 auto;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .grid {
-      columns: 3 auto;
+      columns: 1 auto ;
   }
 
 }
-@media only screen and (min-width: 1200px) {
+
+@media screen and (min-width: 481px) and (max-width: 799px) {
   .grid {
-      columns: auto  auto;
-      -webkit-columns: 4 auto;
-      
-
+      columns: 2 auto ;
   }
-}
+  .grid-item h2{
+    font-size: 1.25rem !important; 
+  }
 
-/* Responsive design for smaller screens */
-@media screen and (max-width: 600px) {
   table {
     width: 100%;
     font-size: 16px;
   }
-
+  /* .grid-item img{
+    max-height: 170px !important;
+  } */
 }
+@media screen and (min-width: 800px){
+  .grid {
+      columns: 3 auto ;
 
-@media screen and (max-width: 700px) {
-  body{
-    margin-top: 3rem !important;
-  }
-  .grid-item img{
-    max-height: 200px !important;
-    object-fit: cover;
   }
   .grid-item{
     margin-top: 0 !important;
   }
-
 }
 
-@media screen and (max-width: 400px) {
 
-  .grid-item img{
-    max-height: 170px !important;
+@media screen and (min-width: 1024px) {
+  .grid {
+      columns: 4 auto;
+
   }
+  .grid-item {
+    min-height: 200px !important;
+  }}
 
-}
+
+

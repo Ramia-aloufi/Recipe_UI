@@ -33,7 +33,7 @@ import { ToastrService } from "ngx-toastr";
       this.setLoading(true);
       this.service.removeFavorite(id).subscribe({
         next: (res) => {
-          this.toastr.success(res.message.toString());
+          // this.toastr.success(res.message.toString());
           this.user.getProfile()
         },
         error: (err:HttpErrorResponse) => {
@@ -48,7 +48,7 @@ import { ToastrService } from "ngx-toastr";
       this.setLoading(true);
       this.service.addFavorite(recipe).subscribe({
         next: (res) => {
-          this.toastr.success(res.message.toString());
+          // this.toastr.success(res.message.toString());
           this.user.getProfile()
         },
         error: (err:HttpErrorResponse) => {

@@ -75,7 +75,7 @@ export class AuthManager extends StateService<User> {
     this.userService.update(user).subscribe({
       next: (res) => {
         this.setData(res.data);
-        // this.toastr.success(res.message.toString());
+        this.toastr.success(res.message.toString());
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message);

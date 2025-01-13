@@ -29,7 +29,6 @@
 
 <div class="grid">
     @if(user.recipes && user.recipes.length > 0){
-        <span>{{user.recipes.length}}</span>
     @for(recipe of user.recipes ;track recipe.title){
     <app-recipe-card [recipe]="recipe"></app-recipe-card>
     }
