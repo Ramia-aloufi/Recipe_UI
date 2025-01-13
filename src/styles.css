@@ -258,9 +258,7 @@ width: 100%;
     width: 100%;
     font-size: 16px;
   }
-  /* .grid-item img{
-    max-height: 170px !important;
-  } */
+
 }
 @media screen and (min-width: 800px){
   .grid {
@@ -278,9 +276,7 @@ width: 100%;
       columns: 4 auto;
 
   }
-  .grid-item {
-    min-height: 200px !important;
-  }}
+}
 
 
 
