@@ -54,8 +54,6 @@ export class RecipeManager extends StateService<Recipe[]> {
     this.service.updateRecipe(recipe, id).subscribe({
       next: (res) => {
         this.toastr.success(res.message.toString());
-        this.loadRecipes();
-        this.auth.getProfile()
         this.recipeToUpdate$.next(null);
         this.getRecipe(this.recipeID$.getValue())
 
