@@ -244,7 +244,7 @@ width: 100%;
 
 
 .grid {
-  columns: auto auto ; 
+  columns: auto ; 
   padding:0 2rem;
 }
 .grid-item{
@@ -252,14 +252,14 @@ width: 100%;
 }
 @media screen and (max-width: 480px) {
   .grid {
-      columns: 1 auto ;
+      columns: 1 ;
   }
 
 }
 
 @media screen and (min-width: 481px) and (max-width: 799px) {
   .grid {
-      columns: 2 auto ;
+      columns: 2 ;
   }
   .grid-item h2{
     font-size: 1.25rem !important; 
@@ -273,7 +273,7 @@ width: 100%;
 }
 @media screen and (min-width: 800px){
   .grid {
-      columns: 3 auto ;
+      columns: 3  ;
 
   }
   .grid-item{
@@ -284,7 +284,7 @@ width: 100%;
 
 @media screen and (min-width: 1024px) {
   .grid {
-      columns: 4 auto;
+      columns: 4;
 
   }
 }
