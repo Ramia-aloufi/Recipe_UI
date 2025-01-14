@@ -32,6 +32,7 @@ export class RecipeCardComponent {
     var form = new FormData();
     form.append('favorite', recipe._id);
     this.user.updateUser(form);
+    this.refresh();
   }
   isFavorite(recipeId: string): boolean {
     this.user.getState().subscribe((state) => {
