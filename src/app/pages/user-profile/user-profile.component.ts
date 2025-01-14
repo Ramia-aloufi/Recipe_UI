@@ -11,7 +11,7 @@ import { User } from '../../models/user.model';
 @Component({
     selector: 'app-user-profile',
     standalone: true,
-    imports: [CommonModule, RecipeCardComponent, RouterModule, SpinnerComponent],
+    imports: [CommonModule, RecipeCardComponent, RouterModule],
     templateUrl: './user-profile.component.html',
     styleUrl: './user-profile.component.css'
 })
