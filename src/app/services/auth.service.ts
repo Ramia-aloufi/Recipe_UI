@@ -7,31 +7,37 @@ import { Observable } from 'rxjs';
 import { TokenManager } from '../states/token.state';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private apiUrl = environment.apiUrl;
 
-  private apiUrl = environment.apiUrl
-
-  constructor(private http: HttpClient, private token:TokenManager) {
-  
- }
+  constructor(private http: HttpClient, private token: TokenManager) { }
 
   // Add New User
-  register(user:User): Observable<ApiResponse<User>> {
-    return this.http.post<ApiResponse<User>>(this.apiUrl+"/users/",user);
+  register(user: User): Observable<ApiResponse<User>> {
+    return this.http.post<ApiResponse<User>>(this.apiUrl + '/users/', user);
   }
-//login User
-  login(data:{email: string,password:string}): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(this.apiUrl+"/auth/login",data);
+  //login User
+  login(data: {
+    email: string;
+    password: string;
+  }): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(
+      this.apiUrl + '/auth/login',
+      data
+    );
   }
 
-  profile(tok:string|null): Observable<ApiResponse<User>> {
-    return this.http.get<ApiResponse<User>>(this.apiUrl+"/users/profile",{ headers: this.token.header() });
+  profile(tok: string | null): Observable<ApiResponse<User>> {
+    return this.http.get<ApiResponse<User>>(this.apiUrl + '/users/profile', {
+      headers: this.token.header(),
+    });
   }
   admin(): Observable<ApiResponse<boolean>> {
-    return this.http.get<ApiResponse<boolean>>(this.apiUrl+"/users/admin-only",{ headers: this.token.header() });
+    return this.http.get<ApiResponse<boolean>>(
+      this.apiUrl + '/users/admin-only',
+      { headers: this.token.header() }
+    );
   }
-
 }
-

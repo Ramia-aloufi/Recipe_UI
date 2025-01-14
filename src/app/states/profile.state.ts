@@ -5,7 +5,6 @@ import { StateService } from '../services/state.service';
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { RecipeManager } from './recipe.state';
-import { AuthManager } from './auth.state';
 
 @Injectable({
   providedIn: 'root',

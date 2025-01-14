@@ -23,7 +23,7 @@ export class StateService<T> {
   }
 
   // Update the state with new data
-  setState(newState: Partial<IState<T>>) {
+  private setState(newState: Partial<IState<T>>) {
     const currentState = this.state$.value;
     this.state$.next({
       ...currentState,

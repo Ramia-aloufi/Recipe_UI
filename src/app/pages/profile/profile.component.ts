@@ -48,8 +48,6 @@ export class ProfileComponent {
     if (this.file) {
       formData.append('profileImage', this.file);
     }
-
-    
     this.state.updateUser(formData);
   }
   onFileSelected(event: Event) {
@@ -57,10 +55,6 @@ export class ProfileComponent {
     if (input.files && input.files.length > 0) {
       this.file = input.files[0];
       this.image = URL.createObjectURL(this.file);
-
-      // const reader = new FileReader();
-      // reader.onload = () => (this.image = reader.result as string);
-      // reader.readAsDataURL(this.file);
     }
   }
 }

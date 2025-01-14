@@ -16,11 +16,7 @@ export class CategoriesComponent   {
   public recipeState$ = this.recipeState.getState()
   selectedCategory:String|undefined = undefined
   constructor( private categoryState:CategoryManager, private recipeState:RecipeManager){
-    this.categoryState.loadCategory()   
-
   }
-
-
   onFilter(category:Category | null){ 
     this.selectedCategory = category?._id   
     this.recipeState.filterRecipeBy(category)    

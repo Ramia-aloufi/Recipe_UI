@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './layouts/header/header.component';
 import { AuthManager } from './states/auth.state';
+import { RecipeManager } from './states/recipe.state';
+import { CategoryManager } from './states/category.state';
 
 @Component({
     selector: 'app-root',
@@ -13,15 +15,15 @@ import { AuthManager } from './states/auth.state';
 export class AppComponent implements OnInit {
   title = 'recipe_UI';
 
-  constructor( private um:AuthManager ){
+  constructor( private auth:AuthManager,private recipe:RecipeManager,private category:CategoryManager){
 
   }
 
   ngOnInit() {
-    if(this.um.isUser()){
-      this.um.getProfile()
-      // this.favorite.getFavorite()
-
+    if(this.auth.isUser()){
+      this.auth.getProfile()
     } 
+    this.recipe.loadRecipes(1)
+    this.category.loadCategory()
   }
 }

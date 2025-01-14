@@ -14,7 +14,6 @@ import { ProfileManager } from '../../states/profile.state';
 })
 export class RecipeCardComponent {
   user$ = this.user.getState();
-
   favorite = false;
   @Input() recipe!: Recipe;
   constructor(
@@ -31,17 +30,12 @@ export class RecipeCardComponent {
     }
     var form = new FormData();
     form.append('favorite', recipe._id);
-    this.user.updateUser(form);
-    this.refresh();
-  }
+    this.user.updateUser(form) }
   isFavorite(recipeId: string): boolean {
     this.user.getState().subscribe((state) => {
       this.favorite =
         state.data?.favorite?.some((fav) => fav._id === recipeId) ?? false;
     });
     return this.favorite;
-  }
-  refresh() {
-    this.user.getProfile();
   }
 }

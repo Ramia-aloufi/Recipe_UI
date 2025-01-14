@@ -14,44 +14,15 @@ import { PaginationComponent } from "../../components/pagination/pagination.comp
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit  {
+export class HomeComponent  {
   state$ = this.recipeManager.getState()
-  currentPage = 1;
   recipe:Recipe[] = []
   newRecipe:Recipe[] = []
 
-
-
-  constructor(private recipeManager: RecipeManager) {
-
-  }
-
-  ngOnInit() {  
-    this.getRecipe()
-  }
-
-  getRecipe(){
-    this.recipeManager.loadRecipes(this.currentPage)
-  }
-  onPageChange(page: number): void {  
+  constructor(private recipeManager: RecipeManager) { }
+  onPageChange(page: number) {  
     this.recipeManager.loadRecipes(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });  
-
   }
 
-
-  // @HostListener('window:scroll', [])
-  // onScroll() {
-  //   if(window.innerHeight+window.scrollY + 50 >=document.body.offsetHeight ){
-  //         if(this.currentPage<=this.totalPages){
-  //           console.log(this.totalPages);
-  //           this.currentPage++;
-  //           this.getRecipe()
-  //         }
-      
-  //         }
-
-
- 
-  // }
 }

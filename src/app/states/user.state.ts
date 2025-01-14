@@ -22,7 +22,6 @@ import { HttpErrorResponse } from "@angular/common/http";
             next:res=>{              
                 this.setData(res.data)
                 this.setMeta(res.meta)
-
               },
               error: (err:HttpErrorResponse) => {
                 this.setError(err.error.message) 

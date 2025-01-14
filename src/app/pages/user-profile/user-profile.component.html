@@ -1,8 +1,4 @@
 @if(userData$ | async ; as state){
-@if(state.loading){
-    <div class="spinner">
-        <app-spinner></app-spinner>
-      </div>}
 
 @if(state.data ; as user){
 <span class="small"><span [routerLink]="['/']">Home</span> > {{user.username}}</span>
