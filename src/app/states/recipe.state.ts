@@ -49,12 +49,14 @@ export class RecipeManager extends StateService<Recipe[]> {
   }
 
   updateRecipe(recipe: FormData, id: string) {
-    // this.setLoading(true);
+    this.setLoading(true);
     this.service.updateRecipe(recipe, id).subscribe({
       next: (res) => {
         this.toastr.success(res.message.toString());
         this.recipeSub$.next(res.data);
         this.recipeToUpdate$.next(null);
+        this.auth.getProfile()
+        this.loadRecipes()
       },
       error: (err: HttpErrorResponse) => {
         this.setError(err.error.message)
@@ -69,6 +71,8 @@ export class RecipeManager extends StateService<Recipe[]> {
       next: (res) => {
         this.recipeSub$.next(null);
         this.toastr.success(res.message.toString());
+        this.auth.getProfile()
+        this.loadRecipes()
        
       },
       error: (err: HttpErrorResponse) => {
